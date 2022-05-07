@@ -5,22 +5,23 @@
 .admin-header,
 .admin-footer {
     width: 100%;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
     margin: auto;
 }
 
 .admin-header {
-    font-size: 1rem;
-    background-color: red;
+    position: sticky;
+    top: 0px;
+    font-size: 0.6rem;
+    border-bottom: groove;
+    background-color: blue;
 }
 
 .admin-footer {
     width: 100%;
     font-size: 0.4rem;
     background-color: rgb(29, 13, 62);
-    position: fixed;
-    bottom: 0px;
     color: white;
     font-weight: bold;
     margin: auto;

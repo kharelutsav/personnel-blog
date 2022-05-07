@@ -23,7 +23,13 @@ const Avatar = () => {
                         }}
                     />
                 ) : (
-                    <CgProfile style={{ width: '100%', height: '100%' }} />
+                    <CgProfile
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            color: 'lightslategrey',
+                        }}
+                    />
                 )}
             </label>
             <input
@@ -122,8 +128,8 @@ const Abstract = () => {
 const AboutArticle = () => {
     return (
         <div className="about-article">
-            <Title />
             <Thumbnail />
+            <Title />
             <Abstract />
         </div>
     )
@@ -132,8 +138,8 @@ const AboutArticle = () => {
 function LeftContent() {
     return (
         <>
-            <AboutAuthor />
             <AboutArticle />
+            <AboutAuthor />
         </>
     )
 }

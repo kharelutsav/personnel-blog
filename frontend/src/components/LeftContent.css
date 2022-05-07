@@ -13,11 +13,8 @@ label {
 }
 
 .about-author {
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
     display: inline-block;
     border: 1px solid lightslategray;
-    background-color: rgba(12, 12, 245, 0.812);
 }
 
 .avatar,
@@ -47,27 +44,28 @@ label {
 
 .title-container {
     display: block;
-    width: 100%;
+    width: 84%;
+    margin: auto;
+    padding: 0.1rem;
 }
 
 .thumbnail-container,
 .abstract-container {
-    display: inline-block;
-    margin: 0.1rem;
+    margin: 0.49rem auto;
 }
 
 .thumbnail-container {
     width: 33%;
     min-width: 7rem;
     height: 7.2rem;
-    border: 2px solid black;
+    border: 0.5px dotted black;
     border-radius: 0.5rem;
     color: rgb(183, 198, 212);
 }
 
 .abstract-container {
     min-width: 13rem;
-    width: 64.5%;
+    width: 100%;
 }
 
 .abstract,
@@ -79,9 +77,15 @@ label {
     width: 98%;
     padding: 0.2rem;
     margin-bottom: 0.42rem;
+    border: hidden;
+    border-bottom: groove;
+}
+
+.title:focus {
+    outline: none;
 }
 
 .abstract {
-    height: 7rem;
+    height: 4.9rem;
     width: 98%;
 }
