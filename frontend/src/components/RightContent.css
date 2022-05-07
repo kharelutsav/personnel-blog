@@ -1,5 +1,17 @@
+.container {
+    display: flex;
+    width: 97%;
+    border: 0.5px solid black;
+}
+
+.logos {
+    width: 1.4rem;
+    height: 1.4rem;
+    padding: 0.2rem;
+}
+
 .links {
-    width: 94%;
+    width: 100%;
     padding: 0.2rem;
     margin: 0.2rem 0.2rem;
     font-size: 0.7rem;
