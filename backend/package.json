@@ -1,12 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "NodeJS backend with expressJS and socket.io for personnel blog website\"",
+  "description": "NodeJS backend with expressJS and socket.io for personnel blog website.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "",
-    "dev": "nodemon index.js"
+    "test": "prettier -c . && jest",
+    "dev": "nodemon index.js",
+    "prettify": "prettier --write ."
   },
   "author": "Utsav Kharel",
   "license": "MIT",

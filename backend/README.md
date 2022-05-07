@@ -11,6 +11,7 @@ Node.js and Express.js website that allows users to add, edit, view and delete a
 ## Installed Dependencies
 
 ***npm i express socket.io dotenv cors***
+
 ***npm i --save-dev nodemon jest eslint prettier eslint-config-prettier***
 
 - _[express](https://expressjs.com/)_
