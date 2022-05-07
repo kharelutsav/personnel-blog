@@ -9,7 +9,7 @@ const Avatar = () => {
         setShowImage(URL.createObjectURL(file))
     }
     return (
-        <div className="picture">
+        <div className="avatar">
             <label htmlFor="profile">
                 {showImage ? (
                     <img
@@ -34,11 +34,11 @@ const Avatar = () => {
 
 const AuthorInfo = () => {
     return (
-        <div className="authors">
-            <label htmlFor="name">Author's Name</label>
-            <input className="inputCreds" name="name" id="name" />
-            <label htmlFor="phone">Phone Number</label>
-            <input className="inputCreds" name="phone" id="phone"></input>
+        <div className="author-info">
+            <label className="input-creds" htmlFor="name">Author's Name</label>
+            <input className="input-creds" name="name" id="name" /> <br/>
+            <label className="input-creds" htmlFor="phone">Phone Number</label>
+            <input className="input-creds" name="phone" id="phone"></input>
         </div>
     )
 }
@@ -53,15 +53,21 @@ const AboutAuthor = () => {
 }
 
 const AboutArticle = () => {
-    return <div className="about-article"></div>
+    return (
+        <div className="about-article">
+            <div className='title'></div>
+            <div className='thumbnail'></div>
+            <div className='abstract'></div>
+        </div>
+    )
 }
 
 function LeftContent() {
     return (
-        <div className="about">
+        <>
             <AboutAuthor />
             <AboutArticle />
-        </div>
+        </>
     )
 }
 

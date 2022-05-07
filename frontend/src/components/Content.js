@@ -7,8 +7,12 @@ function Content() {
     return (
         <div className="main">
             <div className="toggle"></div>
-            <LeftContent />
-            <RightContent />
+            <div className="about">
+                <LeftContent />
+            </div>
+            <div className="social-links">
+                <RightContent />
+            </div>
         </div>
     )
 }

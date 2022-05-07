@@ -24,11 +24,11 @@ const Container = ({ name }) => {
 
 function RightContent() {
     return (
-        <div className="social-links">
+        <>
             {LOGOS.map((logo, index) => {
                 return <Container key={index} name={logo} />
             })}
-        </div>
+        </>
     )
 }
 

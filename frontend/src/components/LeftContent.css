@@ -1,27 +1,49 @@
-.about {
-    width: 60%;
-    background-color: red;
-    text-align: left;
-}
-
 .about-author,
 .about-article {
-    background-color: cyan;
-    width: auto;
     height: 49%;
     margin: 0.1rem 0.1rem;
+    display: block;
 }
+
+.about-author {
+    border-top-left-radius: 1rem;
+    width: 98%;
+    background-color: cyan;
+    display: inline-block;
+}
+
+.about-article {
+    background-color: blue;
+    height: 5rem;
+}
+
+.avatar,
+.author-info {
+    display: inline-block;
+    font-size: 0.5rem;
+    padding: 0.7rem;
+    margin: 0.35rem;
+}
+
+.avatar{
+    background-color: aliceblue;
+    border: 2px solid black;
+    border-radius: 3.5rem;
+}
+
+.author-info .input-creds{
+    padding: 0.1rem;
+    margin: 0.2rem;
+    font-size: 0.7rem;
+}
+
+
 
 .profile,
 .author {
-    display: inline-block;
-    font-size: 0.5rem;
+    
 }
 
 .profile {
     width: 60%;
-}
-
-.authors {
-    width: 35%;
 }
