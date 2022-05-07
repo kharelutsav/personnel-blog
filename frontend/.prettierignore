@@ -1,0 +1,7 @@
+# ignore artifacts
+node_modules
+README.md
+.eslintrc.js
+package-lock.json
+package.json
+.prettierrc.js
