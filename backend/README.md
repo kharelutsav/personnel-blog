@@ -11,10 +11,13 @@ Node.js and Express.js website that allows users to add, edit, view and delete a
 
 ## Scripts
 
-**npm start _[Runs the server]_**
-**npm run dev _[Runs the server in development environment via nodemon]_**
-**npm prettify _[Prettifies all the existing files]_**
-**npm test _[Performs jest and prettify checks]_**
+*__npm start__ [Runs the server]*
+
+*__npm run dev__ [Runs the server in development environment via nodemon]*
+
+*__npm prettify__ [Prettifies all the existing files]*
+
+*__npm test__ [Performs jest and prettify checks]*
 
 
 ## Installed Dependencies
@@ -36,4 +39,5 @@ Node.js and Express.js website that allows users to add, edit, view and delete a
 
 
 ## Files and Folders
+
 index.js
