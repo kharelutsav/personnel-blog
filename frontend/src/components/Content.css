@@ -1,6 +1,6 @@
 .main {
     width: 77%;
-    background-color: yellow;
+    /* background-color: yellow; */
     margin: 1.4rem auto;
     padding: 0.4rem;
     border-radius: 1rem;
@@ -9,7 +9,7 @@
 .toggle {
     width: 95%;
     height: 1.4rem;
-    background-color: lightslategray;
+    /* background-color: lightslategray; */
     border-radius: 5px;
     margin: auto;
 }
@@ -22,12 +22,12 @@
 
 .about {
     width: 60%;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .social-links {
     width: 35%;
-    background-color: green;
+    /* background-color: green; */
 }
 
 @media (max-width: 630px) {
@@ -41,7 +41,7 @@
     }
 }
 
-@media (min-width: 630px) and (max-width: 1350px) {
+@media (min-width: 630px) {
     .toggle {
         width: 25rem;
     }
