@@ -2,14 +2,17 @@
 
 Node.js and Express.js website that allows users to add, edit, view and delete articles.
 
-***npm i express socket.io dotenv cors***
-***npm i nodemon jest eslint prettier eslint-config-prettier -D***
+*Starting point: __index.js__ contains Http server wrapped in socket.io listening on port 5000*
 
+*App: __src/app.js__ contains Express configurations and routes*
 
-*Starting point: __index.js__*
-
+*Environment variables: __Src/Config/config.env__ [PORT, ORIGIN]*
 
 ## Installed Dependencies
+
+***npm i express socket.io dotenv cors***
+***npm i --save-dev nodemon jest eslint prettier eslint-config-prettier***
+
 - _[express](https://expressjs.com/)_
 - _[socket.io](https://socket.io/)_
 - _[dotenv](https://www.npmjs.com/package/dotenv)_
