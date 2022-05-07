@@ -6,31 +6,29 @@ label {
 .about-author,
 .about-article {
     width: 98%;
-    height: 42%;
     margin: 0.1rem 0.1rem;
     display: block;
+    padding-top: 0.28rem;
+    padding-bottom: 0.28rem;
 }
 
 .about-author {
     border-top-left-radius: 1rem;
-    /* background-color: cyan; */
+    border-top-right-radius: 1rem;
     display: inline-block;
-}
-
-.about-article {
-    /* background-color: blue; */
-    height: 5rem;
+    border: 1px solid lightslategray;
 }
 
 .avatar,
 .author-info {
     display: inline-block;
     font-size: 0.5rem;
-    margin: 0.28rem;
+    margin-left: 0.28rem;
+    margin-right: 0.28rem;
 }
 
 .author-info {
-    padding: 0.2rem;
+    padding: 0.1rem;
 }
 
 .avatar {
@@ -68,7 +66,7 @@ label {
 
 .abstract-container {
     min-width: 13rem;
-    width: 64%;
+    width: 64.5%;
 }
 
 .abstract,
