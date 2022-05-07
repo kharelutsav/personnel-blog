@@ -16,7 +16,7 @@ function Admin() {
             />
             <br />
             <label for="content">Content</label>
-            <textarea name='content'></textarea>
+            <textarea name="content"></textarea>
         </form>
     )
 }

@@ -1,16 +1,29 @@
 import React from 'react'
 import './Content.css'
-import Footer from './Footer'
-import Header from './Header'
+
+const LeftComponent = () => {
+    return (
+        <div className='about'>
+            <div className='about-author'></div>
+            <div className='about-article'></div>
+        </div>
+    )
+}
+
+const RightComponent = () => {
+    return (
+        <div className='social-links'></div>
+    )
+}
 
 function Content() {
-    return <div>
-        <Header />
-        <div className='main'>
-            
+    return (
+        <div className="main">
+            <div className='toggle'></div>
+            <LeftComponent />
+            <RightComponent />
         </div>
-        <Footer />
-    </div>
+    )
 }
 
 export default Content

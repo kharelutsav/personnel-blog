@@ -2,6 +2,25 @@
     text-align: center;
 }
 
+.admin-header,
+.admin-footer {
+    font-size: 1.2rem;
+    width: 100%;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    margin: auto;
+}
+
+.admin-header {
+    background-color: red;
+}
+
+.admin-footer {
+    background-color: cyan;
+    position: fixed;
+    bottom: 0px;
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
