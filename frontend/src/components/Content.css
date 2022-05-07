@@ -17,8 +17,7 @@
 
 .about,
 .social-links {
-    height: 14rem;
-    margin: 0.4rem 0.4rem;
+    margin: 0.4rem 0rem;
     display: inline-block;
 }
 
@@ -35,7 +34,6 @@
 
 .about-author,
 .about-article {
-    top: 0px;
     background-color: cyan;
     width: auto;
     height: 49%;
@@ -52,8 +50,15 @@
     width: 60%;
 }
 
-.author {
-    width: 40%;
+.authors {
+    width: 35%;
+}
+
+.links {
+    width: 92%;
+    padding: 0.2rem;
+    margin: 0.2rem 0.2rem;
+    font-size: 1rem;
 }
 
 @media (max-width: 630px) {
