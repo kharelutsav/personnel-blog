@@ -21,46 +21,6 @@
     display: inline-block;
 }
 
-.about {
-    width: 60%;
-    background-color: red;
-    text-align: left;
-}
-
-.social-links {
-    width: 35%;
-    background-color: green;
-}
-
-.about-author,
-.about-article {
-    background-color: cyan;
-    width: auto;
-    height: 49%;
-    margin: 0.1rem 0.1rem;
-}
-
-.profile,
-.author {
-    display: inline-block;
-    font-size: 0.5rem;
-}
-
-.profile {
-    width: 60%;
-}
-
-.authors {
-    width: 35%;
-}
-
-.links {
-    width: 92%;
-    padding: 0.2rem;
-    margin: 0.2rem 0.2rem;
-    font-size: 1rem;
-}
-
 @media (max-width: 630px) {
     .toggle {
         width: 100%;

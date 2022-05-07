@@ -3,17 +3,12 @@ import './Content.css'
 import LeftContent from './LeftContent'
 import RightContent from './RightContent'
 
-
 function Content() {
     return (
         <div className="main">
             <div className="toggle"></div>
-            <div className="about">
-                <LeftContent />
-            </div>
-            <div className="social-links">
-                <RightContent />
-            </div>
+            <LeftContent />
+            <RightContent />
         </div>
     )
 }
