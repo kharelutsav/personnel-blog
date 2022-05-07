@@ -8,6 +8,15 @@ Node.js and Express.js website that allows users to add, edit, view and delete a
 
 *Environment variables: __Src/Config/config.env__ [PORT, ORIGIN]*
 
+
+## Scripts
+
+**npm start _[Runs the server]_**
+**npm run dev _[Runs the server in development environment via nodemon]_**
+**npm prettify _[Prettifies all the existing files]_**
+**npm test _[Performs jest and prettify checks]_**
+
+
 ## Installed Dependencies
 
 ***npm i express socket.io dotenv cors***
