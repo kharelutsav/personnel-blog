@@ -1,7 +1,9 @@
 .container {
     display: flex;
-    width: 97%;
-    border: 0.5px solid black;
+    width: 96%;
+    /* border: 0.5px solid black; */
+    padding: 0.1rem;
+    margin: 0.2rem auto;
 }
 
 .logos {
@@ -11,8 +13,20 @@
 }
 
 .links {
-    width: 100%;
+    width: 70%;
     padding: 0.2rem;
     margin: 0.2rem 0.2rem;
     font-size: 0.7rem;
+    border: hidden;
+    border-bottom: groove;
+    color: rgba(0, 106, 255, 0.829);
+    font-style: italic;
+    font-weight: bold;
+}
+
+.links:focus {
+    outline: none;
+    color: lightslategray;
+    font-style: normal;
+    font-weight: normal;
 }

@@ -4,7 +4,6 @@
 
 .admin-header,
 .admin-footer {
-    font-size: 1.2rem;
     width: 100%;
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
@@ -12,13 +11,19 @@
 }
 
 .admin-header {
+    font-size: 1rem;
     background-color: red;
 }
 
 .admin-footer {
-    background-color: cyan;
+    width: 100%;
+    font-size: 0.4rem;
+    background-color: rgb(29, 13, 62);
     position: fixed;
     bottom: 0px;
+    color: white;
+    font-weight: bold;
+    margin: auto;
 }
 
 @keyframes App-logo-spin {

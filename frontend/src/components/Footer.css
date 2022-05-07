@@ -1,0 +1,11 @@
+.logo {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0px;
+    margin: 0px 0.42rem;
+    color: white;
+}
+
+.logo:hover {
+    cursor: pointer;
+}

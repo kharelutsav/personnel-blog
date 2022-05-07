@@ -17,6 +17,7 @@ label {
     border-top-right-radius: 1rem;
     display: inline-block;
     border: 1px solid lightslategray;
+    background-color: rgba(12, 12, 245, 0.812);
 }
 
 .avatar,
@@ -59,9 +60,9 @@ label {
     width: 33%;
     min-width: 7rem;
     height: 7.2rem;
-    background-color: aliceblue;
     border: 2px solid black;
     border-radius: 0.5rem;
+    color: rgb(183, 198, 212);
 }
 
 .abstract-container {
