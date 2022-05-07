@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "NodeJS backend with expressJS and socket.io for personnel blog website\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "'"
+  ],
+  "author": "Utsav Kharel",
+  "license": "MIT"
+}
