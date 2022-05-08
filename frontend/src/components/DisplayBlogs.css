@@ -45,8 +45,6 @@
 }
 
 .user-disp-block {
-    /* background-color: purple; */
-    /* height: 6rem; */
     border-bottom: 1px dotted black;
 }
 
@@ -62,17 +60,29 @@
     font-weight: 600;
 }
 
+.social-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.check-mate {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.14rem;
+    padding: 0.14rem;
+}
+
 .about-user,
 .avatar-blogs {
     display: inline-block;
 }
-
+/* 
 .avatar-blogs {
     float: right;
-}
+} */
 
 .about-user {
-    float: left;
+    /* float: left; */
     text-align: left;
 }
 

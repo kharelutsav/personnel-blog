@@ -83,8 +83,10 @@ const ContentInfo = () => {
 const UserInfo = () => {
     return (
         <div className="user-disp-block">
-            <AboutUser />
-            <Avatar />
+            <div className="check-mate">
+                <AboutUser />
+                <Avatar />
+            </div>
             <SocialLinks />
         </div>
     )
