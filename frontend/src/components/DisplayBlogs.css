@@ -1,8 +1,9 @@
 .main-blogs {
-    width: 630px;
+    /* width: 630px; */
+    width: fit-content;
     margin: 1rem 0.5rem;
     border: 2px double blue;
-    border-radius: 1rem;
+    /* border-radius: 1rem; */
     background-color: cyan;
     display: inline-block;
 }
@@ -10,8 +11,8 @@
 .about-blogs,
 .thumbnail-blogs {
     margin: auto;
-    display: inline-block;
     border: 2px solid yellow;
+    float: left;
 }
 
 /* Inside thumbnail image */
@@ -19,7 +20,7 @@
 .thumbnail-blogs {
     background-color: blue;
     min-width: 260px;
-    max-width: 320px;
+    max-width: 325px;
     height: 12rem;
 }
 
@@ -71,16 +72,8 @@
         height: 16rem;
     }
     .main-blogs {
-        max-width: 330px;
-        min-width: 330px;
+        max-width: 325px;
+        min-width: 325px;
         height: 22.5rem;
     }
 }
-
-/* @media (min-width: 630px) {
-    .about-blogs,
-    .thumbnail-blogs,
-    .main-blogs {
-        width: 10rem;
-    }
-} */

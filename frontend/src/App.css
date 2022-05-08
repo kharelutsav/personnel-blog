@@ -25,6 +25,8 @@
     color: white;
     font-weight: bold;
     margin: auto;
+    bottom: 0px;
+    position: fixed;
 }
 
 @keyframes App-logo-spin {
