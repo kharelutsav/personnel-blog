@@ -8,7 +8,7 @@ const Avatar = () => {
         <div className="avatar-blogs">
             <img
                 alt=""
-                src="#"
+                src="http://localhost:3000/utsav.jpg"
                 style={{
                     width: '56px',
                     height: '56px',
@@ -30,8 +30,12 @@ const Container = ({ address, logo }) => {
 
 const SocialLinks = () => {
     const [Links, setLinks] = useState([
-        { address: 'https://www.linkedin.com', logo: SiLinkedin },
-        { address: 'https://www.facebook.com', logo: FaFacebookSquare },
+        { address: '#', logo: SiLinkedin },
+        { address: '#', logo: FaFacebookSquare },
+        { address: '#', logo: SiGmail },
+        { address: '#', logo: SiGithub },
+        { address: '#', logo: FaYoutube },
+        { address: '#', logo: SiInstagram },
     ])
     return (
         <div className="social-container">
@@ -106,25 +110,41 @@ function DisplayBlogs() {
         <>
             <div className="main-blogs">
                 <div className="thumbnail-blogs">
-                    <img src="" alt="" className="thumbnail-image" />
+                    <img
+                        src="http://localhost:3000/panda.jpg"
+                        alt=""
+                        className="thumbnail-image"
+                    />
                 </div>
                 <BlogInfo />
             </div>
             <div className="main-blogs">
                 <div className="thumbnail-blogs">
-                    <img src="" alt="" className="thumbnail-image" />
+                    <img
+                        src="http://localhost:3000/panda.jpg"
+                        alt=""
+                        className="thumbnail-image"
+                    />
                 </div>
                 <BlogInfo />
             </div>
             <div className="main-blogs">
                 <div className="thumbnail-blogs">
-                    <img src="" alt="" className="thumbnail-image" />
+                    <img
+                        src="http://localhost:3000/panda.jpg"
+                        alt=""
+                        className="thumbnail-image"
+                    />
                 </div>
                 <BlogInfo />
             </div>
             <div className="main-blogs">
                 <div className="thumbnail-blogs">
-                    <img src="" alt="" className="thumbnail-image" />
+                    <img
+                        src="http://localhost:3000/panda.jpg"
+                        alt=""
+                        className="thumbnail-image"
+                    />
                 </div>
                 <BlogInfo />
             </div>

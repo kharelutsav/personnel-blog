@@ -44,10 +44,6 @@
     width: 100%;
 }
 
-.user-disp-block {
-    border-bottom: 1px dotted black;
-}
-
 .user-creds {
     font-size: 0.42rem;
     padding: 0px;
@@ -63,26 +59,26 @@
 .social-container {
     display: flex;
     justify-content: space-evenly;
+    background-color: blue;
+}
+
+.logos {
+    color: white;
 }
 
 .check-mate {
     display: flex;
     justify-content: space-between;
-    margin: 0.14rem;
     padding: 0.14rem;
+    border-top-right-radius: 0.8rem;
 }
 
 .about-user,
 .avatar-blogs {
     display: inline-block;
 }
-/* 
-.avatar-blogs {
-    float: right;
-} */
 
 .about-user {
-    /* float: left; */
     text-align: left;
 }
 
@@ -90,23 +86,26 @@
     width: 56px;
     height: 56px;
     color: blue;
-    border: 1px dotted red;
     border-radius: 2.8rem;
-    /* margin: 0.21rem 0.21rem; */
 }
 
 .content-disp-block {
-    /* background-color: green;  */
     height: 6rem;
 }
 
 @media (max-width: 700px) {
     .about-blogs {
         width: 100%;
-        height: 6rem;
         border-radius: 1rem;
         border-top-left-radius: 0rem;
         border-top-right-radius: 0rem;
+    }
+    .check-mate {
+        border-top-right-radius: 0rem;
+    }
+    .social-container {
+        border-bottom-left-radius: 0.8rem;
+        border-bottom-right-radius: 0.8rem;
     }
     .content-disp-block {
         display: none;
@@ -122,6 +121,10 @@
         border-radius: 1rem;
         border-bottom-left-radius: 0rem;
         border-bottom-right-radius: 0rem;
+    }
+    .thumbnail-image {
+        border-bottom-left-radius: 0rem;
+        border-top-right-radius: 1rem;
     }
     .main-blogs {
         max-width: 325px;
