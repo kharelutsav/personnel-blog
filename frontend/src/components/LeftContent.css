@@ -32,7 +32,9 @@ label {
 .avatar {
     width: 98px;
     height: 98px;
-    background-color: aliceblue;
+    background-color: white;
+    color: blue;
+    border: 1px dotted red;
     border-radius: 2.8rem;
 }
 
@@ -58,9 +60,10 @@ label {
     width: 33%;
     min-width: 7rem;
     height: 7.2rem;
-    border: 0.5px dotted black;
+    border: 0.5px dotted red;
     border-radius: 0.5rem;
-    color: rgb(183, 198, 212);
+    /* color: rgb(183, 198, 212); */
+    color: blue;
 }
 
 .abstract-container {
@@ -79,6 +82,7 @@ label {
     margin-bottom: 0.42rem;
     border: hidden;
     border-bottom: groove;
+    border-color: blue;
 }
 
 .title:focus {

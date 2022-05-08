@@ -1,4 +1,4 @@
-.main {
+.main-content {
     width: 77%;
     margin: 0.07rem auto;
     padding: 0.7rem;
@@ -21,7 +21,7 @@
 @media (min-width: 630px) {
     .about,
     .social-links,
-    .main {
+    .main-content {
         width: 25rem;
     }
 }

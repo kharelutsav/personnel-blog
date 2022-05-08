@@ -5,7 +5,7 @@ import RightContent from './RightContent'
 
 function Content() {
     return (
-        <div className="main">
+        <div className="main-content">
             <div className="about">
                 <LeftContent />
             </div>

@@ -6,13 +6,24 @@ function Header() {
         <header className="admin-header">
             <ul>
                 <li>
-                    <al className="nav">Home</al>
+                    <a href="#" className="nav">
+                        Home
+                    </a>
                 </li>
                 <li>
-                    <al className="nav">About</al>
+                    <a href="#" className="nav">
+                        About
+                    </a>
                 </li>
                 <li>
-                    <al className="nav">Blogs</al>
+                    <a href="#" className="nav">
+                        Blogs
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="nav">
+                        Account
+                    </a>
                 </li>
             </ul>
         </header>
