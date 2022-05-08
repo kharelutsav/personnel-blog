@@ -3,7 +3,7 @@ import './DisplayBlogs.css'
 
 const Avatar = () => {
     return (
-        <div className="avatar">
+        <div className="avatar-blogs">
             <img
                 alt=""
                 src="#"
