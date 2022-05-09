@@ -1,14 +1,27 @@
 .main-content {
     width: 77%;
-    margin: 0.07rem auto;
+    margin: 0.14rem auto;
     padding: 0.7rem;
-    border: 2px double blue;
+    /* border: 2px double blue; */
+    height: 86vh;
+    box-shadow: 1px 1px 1px 1px rgb(120, 135, 139);
+    border-radius: 0.7rem;
 }
 
 .about,
 .social-links {
     margin: 0.4rem 0rem;
     display: block;
+}
+
+.upload-btn {
+    background-color: blue;
+    border-radius: 1rem;
+    padding: 0.35rem;
+    color: white;
+    font-weight: 500;
+    font-size: 0.7rem;
+    width: 7rem;
 }
 
 @media (max-width: 630px) {

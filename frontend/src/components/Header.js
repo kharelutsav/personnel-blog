@@ -13,12 +13,12 @@ function Header() {
                 </li>
                 <li>
                     <Link to="/" className="nav">
-                        Blogs
+                        MyBlogs
                     </Link>
                 </li>
                 <li>
                     <Link to="/create-new-blog" className="nav">
-                        New
+                        CreateNew
                     </Link>
                 </li>
                 <li>

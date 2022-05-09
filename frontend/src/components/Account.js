@@ -23,6 +23,7 @@ const Container = ({ name, logo }) => {
                 style={{ display: 'block' }}
                 placeholder={name}
                 className="links"
+                name={name}
             />
         </div>
     )
@@ -117,6 +118,7 @@ function Account() {
             <div className="social-links">
                 <RightContent />
             </div>
+            <button className="save-btn">Save Info</button>
         </div>
     )
 }

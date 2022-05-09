@@ -1,5 +1,7 @@
 .App {
     text-align: center;
+    background-color: rgb(242, 254, 254);
+    margin: auto;
 }
 
 .admin-header,
@@ -25,8 +27,6 @@
     color: white;
     font-weight: bold;
     margin: auto;
-    /* bottom: 0px;
-    position: fixed; */
 }
 
 @keyframes App-logo-spin {

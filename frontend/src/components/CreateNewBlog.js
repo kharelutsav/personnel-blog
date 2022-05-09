@@ -4,18 +4,6 @@ import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
 
 function CreateNewBlog() {
-    const Title = () => {
-        return (
-            <div className="title-container">
-                <input
-                    className="title"
-                    width="100%"
-                    placeholder="Please enter the title of your article."
-                />
-            </div>
-        )
-    }
-
     const Thumbnail = () => {
         const [showThumbnail, setShowThumbnail] = useState()
         const imageSelected = (event) => {
@@ -52,6 +40,18 @@ function CreateNewBlog() {
         )
     }
 
+    const Title = () => {
+        return (
+            <div className="title-container">
+                <input
+                    className="title"
+                    width="100%"
+                    placeholder="Please enter the title of your article."
+                />
+            </div>
+        )
+    }
+
     const Abstract = () => {
         return (
             <div className="abstract-container">
@@ -78,6 +78,7 @@ function CreateNewBlog() {
         <div className="main-content">
             <div className="about">
                 <AboutArticle />
+                <button className="upload-btn">Post Blog</button>
             </div>
         </div>
     )
