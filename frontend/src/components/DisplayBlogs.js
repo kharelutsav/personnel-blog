@@ -68,17 +68,37 @@ const AboutUser = () => {
 }
 
 const Title = () => {
-    return <p>None</p>
+    return <p className="content-title">Lorem ipsum dolor sit amet</p>
 }
 
 const Abstract = () => {
-    return <p>None</p>
+    return (
+        <p className="content-abstract">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+            vulputate felis id magna iaculis, vel vulputate urna placerat. Sed
+            ac aliquet lacus, in convallis nibh. Praesent quam purus,
+            sollicitudin in ligula vel, molestie viverra justo. Donec pulvinar
+            sem ipsum, a egestas mi dapibus ut. Sed blandit at Donec pulvinar
+            sem ipsum, a egestas mi dapibus ut. Sed blandit at
+        </p>
+    )
 }
 
-const ContentInfo = () => {
+const ContentInfo = ({ time }) => {
     return (
         <div className="content-disp-block">
             <Title />
+            <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
+            <p
+                className="user-creds"
+                style={{
+                    textAlign: 'left',
+                    paddingBottom: '0.1rem',
+                    paddingLeft: '0.1rem',
+                }}
+            >
+                9th August 2022
+            </p>
             <Abstract />
         </div>
     )

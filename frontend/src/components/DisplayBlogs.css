@@ -82,6 +82,22 @@
     text-align: left;
 }
 
+.content-title {
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem;
+    margin: 0rem;
+}
+
+.content-abstract {
+    text-align: left;
+    font-size: 0.63rem;
+    font-weight: 500;
+    padding: 0.1rem;
+    margin: 0rem;
+}
+
 .avatar-blogs {
     width: 56px;
     height: 56px;
@@ -90,7 +106,8 @@
 }
 
 .content-disp-block {
-    height: 6rem;
+    height: 8rem;
+    overflow: hidden;
 }
 
 @media (max-width: 700px) {
