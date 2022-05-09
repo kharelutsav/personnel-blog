@@ -5,10 +5,17 @@ const mongoose = require('mongoose')
 //-------------------------------------------------------------------------------------
 
 const userSchema = mongoose.Schema({
-    fullname: { type: String, unique: true, required: true },
+    profile: {
+        data: Buffer,
+        contentType: String,
+    },
+    fullname: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     phone: { type: Number, required: true },
     social: { type: JSON, required: true },
+    blogs: [
+        { type: mongoose.Schema.Types.ObjectId, ref: 'Blog', required: false },
+    ],
 })
 
 exports.User = mongoose.model('User', userSchema)

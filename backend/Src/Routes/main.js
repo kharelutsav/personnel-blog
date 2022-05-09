@@ -1,5 +1,7 @@
 const express = require('express')
 const { Blog } = require('../Models/blog_model')
+const { User } = require('../Models/user_model')
+const mongoose = require('mongoose')
 
 const router = express.Router()
 
@@ -20,16 +22,48 @@ router.get('/', async (req, res) => {
 // @desc Save the blog details (thumbnail => image; title => text; abstract => text)
 // @route POST /upload-post
 router.post('/create-post', async (req, res) => {
-    console.log(req.body)
-    await Blog.create(req.body)
+    const user = req.body.user
+    const article = req.body.article
+    const blog = { _id: new mongoose.Types.ObjectId(), ...article }
+    const account = { ...user, blogs: [blog._id] }
+    await Blog.create(blog)
         .then(() => {
-            res.status(200).send('Blog posted succesfully!')
+            User.findOne({ email: user.email }).then((data) => {
+                if (data) {
+                    console.log(data)
+                    User.findOneAndUpdate(
+                        { email: user.email },
+                        { $push: { blogs: blog.id } }
+                    )
+                        .then(() => {
+                            res.status(200).send('Blog posted succesfully!')
+                        })
+                        .catch((err) => console.log(err))
+                } else {
+                    User.create(account)
+                        .then(() => {
+                            res.status(200).send('Blog posted succesfully!')
+                        })
+                        .catch((err) => console.log(err))
+                }
+            })
         })
         .catch((err) => {
             console.log(err)
             res.status(400).send('Unable to submit the post.')
         })
 })
+// router.post('/create-post', async (req, res) => {
+//     console.log(req.body)
+//     await Blog.create(req.body)
+//         .then(() => {
+//             res.status(200).send('Blog posted succesfully!')
+//         })
+//         .catch((err) => {
+//             console.log(err)
+//             res.status(400).send('Unable to submit the post.')
+//         })
+// })
 
 // @desc Update the blog with changed creds.
 // @route POST /edit-post
