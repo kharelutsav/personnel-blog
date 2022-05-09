@@ -77,9 +77,12 @@ const Abstract = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
             vulputate felis id magna iaculis, vel vulputate urna placerat. Sed
             ac aliquet lacus, in convallis nibh. Praesent quam purus,
-            sollicitudin in ligula vel, molestie viverra justo. Donec pulvinar
-            sem ipsum, a egestas mi dapibus ut. Sed blandit at Donec pulvinar
-            sem ipsum, a egestas mi dapibus ut. Sed blandit at
+            sollicitudin in ligula vel, molestie viverra justo. Donec
+            pulvinar....(
+            <a alt="" href="#">
+                read more
+            </a>
+            )
         </p>
     )
 }

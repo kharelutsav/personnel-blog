@@ -2,12 +2,15 @@
     width: fit-content;
     margin: 1rem 0.5rem;
     display: inline-block;
+    height: 12rem;
+    /* border: 2px solid black; */
+    border-radius: 1rem;
+    box-shadow: 2px 2px rgb(239, 232, 232);
 }
 
 .about-blogs,
 .thumbnail-blogs {
     margin: auto;
-    border: 2px solid blue;
     float: left;
 }
 
@@ -19,6 +22,12 @@
     height: 12rem;
     border-top-left-radius: 1rem;
     border-bottom-left-radius: 1rem;
+    overflow: hidden;
+}
+
+.thumbnail-blogs:hover img {
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 .thumbnail-image {
@@ -85,17 +94,21 @@
 .content-title {
     text-align: left;
     font-size: 0.7rem;
-    font-weight: 700;
+    font-weight: 600;
     padding: 0.1rem;
     margin: 0rem;
+    margin-top: 0.7rem;
 }
 
 .content-abstract {
-    text-align: left;
-    font-size: 0.63rem;
-    font-weight: 500;
+    text-align: justify;
+    text-justify: inter-word;
+    text-indent: 1rem;
+    font-size: 0.52rem;
+    font-weight: 400;
     padding: 0.1rem;
-    margin: 0rem;
+    margin: 0.4rem;
+    margin-top: 0.14rem;
 }
 
 .avatar-blogs {
@@ -106,8 +119,14 @@
 }
 
 .content-disp-block {
-    height: 8rem;
+    height: 8.3rem;
     overflow: hidden;
+}
+
+@media (min-width: 700px) and (max-width: 1000px) {
+    .content-disp-block {
+        height: 8.2rem;
+    }
 }
 
 @media (max-width: 700px) {
@@ -146,6 +165,6 @@
     .main-blogs {
         max-width: 325px;
         min-width: 325px;
-        height: 22.5rem;
+        height: fit-content;
     }
 }
