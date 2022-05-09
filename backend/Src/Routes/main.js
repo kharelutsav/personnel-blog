@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 // @desc Register user or create user profile
 // @route POST /create-user
 router.post('/create-user', async (req, res) => {
-    const account = { ...req.body.user }
+    const account = { ...req.body }
     User.create(account)
         .then(() => {
             res.status(200).send(
@@ -44,15 +44,13 @@ router.post('/create-post', async (req, res) => {
                 Blog.create(blog).then((data) => {
                     User.findOneAndUpdate(
                         { email: email },
-                        { $push: { blogs: blog.id } }
+                        { $push: { blogs: blog._id } }
                     )
                         .then(() => {
-                            res.status(200)
-                                .json(data)
-                                .send('Blog posted succesfully!')
+                            res.status(200).json(data)
                         })
                         .catch(() =>
-                            res.status(400).send('Unable to submit the post.')
+                            res.status(400).send('Internal Server Error.')
                         )
                 })
             } else {
@@ -81,7 +79,7 @@ router.post('/create-post', async (req, res) => {
 // @desc Update the blog with changed creds.
 // @route POST /edit-post
 router.post('/update-post', async (req, res) => {
-    const query = { id: req.body._id }
+    const query = { _id: req.body._id }
     await Blog.findOneAndUpdate(query, req.body, { new: true })
         .then((data) => {
             res.json(data)
@@ -96,8 +94,8 @@ router.post('/update-post', async (req, res) => {
 // @route DELETE /delete-post
 router.delete('/delete-post', async (req, res) => {
     const email = req.body.email
-    const _id = req.body._id
-    await Blog.findByIdAndDelete(req.body._id)
+    const _id = req.body.article._id
+    await Blog.findByIdAndDelete(_id)
         .then(() => {
             User.findOneAndUpdate({ email: email }, { $pull: { blogs: _id } })
                 .then(() => {
