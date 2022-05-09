@@ -95,9 +95,15 @@ router.post('/update-post', async (req, res) => {
 // @desc Delete blog post based on the provided blog id.
 // @route DELETE /delete-post
 router.delete('/delete-post', async (req, res) => {
+    const email = req.body.email
+    const _id = req.body._id
     await Blog.findByIdAndDelete(req.body._id)
         .then(() => {
-            res.status(200).send('Post succesfully deleted.')
+            User.findOneAndUpdate({ email: email }, { $pull: { blogs: _id } })
+                .then(() => {
+                    res.status(200).send('Post succesfully deleted.')
+                })
+                .catch(() => res.status(400).send('Unable to delete the post.'))
         })
         .catch(() => {
             res.status(400).send('Unable to delete the post.')
