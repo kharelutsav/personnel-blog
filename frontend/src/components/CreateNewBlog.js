@@ -90,7 +90,6 @@ function CreateNewBlog({ setBlogs }) {
     }
 
     const post_blog = () => {
-        console.log(article)
         axios
             .post('/create-post', {
                 article: { ...article },

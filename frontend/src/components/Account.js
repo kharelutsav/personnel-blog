@@ -15,7 +15,10 @@ const SOCIAL_MEDIA = [
     { name: 'Gmail', logo: SiGmail },
 ]
 
+const user = { social: {} }
+
 const Container = ({ name, logo }) => {
+    const [link, setLink] = useState('')
     const LOGO = logo
     return (
         <div className="container">
@@ -25,6 +28,9 @@ const Container = ({ name, logo }) => {
                 placeholder={name}
                 className="links"
                 name={name}
+                value={link}
+                onChange={(event) => setLink(event.target.value)}
+                onBlur={() => (user.social[name] = link)}
             />
         </div>
     )
@@ -51,6 +57,7 @@ const Avatar = () => {
     const imageSelected = (event) => {
         const [file] = event.target.files
         setShowImage(URL.createObjectURL(file))
+        user.profile = file.name
     }
     return (
         <div className="avatar">
@@ -87,16 +94,31 @@ const Avatar = () => {
 }
 
 const AuthorInfo = () => {
+    const [phone, setPhone] = useState('')
+    const [name, setName] = useState('')
     return (
         <div className="author-info">
             <label className="input-creds" htmlFor="name">
                 Author's Name
             </label>
-            <input className="input-creds" name="name" id="name" /> <br />
+            <input
+                className="input-creds"
+                name="name"
+                id="name"
+                onChange={(event) => setName(event.target.value)}
+                onBlur={() => (user.fullname = name)}
+            />{' '}
+            <br />
             <label className="input-creds" htmlFor="phone">
                 Phone Number
             </label>
-            <input className="input-creds" name="phone" id="phone"></input>
+            <input
+                className="input-creds"
+                name="phone"
+                id="phone"
+                onChange={(event) => setPhone(event.target.value)}
+                onBlur={() => (user.phone = phone)}
+            ></input>
         </div>
     )
 }
@@ -110,7 +132,16 @@ function Account({ setBlogs }) {
             </div>
         )
     }
-
+    const create_user = () => {
+        user.email = user.social.Gmail
+        console.log(user)
+        axios
+            .post('/create-user', { ...user })
+            .then((response) => {
+                setBlogs(response.data)
+            })
+            .catch((err) => console.log(err))
+    }
     return (
         <div className="main-content">
             <div className="about">
@@ -119,7 +150,9 @@ function Account({ setBlogs }) {
             <div className="social-links">
                 <RightContent />
             </div>
-            <button className="save-btn">Save Info</button>
+            <button className="save-btn" onClick={create_user}>
+                Save Info
+            </button>
         </div>
     )
 }
