@@ -25,6 +25,10 @@
     overflow: hidden;
 }
 
+.thumbnail-blogs img {
+    transition: transform 0.7s;
+}
+
 .thumbnail-blogs:hover img {
     transform: scale(1.2);
     cursor: pointer;
