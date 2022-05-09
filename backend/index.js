@@ -11,7 +11,7 @@ const io = new Server(httpServer, {
 })
 
 // Http server listening to the port
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 4000
 httpServer.listen(PORT, (err) => {
     if (err) throw err
     console.log(`Starting localhost server at port: ${PORT}`)
