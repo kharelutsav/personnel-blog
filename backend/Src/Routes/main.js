@@ -8,9 +8,9 @@ const router = express.Router()
 // @desc Fetch all the records and responds JSON data.
 // @route GET /
 router.get('/', async (req, res) => {
-    await Blog.find()
+    await User.find()
+        .populate('blogs')
         .then((data) => {
-            console.log(data)
             res.json(data)
         })
         .catch((err) => {
@@ -37,7 +37,7 @@ router.post('/create-user', async (req, res) => {
 router.post('/create-post', async (req, res) => {
     const email = req.body.email
     const article = req.body.article
-    const blog = { _id: new mongoose.Types.ObjectId(), ...article }
+    const blog = { ...article, _id: new mongoose.Types.ObjectId() }
     await User.findOne({ email: email })
         .then((user) => {
             if (user) {
@@ -63,18 +63,6 @@ router.post('/create-post', async (req, res) => {
             res.status(400).send('Unable to submit the post.')
         })
 })
-
-// router.post('/create-post', async (req, res) => {
-//     console.log(req.body)
-//     await Blog.create(req.body)
-//         .then(() => {
-//             res.status(200).send('Blog posted succesfully!')
-//         })
-//         .catch((err) => {
-//             console.log(err)
-//             res.status(400).send('Unable to submit the post.')
-//         })
-// })
 
 // @desc Update the blog with changed creds.
 // @route POST /edit-post
