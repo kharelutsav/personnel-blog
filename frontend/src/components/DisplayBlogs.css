@@ -75,7 +75,11 @@
     background-color: blue;
 }
 
-.logos {
+.disp-logos {
+    width: 1rem;
+    height: 1rem;
+    padding: 0.2rem;
+    padding-bottom: 0rem;
     color: white;
 }
 
