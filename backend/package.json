@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "prettier -c . && jest",
+    "test": "prettier -c . && jest --passWithNoTests",
     "dev": "nodemon index.js",
     "prettify": "prettier --write ."
   },

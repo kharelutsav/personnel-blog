@@ -8,6 +8,8 @@ Node.js and Express.js website that allows users to add, edit, view and delete a
 
 *Environment variables: __Src/Config/config.env__ [PORT, ORIGIN]*
 
+*Testing: Unit test (__Jest__), Integration test (__Not Performed__)*
+
 
 ## Scripts
 
