@@ -9,6 +9,9 @@ const app = express()
 // Load the configuration
 dotenv.config({ path: './Src/Config/config.env' })
 
+// Database Connection
+require('./Config/database_connection')()
+
 // Allow cross origin requests to communicate with react front-end
 const AllowedCors = { origin: process.env.ORIGIN }
 
@@ -16,10 +19,10 @@ const AllowedCors = { origin: process.env.ORIGIN }
 app.use(cors(AllowedCors))
 
 // JSON Parser
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 // Routes
-app.use(router);
+app.use(router)
 
 module.exports = app

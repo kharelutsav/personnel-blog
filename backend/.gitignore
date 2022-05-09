@@ -105,3 +105,4 @@ dist
 
 # Environment Variables
 Src/Config/*.env
+Src/Config/config.js
