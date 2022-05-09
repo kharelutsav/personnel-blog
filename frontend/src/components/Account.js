@@ -4,6 +4,7 @@ import './Account.css'
 import './RightContent.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+import axios from './axios-config'
 
 const SOCIAL_MEDIA = [
     { name: 'Linkedin', logo: SiLinkedin },
@@ -100,7 +101,7 @@ const AuthorInfo = () => {
     )
 }
 
-function Account() {
+function Account({ setBlogs }) {
     const AboutAuthor = () => {
         return (
             <div className="about-author">

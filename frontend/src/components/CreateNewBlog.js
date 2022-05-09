@@ -2,6 +2,7 @@ import './CreateNewBlog.css'
 import React, { useState } from 'react'
 import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
+import axios from './axios-config'
 
 function CreateNewBlog() {
     const Thumbnail = () => {
