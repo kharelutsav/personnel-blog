@@ -1,29 +1,30 @@
 import React from 'react'
 import './Header.css'
+import { Link } from 'react-router-dom'
 
 function Header() {
     return (
         <header className="admin-header">
             <ul>
                 <li>
-                    <a href="#" className="nav">
-                        Home
-                    </a>
+                    <Link to="/" className="nav">
+                        Dashboard
+                    </Link>
                 </li>
                 <li>
-                    <a href="#" className="nav">
-                        About
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="nav">
+                    <Link to="/" className="nav">
                         Blogs
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a href="#" className="nav">
+                    <Link to="/create-new-blog" className="nav">
+                        New
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/my-account" className="nav">
                         Account
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </header>
