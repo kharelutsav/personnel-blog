@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 // @desc Register user or create user profile
 // @route POST /create-user
 router.post('/create-user', async (req, res) => {
-    const account = { ...req.body }
+    const account = { ...req.body, blogs: [] }
     User.create(account)
         .then(() => {
             res.status(200).send(
@@ -37,7 +37,11 @@ router.post('/create-user', async (req, res) => {
 router.post('/create-post', async (req, res) => {
     const email = req.body.email
     const article = req.body.article
-    const blog = { ...article, _id: new mongoose.Types.ObjectId() }
+    const blog = {
+        ...article,
+        _id: new mongoose.Types.ObjectId(),
+        time: new Date().toLocaleString(),
+    }
     await User.findOne({ email: email })
         .then((user) => {
             if (user) {
@@ -69,8 +73,8 @@ router.post('/create-post', async (req, res) => {
 router.post('/update-post', async (req, res) => {
     const query = { _id: req.body._id }
     await Blog.findOneAndUpdate(query, req.body, { new: true })
-        .then((data) => {
-            res.json(data)
+        .then(() => {
+            res.status(200).send('Updated Succesfully')
         })
         .catch((err) => {
             console.log(err)
@@ -80,7 +84,7 @@ router.post('/update-post', async (req, res) => {
 
 // @desc Delete blog post based on the provided blog id.
 // @route DELETE /delete-post
-router.delete('/delete-post', async (req, res) => {
+router.post('/delete-post', async (req, res) => {
     const email = req.body.email
     const _id = req.body.article._id
     await Blog.findByIdAndDelete(_id)
