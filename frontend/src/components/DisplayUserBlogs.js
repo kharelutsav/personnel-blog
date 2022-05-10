@@ -104,7 +104,7 @@ const UserInfo = ({ user_info }) => {
 }
 
 const ContentInfo = ({ blog_info }) => {
-    const Abstract = ({abstract}) => {
+    const Abstract = ({ abstract, blog_info }) => {
         return (
             <p className="content-abstract">
                 {abstract}....(
@@ -112,19 +112,21 @@ const ContentInfo = ({ blog_info }) => {
                     read more
                 </a>
                 )(
-                    <Link to='/edit-blog'>edit post</Link>
+                <Link to="/edit-blog" state={blog_info}>
+                    edit post
+                </Link>
                 )
             </p>
         )
     }
 
-    const Title = ({title}) => {
+    const Title = ({ title }) => {
         return <p className="content-title">{title}</p>
     }
 
     return (
         <div className="content-disp-block">
-            <Title title={blog_info.title}/>
+            <Title title={blog_info.title} />
             <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
             <p
                 className="user-creds"
@@ -136,7 +138,7 @@ const ContentInfo = ({ blog_info }) => {
             >
                 {blog_info.time}
             </p>
-            <Abstract abstract={blog_info.abstract}/>
+            <Abstract abstract={blog_info.abstract} blog_info={blog_info} />
         </div>
     )
 }

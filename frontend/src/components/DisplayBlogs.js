@@ -103,7 +103,7 @@ const UserInfo = ({ user_info }) => {
 }
 
 const ContentInfo = ({ blog_info }) => {
-    const Abstract = ({abstract}) => {
+    const Abstract = ({ abstract }) => {
         return (
             <p className="content-abstract">
                 {abstract}....(
@@ -115,13 +115,13 @@ const ContentInfo = ({ blog_info }) => {
         )
     }
 
-    const Title = ({title}) => {
+    const Title = ({ title }) => {
         return <p className="content-title">{title}</p>
     }
 
     return (
         <div className="content-disp-block">
-            <Title title={blog_info.title}/>
+            <Title title={blog_info.title} />
             <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
             <p
                 className="user-creds"
@@ -133,7 +133,7 @@ const ContentInfo = ({ blog_info }) => {
             >
                 {blog_info.time}
             </p>
-            <Abstract abstract={blog_info.abstract}/>
+            <Abstract abstract={blog_info.abstract} />
         </div>
     )
 }
