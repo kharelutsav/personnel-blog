@@ -113,9 +113,7 @@ function EditOldBlog({ setBlogs, blogs }) {
                 article: { ...article },
                 email: 'email@example.com',
             })
-            .get('./')
             .then((response) => {
-                setBlogs(response.data)
                 navigate('/my-blogs')
             })
             .catch((err) => console.log(err))

@@ -17,7 +17,6 @@ function App() {
             .get('/')
             .then((response) => {
                 setBlogs(response.data)
-                console.log(response.data)
             })
             .catch((err) => console.log(err))
     }, [])

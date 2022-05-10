@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
 import axios from './axios-config'
+import { useNavigate } from 'react-router-dom'
 
 function CreateNewBlog({ setBlogs }) {
+    const navigate = useNavigate()
     const article = {}
     const Thumbnail = () => {
         const [showThumbnail, setShowThumbnail] = useState()
@@ -93,10 +95,10 @@ function CreateNewBlog({ setBlogs }) {
         axios
             .post('/create-post', {
                 article: { ...article },
-                email: 'kharelutsav4@gmail.com',
+                email: 'email@example.com',
             })
             .then((response) => {
-                setBlogs(response.data)
+                navigate('/my-blogs')
             })
             .catch((err) => console.log(err))
     }

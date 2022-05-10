@@ -183,7 +183,7 @@ function DisplayUserBlogs({ blogs }) {
                 datas.map((data, index) => {
                     return (
                         <div className="main-blogs" key={index}>
-                            <Thumbnail thumbnail={data.blog_info.thumbnail} />
+                            <Thumbnail blog_info={data.blog_info} />
                             <BlogInfo
                                 user_info={data.user_info}
                                 blog_info={data.blog_info}
