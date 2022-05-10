@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
 import axios from './axios-config'
-import { useLocation } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 
 function EditOldBlog({ setBlogs }) {
     const old_data = useLocation().state
@@ -92,12 +92,9 @@ function EditOldBlog({ setBlogs }) {
         )
     }
 
-    const post_blog = () => {
+    const update_blog = () => {
         axios
-            .post('/create-post', {
-                article: { ...article },
-                email: 'email@example.com',
-            })
+            .post('/create-post', { ...article })
             .then((response) => {
                 setBlogs(response.data)
             })
@@ -105,13 +102,15 @@ function EditOldBlog({ setBlogs }) {
     }
 
     const delete_blog = () => {
+        console.log(article)
         axios
-            .delete('/delete-post', {
+            .post('/delete-post', {
                 article: { ...article },
                 email: 'email@example.com',
             })
             .then((response) => {
                 setBlogs(response.data)
+                return <Navigate replace to="/my-blogs" />
             })
             .catch((err) => console.log(err))
     }
@@ -120,16 +119,17 @@ function EditOldBlog({ setBlogs }) {
         <div className="main-content">
             <div className="about">
                 <AboutArticle />
+                <Link to="/my-blogs">
+                    <button
+                        className="upload-btn"
+                        style={{ backgroundColor: 'grey' }}
+                    >
+                        Cancel Update
+                    </button>
+                </Link>
                 <button
                     className="upload-btn"
-                    onClick={() => post_blog()}
-                    style={{ backgroundColor: 'grey' }}
-                >
-                    Cancel Update
-                </button>
-                <button
-                    className="upload-btn"
-                    onClick={() => post_blog()}
+                    onClick={() => update_blog()}
                     style={{ backgroundColor: 'green' }}
                 >
                     Update Blog
