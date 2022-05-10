@@ -12,12 +12,12 @@ import axios from './components/axios-config'
 
 function App() {
     const [blogs, setBlogs] = useState([])
-
     useLayoutEffect(() => {
         axios
             .get('/')
             .then((response) => {
                 setBlogs(response.data)
+                console.log(response.data)
             })
             .catch((err) => console.log(err))
     }, [])
@@ -31,7 +31,10 @@ function App() {
                     path="/my-blogs"
                     element={<DisplayUserBlogs blogs={blogs} />}
                 />
-                <Route path="/edit-blog" element={<EditOldBlog />} />
+                <Route
+                    path="/edit-blog"
+                    element={<EditOldBlog setBlogs={setBlogs} blogs={blogs} />}
+                />
                 <Route
                     path="/create-new-blog"
                     element={<CreateNewBlog setBlogs={setBlogs} />}

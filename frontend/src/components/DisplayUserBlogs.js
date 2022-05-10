@@ -125,7 +125,7 @@ const ContentInfo = ({ blog_info }) => {
     }
 
     return (
-        <div className="content-disp-block">
+        <>
             <Title title={blog_info.title} />
             <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
             <p
@@ -139,7 +139,7 @@ const ContentInfo = ({ blog_info }) => {
                 {blog_info.time}
             </p>
             <Abstract abstract={blog_info.abstract} blog_info={blog_info} />
-        </div>
+        </>
     )
 }
 
@@ -165,19 +165,19 @@ function DisplayUserBlogs({ blogs }) {
         return (
             <div className="about-blogs">
                 <UserInfo user_info={user_info} />
-                <ContentInfo blog_info={blog_info} />
+                <div className="content-disp-block">
+                    <ContentInfo blog_info={blog_info} />
+                </div>
             </div>
         )
     }
 
-    const Thumbnail = ({ thumbnail }) => {
+    const Thumbnail = ({ blog_info }) => {
         return (
             <div className="thumbnail-blogs">
-                <img
-                    src="http://localhost:3000/panda.jpg"
-                    alt={thumbnail}
-                    className="thumbnail-image"
-                />
+                <div className="content-dynamic-class">
+                    <ContentInfo blog_info={blog_info} />
+                </div>
             </div>
         )
     }
@@ -188,7 +188,7 @@ function DisplayUserBlogs({ blogs }) {
                 datas.map((data, index) => {
                     return (
                         <div className="main-blogs" key={index}>
-                            <Thumbnail thumbnail={data.blog_info.thumbnail} />
+                            <Thumbnail blog_info={data.blog_info} />
                             <BlogInfo
                                 user_info={data.user_info}
                                 blog_info={data.blog_info}

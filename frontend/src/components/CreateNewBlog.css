@@ -3,7 +3,7 @@
     margin: 0.14rem auto;
     padding: 0.7rem;
     /* border: 2px double blue; */
-    height: 86vh;
+    min-height: 86vh;
     box-shadow: 1px 1px 1px 1px rgb(120, 135, 139);
     border-radius: 0.7rem;
 }

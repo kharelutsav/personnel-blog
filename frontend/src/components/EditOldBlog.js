@@ -1,14 +1,14 @@
 import './CreateNewBlog.css'
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
 import axios from './axios-config'
-import { Link, Navigate, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-function EditOldBlog({ setBlogs }) {
+function EditOldBlog({ setBlogs, blogs }) {
+    const navigate = useNavigate()
     const old_data = useLocation().state
     const article = old_data
-    console.log(article)
     const Thumbnail = () => {
         const [showThumbnail, setShowThumbnail] = useState()
         const imageSelected = (event) => {
@@ -48,6 +48,9 @@ function EditOldBlog({ setBlogs }) {
 
     const Title = () => {
         const [title, setTitle] = useState('')
+        useLayoutEffect(() => {
+            setTitle(article.title)
+        }, [])
         return (
             <div className="title-container">
                 <input
@@ -66,6 +69,9 @@ function EditOldBlog({ setBlogs }) {
 
     const Abstract = () => {
         const [abstract, setAbstract] = useState('')
+        useLayoutEffect(() => {
+            setAbstract(article.abstract)
+        }, [])
         return (
             <div className="abstract-container">
                 <textarea
@@ -94,23 +100,23 @@ function EditOldBlog({ setBlogs }) {
 
     const update_blog = () => {
         axios
-            .post('/create-post', { ...article })
+            .post('/update-post', { ...article })
             .then((response) => {
-                setBlogs(response.data)
+                navigate('/my-blogs')
             })
             .catch((err) => console.log(err))
     }
 
     const delete_blog = () => {
-        console.log(article)
         axios
             .post('/delete-post', {
                 article: { ...article },
                 email: 'email@example.com',
             })
+            .get('./')
             .then((response) => {
                 setBlogs(response.data)
-                return <Navigate replace to="/my-blogs" />
+                navigate('/my-blogs')
             })
             .catch((err) => console.log(err))
     }
