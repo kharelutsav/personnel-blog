@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 
-const UserInfo = () => {
+const UserInfo = ({ user_info }) => {
     const AboutUser = () => {
-        const [userInfo, setUserInfo] = useState({
-            name: 'Test User',
-            email: 'email@example.com',
-            phone: '0123456789',
-        })
+        const [userInfo, setUserInfo] = useState()
+        useEffect(() => {
+            setUserInfo({
+                name: user_info.fullname,
+                email: user_info.email,
+                phone: user_info.email,
+            })
+        }, [])
         return (
             <div className="about-user">
                 <p className="user-creds user-name">{userInfo.name}</p>
@@ -119,9 +122,9 @@ const ContentInfo = ({ time }) => {
     )
 }
 
-function DisplayBlogs({ blogs }) {
-    const [datas, setDatas] = useState(blogs)
-    useEffect(() => {
+function DisplayUserBlogs({ blogs }) {
+    const [datas, setDatas] = useState([])
+    useLayoutEffect(() => {
         const data = []
         for (let user of blogs) {
             const users = { ...user }
@@ -131,26 +134,26 @@ function DisplayBlogs({ blogs }) {
                     user_info: { ...delete users[blogs] },
                 }
             })
-            data.push(info)
+            data.push(...info)
         }
         setDatas(data)
     }, [blogs])
 
-    const BlogInfo = () => {
+    const BlogInfo = ({ user_info, blog_info }) => {
         return (
             <div className="about-blogs">
-                <UserInfo />
-                <ContentInfo />
+                <UserInfo user_info={user_info} />
+                <ContentInfo blog_info={blog_info} />
             </div>
         )
     }
 
-    const Thumbnail = () => {
+    const Thumbnail = ({ name }) => {
         return (
             <div className="thumbnail-blogs">
                 <img
                     src="http://localhost:3000/panda.jpg"
-                    alt=""
+                    alt={name}
                     className="thumbnail-image"
                 />
             </div>
@@ -159,24 +162,20 @@ function DisplayBlogs({ blogs }) {
 
     return (
         <>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
+            {datas.map((data, index) => {
+                console.log(data)
+                return (
+                    <div className="main-blogs" key={index}>
+                        <Thumbnail name={data.user_info.thumbnail} />
+                        <BlogInfo
+                            user_info={datas.user_info}
+                            blog_info={datas.blog_info}
+                        />
+                    </div>
+                )
+            })}
         </>
     )
 }
 
-export default DisplayBlogs
+export default DisplayUserBlogs
