@@ -4,15 +4,15 @@ import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 
 const UserInfo = ({ user_info }) => {
-    const AboutUser = () => {
-        const [userInfo, setUserInfo] = useState()
+    const AboutUser = ({ user_info }) => {
+        const [userInfo, setUserInfo] = useState({})
         useEffect(() => {
             setUserInfo({
                 name: user_info.fullname,
                 email: user_info.email,
-                phone: user_info.email,
+                phone: user_info.phone,
             })
-        }, [])
+        }, [user_info])
         return (
             <div className="about-user">
                 <p className="user-creds user-name">{userInfo.name}</p>
@@ -74,7 +74,7 @@ const UserInfo = ({ user_info }) => {
     return (
         <div className="user-disp-block">
             <div className="check-mate">
-                <AboutUser />
+                <AboutUser user_info={user_info} />
                 <Avatar />
             </div>
             <SocialLinks />
@@ -128,10 +128,11 @@ function DisplayUserBlogs({ blogs }) {
         const data = []
         for (let user of blogs) {
             const users = { ...user }
+            delete users.blogs
             const info = user.blogs.map((blog) => {
                 return {
                     blog_info: blog,
-                    user_info: { ...delete users[blogs] },
+                    user_info: { ...users },
                 }
             })
             data.push(...info)
@@ -148,12 +149,12 @@ function DisplayUserBlogs({ blogs }) {
         )
     }
 
-    const Thumbnail = ({ name }) => {
+    const Thumbnail = ({ thumbnail }) => {
         return (
             <div className="thumbnail-blogs">
                 <img
                     src="http://localhost:3000/panda.jpg"
-                    alt={name}
+                    alt={thumbnail}
                     className="thumbnail-image"
                 />
             </div>
@@ -162,18 +163,21 @@ function DisplayUserBlogs({ blogs }) {
 
     return (
         <>
-            {datas.map((data, index) => {
-                console.log(data)
-                return (
-                    <div className="main-blogs" key={index}>
-                        <Thumbnail name={data.user_info.thumbnail} />
-                        <BlogInfo
-                            user_info={datas.user_info}
-                            blog_info={datas.blog_info}
-                        />
-                    </div>
-                )
-            })}
+            {blogs.length >= 1 ? (
+                datas.map((data, index) => {
+                    return (
+                        <div className="main-blogs" key={index}>
+                            <Thumbnail thumbnail={data.blog_info.thumbnail} />
+                            <BlogInfo
+                                user_info={data.user_info}
+                                blog_info={data.blog_info}
+                            />
+                        </div>
+                    )
+                })
+            ) : (
+                <p> Loading...</p>
+            )}
         </>
     )
 }
