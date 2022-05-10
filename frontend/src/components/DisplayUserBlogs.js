@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './DisplayBlogs.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
@@ -110,6 +111,8 @@ const ContentInfo = ({ blog_info }) => {
                 <a alt="" href="#">
                     read more
                 </a>
+                )(
+                    <Link to='/edit-blog'>edit post</Link>
                 )
             </p>
         )
