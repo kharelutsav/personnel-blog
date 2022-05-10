@@ -102,15 +102,11 @@ const UserInfo = ({ user_info }) => {
     )
 }
 
-const ContentInfo = ({ time }) => {
-    const Abstract = () => {
+const ContentInfo = ({ blog_info }) => {
+    const Abstract = ({abstract}) => {
         return (
             <p className="content-abstract">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                vulputate felis id magna iaculis, vel vulputate urna placerat.
-                Sed ac aliquet lacus, in convallis nibh. Praesent quam purus,
-                sollicitudin in ligula vel, molestie viverra justo. Donec
-                pulvinar....(
+                {abstract}....(
                 <a alt="" href="#">
                     read more
                 </a>
@@ -119,13 +115,13 @@ const ContentInfo = ({ time }) => {
         )
     }
 
-    const Title = () => {
-        return <p className="content-title">Lorem ipsum dolor sit amet</p>
+    const Title = ({title}) => {
+        return <p className="content-title">{title}</p>
     }
 
     return (
         <div className="content-disp-block">
-            <Title />
+            <Title title={blog_info.title}/>
             <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
             <p
                 className="user-creds"
@@ -135,9 +131,9 @@ const ContentInfo = ({ time }) => {
                     paddingLeft: '0.1rem',
                 }}
             >
-                9th August 2022
+                {blog_info.time}
             </p>
-            <Abstract />
+            <Abstract abstract={blog_info.abstract}/>
         </div>
     )
 }
