@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 
-const UserInfo = () => {
-    const AboutUser = () => {
-        const [userInfo, setUserInfo] = useState({
-            name: 'Test User',
-            email: 'email@example.com',
-            phone: '0123456789',
-        })
+const UserInfo = ({ user_info }) => {
+    const AboutUser = ({ name, email, phone }) => {
+        const [userInfo, setUserInfo] = useState({})
+        useEffect(() => {
+            setUserInfo({
+                name: name,
+                email: email,
+                phone: phone,
+            })
+        }, [name, email, phone])
         return (
             <div className="about-user">
                 <p className="user-creds user-name">{userInfo.name}</p>
@@ -35,21 +38,37 @@ const UserInfo = () => {
         )
     }
 
-    const SocialLinks = () => {
-        const [Links, setLinks] = useState([
-            { address: '#', logo: SiLinkedin },
-            { address: '#', logo: FaFacebookSquare },
-            { address: '#', logo: SiGmail },
-            { address: '#', logo: SiGithub },
-            { address: '#', logo: FaYoutube },
-            { address: '#', logo: SiInstagram },
-        ])
+    const SocialLinks = ({ links }) => {
+        const [Links, setLinks] = useState([])
+        useEffect(() => {
+            const social = [
+                { address: '#', logo: SiLinkedin, name: 'Linkedin' },
+                { address: '#', logo: FaFacebookSquare, name: 'Facebook' },
+                { address: '#', logo: SiGmail, name: 'Gmail' },
+                { address: '#', logo: SiGithub, name: 'GitHub' },
+                { address: '#', logo: FaYoutube, name: 'Youtube' },
+                { address: '#', logo: SiInstagram, name: 'Instagram' },
+            ]
+            social.map((record) => {
+                return (record.address = links[record.name])
+            })
+            setLinks(social)
+        }, [links])
 
         const Container = ({ address, logo }) => {
             const LOGO = logo
             return (
-                <a href={address}>
-                    <LOGO className="disp-logos" />
+                <a
+                    href={address}
+                    className={address.length <= 0 ? 'anchor-disabled' : {}}
+                >
+                    <LOGO
+                        className={
+                            address.length > 0
+                                ? 'disp-logos'
+                                : 'disp-logos-disabled'
+                        }
+                    />
                 </a>
             )
         }
@@ -71,23 +90,23 @@ const UserInfo = () => {
     return (
         <div className="user-disp-block">
             <div className="check-mate">
-                <AboutUser />
-                <Avatar />
+                <AboutUser
+                    name={user_info.fullname}
+                    email={user_info.email}
+                    phone={user_info.phone}
+                />
+                <Avatar avatar={user_info.profile} />
             </div>
-            <SocialLinks />
+            <SocialLinks links={user_info.social} />
         </div>
     )
 }
 
-const ContentInfo = ({ time }) => {
-    const Abstract = () => {
+const ContentInfo = ({ blog_info }) => {
+    const Abstract = ({abstract}) => {
         return (
             <p className="content-abstract">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-                vulputate felis id magna iaculis, vel vulputate urna placerat.
-                Sed ac aliquet lacus, in convallis nibh. Praesent quam purus,
-                sollicitudin in ligula vel, molestie viverra justo. Donec
-                pulvinar....(
+                {abstract}....(
                 <a alt="" href="#">
                     read more
                 </a>
@@ -96,13 +115,13 @@ const ContentInfo = ({ time }) => {
         )
     }
 
-    const Title = () => {
-        return <p className="content-title">Lorem ipsum dolor sit amet</p>
+    const Title = ({title}) => {
+        return <p className="content-title">{title}</p>
     }
 
     return (
         <div className="content-disp-block">
-            <Title />
+            <Title title={blog_info.title}/>
             <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
             <p
                 className="user-creds"
@@ -112,45 +131,46 @@ const ContentInfo = ({ time }) => {
                     paddingLeft: '0.1rem',
                 }}
             >
-                9th August 2022
+                {blog_info.time}
             </p>
-            <Abstract />
+            <Abstract abstract={blog_info.abstract}/>
         </div>
     )
 }
 
-function DisplayBlogs({ blogs }) {
-    const [datas, setDatas] = useState(blogs)
-    useEffect(() => {
+function DisplayUserBlogs({ blogs }) {
+    const [datas, setDatas] = useState([])
+    useLayoutEffect(() => {
         const data = []
         for (let user of blogs) {
             const users = { ...user }
+            delete users.blogs
             const info = user.blogs.map((blog) => {
                 return {
                     blog_info: blog,
-                    user_info: { ...delete users[blogs] },
+                    user_info: { ...users },
                 }
             })
-            data.push(info)
+            data.push(...info)
         }
         setDatas(data)
     }, [blogs])
 
-    const BlogInfo = () => {
+    const BlogInfo = ({ user_info, blog_info }) => {
         return (
             <div className="about-blogs">
-                <UserInfo />
-                <ContentInfo />
+                <UserInfo user_info={user_info} />
+                <ContentInfo blog_info={blog_info} />
             </div>
         )
     }
 
-    const Thumbnail = () => {
+    const Thumbnail = ({ thumbnail }) => {
         return (
             <div className="thumbnail-blogs">
                 <img
                     src="http://localhost:3000/panda.jpg"
-                    alt=""
+                    alt={thumbnail}
                     className="thumbnail-image"
                 />
             </div>
@@ -159,24 +179,23 @@ function DisplayBlogs({ blogs }) {
 
     return (
         <>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
-            <div className="main-blogs">
-                <Thumbnail />
-                <BlogInfo />
-            </div>
+            {blogs.length >= 1 ? (
+                datas.map((data, index) => {
+                    return (
+                        <div className="main-blogs" key={index}>
+                            <Thumbnail thumbnail={data.blog_info.thumbnail} />
+                            <BlogInfo
+                                user_info={data.user_info}
+                                blog_info={data.blog_info}
+                            />
+                        </div>
+                    )
+                })
+            ) : (
+                <p> Loading...</p>
+            )}
         </>
     )
 }
 
-export default DisplayBlogs
+export default DisplayUserBlogs
