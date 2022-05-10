@@ -102,7 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-# Environment Variables
-Src/Config/*.env
-Src/Config/config.js

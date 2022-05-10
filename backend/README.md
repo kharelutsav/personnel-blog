@@ -38,8 +38,3 @@ Node.js and Express.js website that allows users to add, edit, view and delete a
 - _[eslint](https://eslint.org/docs/user-guide/getting-started)_
 - _[prettier](https://prettier.io/docs/en/install.html)_
 - _[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier#installation)_
-
-
-## Files and Folders
-
-index.js
