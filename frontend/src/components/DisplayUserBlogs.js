@@ -28,7 +28,7 @@ const UserInfo = ({ user_info }) => {
             <div className="avatar-blogs">
                 <img
                     alt=""
-                    src="http://localhost:3000/utsav.jpg"
+                    src="http://localhost:3000/mozilla-dinosaur-head.png"
                     style={{
                         width: '56px',
                         height: '56px',
