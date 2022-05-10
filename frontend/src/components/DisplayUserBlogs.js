@@ -4,15 +4,15 @@ import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 
 const UserInfo = ({ user_info }) => {
-    const AboutUser = ({ user_info }) => {
+    const AboutUser = ({ name, email, phone }) => {
         const [userInfo, setUserInfo] = useState({})
         useEffect(() => {
             setUserInfo({
-                name: user_info.fullname,
-                email: user_info.email,
-                phone: user_info.phone,
+                name: name,
+                email: email,
+                phone: phone,
             })
-        }, [user_info])
+        }, [name, email, phone])
         return (
             <div className="about-user">
                 <p className="user-creds user-name">{userInfo.name}</p>
@@ -38,21 +38,37 @@ const UserInfo = ({ user_info }) => {
         )
     }
 
-    const SocialLinks = () => {
-        const [Links, setLinks] = useState([
-            { address: '#', logo: SiLinkedin },
-            { address: '#', logo: FaFacebookSquare },
-            { address: '#', logo: SiGmail },
-            { address: '#', logo: SiGithub },
-            { address: '#', logo: FaYoutube },
-            { address: '#', logo: SiInstagram },
-        ])
+    const SocialLinks = ({ links }) => {
+        const [Links, setLinks] = useState([])
+        useEffect(() => {
+            const social = [
+                { address: '#', logo: SiLinkedin, name: 'Linkedin' },
+                { address: '#', logo: FaFacebookSquare, name: 'Facebook' },
+                { address: '#', logo: SiGmail, name: 'Gmail' },
+                { address: '#', logo: SiGithub, name: 'GitHub' },
+                { address: '#', logo: FaYoutube, name: 'Youtube' },
+                { address: '#', logo: SiInstagram, name: 'Instagram' },
+            ]
+            social.map((record) => {
+                return (record.address = links[record.name])
+            })
+            setLinks(social)
+        }, [links])
 
         const Container = ({ address, logo }) => {
             const LOGO = logo
             return (
-                <a href={address}>
-                    <LOGO className="disp-logos" />
+                <a
+                    href={address}
+                    className={address.length <= 0 ? 'anchor-disabled' : {}}
+                >
+                    <LOGO
+                        className={
+                            address.length > 0
+                                ? 'disp-logos'
+                                : 'disp-logos-disabled'
+                        }
+                    />
                 </a>
             )
         }
@@ -74,10 +90,14 @@ const UserInfo = ({ user_info }) => {
     return (
         <div className="user-disp-block">
             <div className="check-mate">
-                <AboutUser user_info={user_info} />
-                <Avatar />
+                <AboutUser
+                    name={user_info.fullname}
+                    email={user_info.email}
+                    phone={user_info.phone}
+                />
+                <Avatar avatar={user_info.profile} />
             </div>
-            <SocialLinks />
+            <SocialLinks links={user_info.social} />
         </div>
     )
 }

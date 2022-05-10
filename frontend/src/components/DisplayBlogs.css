@@ -84,6 +84,16 @@
     color: white;
 }
 
+.disp-logos-disabled {
+    color: lightslategray;
+    pointer-events: none;
+}
+
+.disp-logos-disabled:hover,
+.anchor-disabled:hover {
+    cursor: default;
+}
+
 .check-mate {
     display: flex;
     justify-content: space-between;
