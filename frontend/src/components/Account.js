@@ -109,7 +109,7 @@ const AuthorInfo = () => {
                 onBlur={() => (user.fullname = name)}
             />{' '}
             <br />
-            <label className="input-creds" htmlFor="phone">
+            <label className="input-creds" htmlFor="phone" type="number">
                 Phone Number
             </label>
             <input

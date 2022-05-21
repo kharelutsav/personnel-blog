@@ -4,9 +4,7 @@ Personnel blog where users can add, view, modify and delete articles.
 ## Getting Started
 
 ```In your bash:
-npm install
-npm start
-mongod
+[sudo] docker-compose up
 ```
 
 ## Important !!!
