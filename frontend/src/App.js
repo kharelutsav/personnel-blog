@@ -9,6 +9,8 @@ import { Routes, Route } from 'react-router-dom'
 import Account from './components/Account'
 import { useState, useLayoutEffect } from 'react'
 import axios from './components/axios-config'
+const { io } = require("socket.io-client")
+const socket = io("http://localhost:4000/");
 
 function App() {
     const [blogs, setBlogs] = useState([])
@@ -16,19 +18,23 @@ function App() {
         axios
             .get('/')
             .then((response) => {
-                setBlogs(response.data)
+                setBlogs(response.data || [])
             })
             .catch((err) => console.log(err))
-    }, [])
+    }, []);
+
+    socket.on("new-updates", (updates) => {
+        console.log(updates);
+    });
 
     return (
         <div className="App">
             <Header />
             <Routes>
-                <Route path="/" element={<DisplayBlogs blogs={blogs} />} />
+                <Route path="/" element={<DisplayBlogs />} />
                 <Route
                     path="/my-blogs"
-                    element={<DisplayUserBlogs blogs={blogs} />}
+                    element={<DisplayUserBlogs />}
                 />
                 <Route
                     path="/edit-blog"

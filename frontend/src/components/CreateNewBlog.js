@@ -97,7 +97,7 @@ function CreateNewBlog({ setBlogs }) {
                 article: { ...article },
                 email: 'email@example.com',
             })
-            .then((response) => {
+            .then(() => {
                 navigate('/my-blogs')
             })
             .catch((err) => console.log(err))

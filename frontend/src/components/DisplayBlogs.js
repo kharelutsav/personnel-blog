@@ -2,6 +2,9 @@ import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+import axios from './axios-config'
+const { io } = require("socket.io-client")
+const socket = io("http://localhost:4000/");
 
 const UserInfo = ({ user_info }) => {
     const AboutUser = ({ name, email, phone }) => {
@@ -138,23 +141,30 @@ const ContentInfo = ({ blog_info }) => {
     )
 }
 
-function DisplayUserBlogs({ blogs }) {
-    const [datas, setDatas] = useState([])
+function DisplayUserBlogs() {
+    const [blogs, setBlogs] = useState([])
     useLayoutEffect(() => {
-        const data = []
-        for (let user of blogs) {
-            const users = { ...user }
-            delete users.blogs
-            const info = user.blogs.map((blog) => {
-                return {
-                    blog_info: blog,
-                    user_info: { ...users },
-                }
+        axios
+            .get('/')
+            .then((response) => {
+                const blogs = response.data || []
+                const data = blogs.map(blog => {
+                    const blog_info = { ...blog }
+                    delete blog_info.author
+                    return {
+                        blog_info: blog_info,
+                        user_info: blog.author,
+                    }
+
+                })
+                setBlogs(data)
             })
-            data.push(...info)
-        }
-        setDatas(data)
-    }, [blogs])
+            .catch((err) => console.log(err))
+    }, []);
+
+    socket.on("new-updates", (updates) => {
+        console.log(updates);
+    });
 
     const BlogInfo = ({ user_info, blog_info }) => {
         return (
@@ -176,11 +186,10 @@ function DisplayUserBlogs({ blogs }) {
             </div>
         )
     }
-
     return (
         <>
             {blogs.length >= 1 ? (
-                datas.map((data, index) => {
+                blogs.map((data, index) => {
                     return (
                         <div className="main-blogs" key={index}>
                             <Thumbnail blog_info={data.blog_info} />

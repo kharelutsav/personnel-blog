@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import './DisplayBlogs.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+import axios from './axios-config'
+const { io } = require("socket.io-client")
+const socket = io("http://localhost:4000");
 
 const UserInfo = ({ user_info }) => {
     const AboutUser = ({ name, email, phone }) => {
@@ -143,24 +146,40 @@ const ContentInfo = ({ blog_info }) => {
     )
 }
 
-function DisplayUserBlogs({ blogs }) {
+function DisplayUserBlogs() {
     const [datas, setDatas] = useState([])
+    const email = 'email@example.com';
     useLayoutEffect(() => {
-        const data = []
-        for (let user of blogs) {
-            const users = { ...user }
-            delete users.blogs
-            const info = user.blogs.map((blog) => {
-                return {
-                    blog_info: blog,
-                    user_info: { ...users },
+        axios
+            .get('/user', {
+                params: {
+                    email: email
                 }
             })
-            data.push(...info)
-        }
-        setDatas(data)
-    }, [blogs])
-
+            .then((response) => {
+                const user = response.data[0];
+                const user_blogs = user.blogs;
+                const user_details = { ...user }
+                delete user_details.blogs
+                const info = user_blogs.map((blog) => {
+                    return {
+                        blog_info: blog,
+                        user_info: { ...user_details },
+                    }
+                })
+                setDatas(info);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+    socket.on('blog-added', (added_post) => {
+        console.log(added_post);
+    });
+    socket.on('blog-updated', (updated_post) => {
+        console.log(updated_post);
+    });
+    socket.on('blog-deleted', (deleted_post) => {
+        console.log(deleted_post);
+    });
     const BlogInfo = ({ user_info, blog_info }) => {
         return (
             <div className="about-blogs">
@@ -171,7 +190,6 @@ function DisplayUserBlogs({ blogs }) {
             </div>
         )
     }
-
     const Thumbnail = ({ blog_info }) => {
         return (
             <div className="thumbnail-blogs">
@@ -184,7 +202,7 @@ function DisplayUserBlogs({ blogs }) {
 
     return (
         <>
-            {blogs.length >= 1 ? (
+            {datas.length > 0 ? (
                 datas.map((data, index) => {
                     return (
                         <div className="main-blogs" key={index}>
