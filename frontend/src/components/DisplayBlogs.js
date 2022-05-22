@@ -7,7 +7,7 @@ import axios from './axios-config'
 // const { io } = require("socket.io-client")
 // const socket = io("http://localhost:4000/");
 
-function DisplayUserBlogs() {
+function DisplayBlogs() {
     const [blogs, setBlogs] = useState([]);
 
 
@@ -63,7 +63,7 @@ function DisplayUserBlogs() {
         const Abstract = ({ abstract }) => {
             return (
                 <p className="content-abstract">
-                    {abstract}....(
+                    {abstract}(
                     <a alt="" href="#">
                         read more
                     </a>
@@ -130,4 +130,4 @@ function DisplayUserBlogs() {
     );
 }
 
-export default DisplayUserBlogs
+export default DisplayBlogs
