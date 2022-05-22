@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './DisplayBlogs.css'
+import './DisplayBlogs1.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 import axios from './axios-config'

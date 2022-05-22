@@ -1,0 +1,43 @@
+.blogs-cont {
+    background-color: white;
+    margin: auto;
+    width: fit-content;
+    height: 87vh;
+
+    /* Paddings and Margin */
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.01rem;
+
+    /* Overflow and Scrollbar */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.blogs-cont::-webkit-scrollbar {
+    display: none;
+}
+
+.blog-cont {
+    width: 18rem;
+    min-width: 375px;
+    height: 12rem;
+    margin: auto;
+    margin-bottom: 0.7rem;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 0.7px 0.7px 0.7px 0.7px rgb(199, 203, 208);
+    padding: 7px;
+}
+
+@media (max-width: 500px) {
+    .blog-cont {
+        width: 7rem;
+        max-width: 70%;
+        margin: auto;
+        background-color: red;
+    }
+}

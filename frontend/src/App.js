@@ -49,7 +49,7 @@ function App() {
                     element={<Account setBlogs={setBlogs} />}
                 />
             </Routes>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
