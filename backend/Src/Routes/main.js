@@ -2,21 +2,41 @@ const express = require('express')
 const { Blog } = require('../Models/blog_model')
 const { User } = require('../Models/user_model')
 const mongoose = require('mongoose')
-
 const router = express.Router()
 
 // @desc Fetch all the records and responds JSON data.
 // @route GET /
 router.get('/', async (req, res) => {
-    await User.find()
-        .populate('blogs')
+    await Blog.find()
+        .sort({createdAt: 'desc'})
+        .limit(4)
+        .populate({path: 'author', select: ['_id', 'profile', 'fullname', 'email', 'phone', 'social']})
         .then((data) => {
+            console.log(data);
             res.json(data)
         })
         .catch((err) => {
             console.log(err)
             res.status(400).send('Unable to fetch data.')
         })
+})
+
+// @desc Fetch all blogs of one user and responds JSON data.
+// @route GET /user
+router.get('/user', async (req, res) => {
+    try {
+        await User.find({email: req.query.email})
+            .populate('blogs')
+            .then((data) => {
+                res.json(data)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(400).send('Unable to fetch data.')
+            })
+    } catch (err) {
+        res.status(400).send('Unable to fetch data.')
+    }
 })
 
 // @desc Register user or create user profile
@@ -37,14 +57,15 @@ router.post('/create-user', async (req, res) => {
 router.post('/create-post', async (req, res) => {
     const email = req.body.email
     const article = req.body.article
-    const blog = {
-        ...article,
-        _id: new mongoose.Types.ObjectId(),
-        time: new Date().toLocaleString(),
-    }
     await User.findOne({ email: email })
         .then((user) => {
             if (user) {
+                const blog = {
+                    ...article,
+                    _id: new mongoose.Types.ObjectId(),
+                    time: new Date().toLocaleString(),
+                    author: user._id
+                }
                 Blog.create(blog).then((data) => {
                     User.findOneAndUpdate(
                         { email: email },

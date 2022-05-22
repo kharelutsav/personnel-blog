@@ -13,6 +13,6 @@ const userSchema = mongoose.Schema({
     blogs: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Blog', required: false },
     ],
-})
+}, {timestamps: true})
 
 exports.User = mongoose.model('User', userSchema)
