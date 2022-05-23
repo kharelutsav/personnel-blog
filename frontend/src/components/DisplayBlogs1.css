@@ -21,10 +21,49 @@
     display: none;
 }
 
+.create-new,
+.search-bar,
+.search {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.7rem;
+    margin: 0.28rem 0.14rem;
+    padding: 0.14rem;
+}
+
+.search-bar {
+    width: 60%;
+    display: inline;
+    border: hidden;
+    border-bottom: 2px solid lightslategrey;
+    background-color: whitesmoke;   
+}
+
+.search-bar:focus {
+    outline: none;
+}
+
+.search,
+.create-new {
+    color: aliceblue;
+    font-weight: 700;
+    border-radius: 0.21rem;
+    background-color: blue;
+}
+
+.create-new {
+    display: block;
+    margin: auto;
+}
+
+.create-new:hover,
+.search:hover {
+    cursor: pointer;
+}
+
 .blog-cont {
     width: 18rem;
     min-width: 375px;
-    height: 12rem;
+    height: fit-content;
     margin: auto;
     margin-bottom: 0.7rem;
     background-color: whitesmoke;

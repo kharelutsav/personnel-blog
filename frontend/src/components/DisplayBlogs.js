@@ -84,6 +84,16 @@ function DisplayBlogs() {
         )
     }
 
+    // Create new blog post.
+    const CreateNew = () => {
+        return (
+            <div className='blog-cont'>
+                <input className='search-bar' placeholder='Search Blogs' />
+                <button className='search'>Search</button>
+            </div>
+        );
+    }
+
 
     // Layout effect that allows axios API calls.
     useLayoutEffect(() => {
@@ -109,6 +119,7 @@ function DisplayBlogs() {
     // Render the user blogs
     return (
         <div className='blogs-cont'>
+            <CreateNew />
             {blogs.length >= 1 ? (
                 blogs.map((data, index) => {
                     return (
