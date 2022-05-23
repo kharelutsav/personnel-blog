@@ -38,7 +38,7 @@ function App() {
                 />
                 <Route
                     path="/edit-blog"
-                    element={<EditOldBlog setBlogs={setBlogs} blogs={blogs} />}
+                    element={<EditOldBlog />}
                 />
                 <Route
                     path="/create-new-blog"

@@ -12,7 +12,6 @@ router.get('/', async (req, res) => {
         .limit(4)
         .populate({path: 'author', select: ['_id', 'profile', 'fullname', 'email', 'phone', 'social']})
         .then((data) => {
-            console.log(data);
             res.json(data)
         })
         .catch((err) => {

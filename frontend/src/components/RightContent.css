@@ -10,7 +10,7 @@
     width: 1.4rem;
     height: 1.4rem;
     padding: 0.2rem;
-    color: blue;
+    color: lightslategray;
 }
 
 .links {
@@ -20,7 +20,7 @@
     font-size: 0.7rem;
     border: hidden;
     border-bottom: groove;
-    color: rgba(0, 106, 255, 0.829);
+    color: lightslategray;
     font-style: italic;
 }
 

@@ -73,12 +73,3 @@
     box-shadow: 0.7px 0.7px 0.7px 0.7px rgb(199, 203, 208);
     padding: 7px;
 }
-
-@media (max-width: 500px) {
-    .blog-cont {
-        width: 7rem;
-        max-width: 70%;
-        margin: auto;
-        background-color: red;
-    }
-}

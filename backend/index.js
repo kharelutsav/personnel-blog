@@ -1,6 +1,6 @@
 const { Server } = require('socket.io')
 // Created http server from the express app.
-const httpServer = require('http').createServer(require('./Src/app'))
+const httpServer = require('http').createServer(require('./Src/app'));
 
 // Wrapped express http server with socket.io server
 const io = new Server(httpServer, {
@@ -8,7 +8,11 @@ const io = new Server(httpServer, {
         origin: process.env.ORIGIN,
         credentials: true,
     },
-})
+    }
+)
+
+// Require and call io_routes with io.
+require('./Src/Routes/io_routes')(io);
 
 // Http server listening to the port
 const PORT = process.env.PORT || 4000

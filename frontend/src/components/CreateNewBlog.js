@@ -1,13 +1,22 @@
 import './CreateNewBlog.css'
 import React, { useState } from 'react'
 import './LeftContent.css'
-import axios from './axios-config'
-import { useNavigate } from 'react-router-dom'
+import socket from '../config/socket'
 
-function CreateNewBlog({ setBlogs }) {
-    const navigate = useNavigate()
+function CreateNewBlog() {
+    const [message, setMessage] = useState(null);
     const article = {}
 
+    const Message = ({message, setMessage}) => {
+        setTimeout(() => {
+            setMessage('')
+        }, 10000);
+        return (
+            <div className='create-new' style={{backgroundColor: 'green', color: 'white', borderRadius: '0px'}}>
+                {message}
+            </div>
+        )
+    }
 
     // Title of the blog post. Required*
     const Title = () => {
@@ -51,21 +60,25 @@ function CreateNewBlog({ setBlogs }) {
 
     // Create/post the blog using axios to make remote api calls.
     const post_blog = () => {
-        axios
-            .post('/create-post', {
-                article: { ...article },
-                email: 'email@example.com',
-            })
-            .then(() => {
-                navigate('/my-blogs')
-            })
-            .catch((err) => console.log(err))
+        socket.emit('create-post', {
+            article: { ...article },
+            email: 'email@example.com',
+        })
     }
+
+    socket.on('post-created', (data) => {
+        setMessage(data.msg)
+    })
+
+    socket.on('unable-to-create-post', (data) => {
+        setMessage(data.msg)
+    })
 
 
     // Render the create new blog page.
     return (
         <div className='blogs-cont'>
+            {message ? <Message message={message} setMessage={setMessage}/> : ''}
             <Title />
             <Abstract />
             <button className="upload-btn" onClick={() => post_blog()}>

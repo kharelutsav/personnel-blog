@@ -4,7 +4,7 @@ import './LeftContent.css'
 import axios from './axios-config'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-function EditOldBlog({ setBlogs, blogs }) {
+function EditOldBlog() {
     const navigate = useNavigate()
     const old_data = useLocation().state
     const article = old_data
