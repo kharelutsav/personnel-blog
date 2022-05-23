@@ -1,6 +1,5 @@
 import './CreateNewBlog.css'
 import React, { useState } from 'react'
-import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
 import axios from './axios-config'
 import { useNavigate } from 'react-router-dom'
@@ -8,49 +7,15 @@ import { useNavigate } from 'react-router-dom'
 function CreateNewBlog({ setBlogs }) {
     const navigate = useNavigate()
     const article = {}
-    const Thumbnail = () => {
-        const [showThumbnail, setShowThumbnail] = useState()
-        const imageSelected = (event) => {
-            const [file] = event.target.files
-            setShowThumbnail(URL.createObjectURL(file))
-            article.thumbnail = file.name
-        }
-        return (
-            <div className="thumbnail-container">
-                <label htmlFor="thumbnail">
-                    {showThumbnail ? (
-                        <img
-                            alt=""
-                            src={showThumbnail}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                borderRadius: '0.5rem',
-                            }}
-                        />
-                    ) : (
-                        <BsCardImage
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    )}
-                </label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none', visibility: 'none' }}
-                    id="thumbnail"
-                    onChange={imageSelected}
-                />
-            </div>
-        )
-    }
 
+
+    // Title of the blog post. Required*
     const Title = () => {
         const [title, setTitle] = useState('')
         return (
-            <div className="title-container">
+            <div className='create-new'>
                 <input
-                    className="title"
+                    className='search-bar'
                     width="100%"
                     placeholder="Please enter the title of your article."
                     value={title}
@@ -63,10 +28,12 @@ function CreateNewBlog({ setBlogs }) {
         )
     }
 
+
+    // Abstract of the post. (Text Area)
     const Abstract = () => {
         const [abstract, setAbstract] = useState('')
         return (
-            <div className="abstract-container">
+            <div className='blog-cont'>
                 <textarea
                     className="abstract"
                     width="100%"
@@ -81,16 +48,8 @@ function CreateNewBlog({ setBlogs }) {
         )
     }
 
-    const AboutArticle = () => {
-        return (
-            <div className="about-article">
-                <Thumbnail />
-                <Title />
-                <Abstract />
-            </div>
-        )
-    }
 
+    // Create/post the blog using axios to make remote api calls.
     const post_blog = () => {
         axios
             .post('/create-post', {
@@ -103,14 +62,15 @@ function CreateNewBlog({ setBlogs }) {
             .catch((err) => console.log(err))
     }
 
+
+    // Render the create new blog page.
     return (
-        <div className="main-content">
-            <div className="about">
-                <AboutArticle />
-                <button className="upload-btn" onClick={() => post_blog()}>
-                    Post Blog
-                </button>
-            </div>
+        <div className='blogs-cont'>
+            <Title />
+            <Abstract />
+            <button className="upload-btn" onClick={() => post_blog()}>
+                Post Blog
+            </button>
         </div>
     )
 }

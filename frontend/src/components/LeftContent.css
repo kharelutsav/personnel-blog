@@ -70,26 +70,3 @@ label {
     min-width: 13rem;
     width: 100%;
 }
-
-.abstract,
-.title {
-    font-size: 0.7rem;
-}
-
-.title {
-    width: 98%;
-    padding: 0.2rem;
-    margin-bottom: 0.42rem;
-    border: hidden;
-    border-bottom: groove;
-    border-color: blue;
-}
-
-.title:focus {
-    outline: none;
-}
-
-.abstract {
-    height: 4.9rem;
-    width: 98%;
-}

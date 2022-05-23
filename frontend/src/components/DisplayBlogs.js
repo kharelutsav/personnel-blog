@@ -83,6 +83,7 @@ function DisplayBlogs() {
             </>
         )
     }
+    
 
     // Create new blog post.
     const CreateNew = () => {
