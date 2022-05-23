@@ -6,8 +6,8 @@ module.exports = (io) => {
 
     io.on('connection', (socket) => {
 
+        // Save the blog details (thumbnail => image; title => text; abstract => text)
         socket.on('create-post', (body) => {
-            console.log(body);
             const email = body.email
             const article = body.article
             User.findOne({ email: email })
@@ -44,12 +44,12 @@ module.exports = (io) => {
                     socket.emit('unable-to-create-post', {status: 400, msg: 'Unable to create post'})
                 })
 
-
         });
 
         socket.on('update-post', (body) => {
             const query = { _id: body._id }
             Blog.findOneAndUpdate(query, body, { new: true })
+                .populate('blogs')
                 .then(() => {
                     socket.emit('post-updated', {status: 200, blog: body._id, msg: 'Post updated'})
                 })

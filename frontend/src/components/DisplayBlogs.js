@@ -105,10 +105,11 @@ function DisplayBlogs() {
                     const blog_info = { ...blog }
                     delete blog_info.author
                     return {
-                        blog_info: blog_info,
-                        user_info: blog.author,
+                        [blog_info._id] : {
+                            blog_info: blog_info,
+                            user_info: blog.author
+                        }
                     }
-
                 })
                 setBlogs(data)
             })
@@ -119,7 +120,7 @@ function DisplayBlogs() {
     // Sockets
     socket.on('new-blog-added', (data) => {
         const temp_blogs = [...blogs]
-        temp_blogs.unshift(data.blog)
+        temp_blogs.unshift({[data.blog.blog_info._id]: data.blog})
         setBlogs(temp_blogs)
     })
 
@@ -130,14 +131,15 @@ function DisplayBlogs() {
             <CreateNew />
             {blogs.length >= 1 ? (
                 blogs.map((data, index) => {
+                    const blog = Object.values(data)[0]
                     return (
                         <div className='blog-cont' key={index}>
                             <UserInfo
-                                user_info={data.user_info}
-                                time={data.blog_info.time}
+                                user_info={blog.user_info}
+                                time={blog.blog_info.time}
                             />
-                            <ContentInfo 
-                                blog_info={data.blog_info}
+                            <ContentInfo
+                                blog_info={blog.blog_info}
                             />
                         </div>
                     )

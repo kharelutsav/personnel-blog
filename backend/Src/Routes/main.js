@@ -51,42 +51,6 @@ router.post('/create-user', async (req, res) => {
         .catch(() => res.status(400).send('Unable to submit the post.'))
 })
 
-// @desc Save the blog details (thumbnail => image; title => text; abstract => text)
-// @route POST /upload-post
-router.post('/create-post', async (req, res) => {
-    const email = req.body.email
-    const article = req.body.article
-    await User.findOne({ email: email })
-        .then((user) => {
-            if (user) {
-                const blog = {
-                    ...article,
-                    _id: new mongoose.Types.ObjectId(),
-                    time: new Date().toLocaleString(),
-                    author: user._id
-                }
-                Blog.create(blog).then((data) => {
-                    User.findOneAndUpdate(
-                        { email: email },
-                        { $push: { blogs: blog._id } }
-                    )
-                        .then(() => {
-                            res.status(200).json(data)
-                        })
-                        .catch(() =>
-                            res.status(400).send('Internal Server Error.')
-                        )
-                })
-            } else {
-                res.status(400).send(
-                    'Please register first in authors Section.'
-                )
-            }
-        })
-        .catch(() => {
-            res.status(400).send('Unable to submit the post.')
-        })
-})
 
 // @desc Update the blog with changed creds.
 // @route POST /edit-post

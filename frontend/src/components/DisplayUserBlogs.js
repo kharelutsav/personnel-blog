@@ -115,8 +115,10 @@ function DisplayUserBlogs() {
                 delete user_details.blogs
                 const info = user_blogs.map((blog) => {
                     return {
-                        blog_info: blog,
-                        user_info: { ...user_details },
+                        [blog._id] : {
+                            blog_info: blog,
+                            user_info: { ...user_details }
+                        }
                     }
                 })
                 setBlogs(info);
@@ -131,14 +133,15 @@ function DisplayUserBlogs() {
             <CreateNew />
             {blogs.length >= 1 ? (
                 blogs.map((data, index) => {
+                    const blog = Object.values(data)[0]
                     return (
                         <div className='blog-cont' key={index}>
                             <UserInfo
-                                user_info={data.user_info}
-                                time={data.blog_info.time}
+                                user_info={blog.user_info}
+                                time={blog.blog_info.time}
                             />
                             <ContentInfo 
-                                blog_info={data.blog_info}
+                                blog_info={blog.blog_info}
                             />
                         </div>
                     )
