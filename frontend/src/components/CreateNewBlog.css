@@ -23,6 +23,7 @@
     padding: 0.28rem;
     height: 10rem;
     border-radius: 0.4rem;
+    background-color: whitesmoke;
 }
 
 .abstract:focus {
@@ -36,7 +37,7 @@
     color: white;
     font-weight: 500;
     font-size: 0.7rem;
-    width: 7rem;
+    width: 6rem;
     margin: 0.14rem;
 }
 

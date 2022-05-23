@@ -1,6 +1,5 @@
 import './CreateNewBlog.css'
 import React, { useLayoutEffect, useState } from 'react'
-import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
 import axios from './axios-config'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -9,52 +8,18 @@ function EditOldBlog({ setBlogs, blogs }) {
     const navigate = useNavigate()
     const old_data = useLocation().state
     const article = old_data
-    const Thumbnail = () => {
-        const [showThumbnail, setShowThumbnail] = useState()
-        const imageSelected = (event) => {
-            const [file] = event.target.files
-            setShowThumbnail(URL.createObjectURL(file))
-            article.thumbnail = file.name
-        }
-        return (
-            <div className="thumbnail-container">
-                <label htmlFor="thumbnail">
-                    {showThumbnail ? (
-                        <img
-                            alt=""
-                            src={showThumbnail}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                borderRadius: '0.5rem',
-                            }}
-                        />
-                    ) : (
-                        <BsCardImage
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    )}
-                </label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none', visibility: 'none' }}
-                    id="thumbnail"
-                    onChange={imageSelected}
-                />
-            </div>
-        )
-    }
 
+
+    // Title of the blog post. Required*
     const Title = () => {
         const [title, setTitle] = useState('')
         useLayoutEffect(() => {
             setTitle(article.title)
         }, [])
         return (
-            <div className="title-container">
+            <div className='create-new'>
                 <input
-                    className="title"
+                    className='search-bar'
                     width="100%"
                     placeholder="Please enter the title of your article."
                     value={title}
@@ -67,13 +32,15 @@ function EditOldBlog({ setBlogs, blogs }) {
         )
     }
 
+
+    // Abstract of the post. (Text Area)
     const Abstract = () => {
         const [abstract, setAbstract] = useState('')
         useLayoutEffect(() => {
             setAbstract(article.abstract)
         }, [])
         return (
-            <div className="abstract-container">
+            <div className='blog-cont'>
                 <textarea
                     className="abstract"
                     width="100%"
@@ -88,16 +55,8 @@ function EditOldBlog({ setBlogs, blogs }) {
         )
     }
 
-    const AboutArticle = () => {
-        return (
-            <div className="about-article">
-                <Thumbnail />
-                <Title />
-                <Abstract />
-            </div>
-        )
-    }
 
+    // Update the blog using axios to make remote api calls.
     const update_blog = () => {
         axios
             .post('/update-post', { ...article })
@@ -107,6 +66,8 @@ function EditOldBlog({ setBlogs, blogs }) {
             .catch((err) => console.log(err))
     }
 
+
+    // Delete the blog using axios to make remote api calls.
     const delete_blog = () => {
         axios
             .post('/delete-post', {
@@ -119,16 +80,18 @@ function EditOldBlog({ setBlogs, blogs }) {
             .catch((err) => console.log(err))
     }
 
+
+    // Render the update/delete old blog page.
     return (
-        <div className="main-content">
-            <div className="about">
-                <AboutArticle />
-                <Link to="/my-blogs">
+        <div className='blogs-cont'>
+            <Title />
+            <Abstract />
+            <Link to="/my-blogs">
                     <button
                         className="upload-btn"
                         style={{ backgroundColor: 'grey' }}
                     >
-                        Cancel Update
+                        Cancel
                     </button>
                 </Link>
                 <button
@@ -136,16 +99,15 @@ function EditOldBlog({ setBlogs, blogs }) {
                     onClick={() => update_blog()}
                     style={{ backgroundColor: 'green' }}
                 >
-                    Update Blog
+                    Update
                 </button>
                 <button
                     className="upload-btn"
                     onClick={() => delete_blog()}
                     style={{ backgroundColor: 'red' }}
                 >
-                    Delete Blog
+                    Delete
                 </button>
-            </div>
         </div>
     )
 }
