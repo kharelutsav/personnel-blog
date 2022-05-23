@@ -1,13 +1,27 @@
 import './CreateNewBlog.css'
 import React, { useLayoutEffect, useState } from 'react'
 import './LeftContent.css'
-import axios from './axios-config'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import socket from '../config/socket'
 
 function EditOldBlog() {
+    const [message, setMessage] = useState(null);
     const navigate = useNavigate()
     const old_data = useLocation().state
     const article = old_data
+
+
+    const Message = ({message, setMessage}) => {
+        setTimeout(() => {
+            setMessage('')
+            navigate('/my-blogs')
+        }, 2000);
+        return (
+            <div className='create-new' style={{backgroundColor: 'green', color: 'white', borderRadius: '0px'}}>
+                {message}
+            </div>
+        )
+    }
 
 
     // Title of the blog post. Required*
@@ -56,34 +70,37 @@ function EditOldBlog() {
     }
 
 
-    // Update the blog using axios to make remote api calls.
+    // Update the blog post using socket.io
     const update_blog = () => {
-        axios
-            .post('/update-post', { ...article })
-            .then((response) => {
-                navigate('/my-blogs')
-            })
-            .catch((err) => console.log(err))
+        socket.emit('update-post', { ...article })
     }
+    socket.on('post-updated', (data) => {
+        setMessage(data.msg)
+    })
+    socket.on('unable-to-update-post', (data) => {
+        setMessage(data.msg)
+    })
 
 
-    // Delete the blog using axios to make remote api calls.
+    // Delete the blog post using socket.io
     const delete_blog = () => {
-        axios
-            .post('/delete-post', {
-                article: { ...article },
-                email: 'email@example.com',
-            })
-            .then((response) => {
-                navigate('/my-blogs')
-            })
-            .catch((err) => console.log(err))
+        socket.emit('delete-post', {
+            article: { ...article },
+            email: 'email@example.com',
+        })
     }
+    socket.on('post-deleted', (data) => {
+        setMessage(data.msg)
+    })
+    socket.on('unable-to-delete-post', (data) => {
+        setMessage(data.msg)
+    })
 
 
     // Render the update/delete old blog page.
     return (
         <div className='blogs-cont'>
+            {message ? <Message message={message} setMessage={setMessage}/> : ''}
             <Title />
             <Abstract />
             <Link to="/my-blogs">

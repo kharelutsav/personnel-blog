@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
 import './DisplayBlogs1.css'
-import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
-import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+// import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
+// import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 import axios from './axios-config'
 import socket from '../config/socket'
 
@@ -117,11 +117,33 @@ function DisplayBlogs() {
     }, []);
 
 
-    // Sockets
+    // Sockets activated when new blog post is added
     socket.on('new-blog-added', (data) => {
         const temp_blogs = [...blogs]
         temp_blogs.unshift({[data.blog.blog_info._id]: data.blog})
         setBlogs(temp_blogs)
+    })
+
+    // Sockets activated when new blog post is updated
+    socket.on('blog-updated', (data) => {
+        const temp_blogs = [...blogs]
+        temp_blogs.map((temp_blog) => {
+            const blog_id = Object.keys(temp_blog)[0]
+            if (blog_id === data.blog._id) {
+                temp_blog[blog_id].blog_info = data.blog
+            }
+            return temp_blog
+        })
+        setBlogs(temp_blogs)
+    })
+
+    // Socket activated when some blog post is deleted
+    socket.on('blog-deleted', (data) => {
+        const temp_blogs = [...blogs]
+        const updated_blogs = temp_blogs.filter((blog) => {
+            return Object.keys(blog)[0] !== data.blog
+        })
+        setBlogs(updated_blogs)
     })
 
 

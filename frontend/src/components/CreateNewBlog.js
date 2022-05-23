@@ -4,13 +4,13 @@ import './LeftContent.css'
 import socket from '../config/socket'
 
 function CreateNewBlog() {
-    const [message, setMessage] = useState(null);
+    const [message, setMessage] = useState('');
     const article = {}
 
     const Message = ({message, setMessage}) => {
         setTimeout(() => {
             setMessage('')
-        }, 10000);
+        }, 5000);
         return (
             <div className='create-new' style={{backgroundColor: 'green', color: 'white', borderRadius: '0px'}}>
                 {message}

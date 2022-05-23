@@ -46,12 +46,14 @@ module.exports = (io) => {
 
         });
 
+
+        // @desc Update the blog with changed creds.
         socket.on('update-post', (body) => {
             const query = { _id: body._id }
             Blog.findOneAndUpdate(query, body, { new: true })
-                .populate('blogs')
-                .then(() => {
+                .then((data) => {
                     socket.emit('post-updated', {status: 200, blog: body._id, msg: 'Post updated'})
+                    io.emit('blog-updated', {blog: data})
                 })
                 .catch((err) => {
                     console.log(err)
@@ -59,6 +61,8 @@ module.exports = (io) => {
                 })
         });
 
+
+        // @desc Delete blog post based on the provided blog id.
         socket.on('delete-post', (body) => {
             const email = body.email
             const _id = body.article._id
@@ -67,6 +71,7 @@ module.exports = (io) => {
                     User.findOneAndUpdate({ email: email }, { $pull: { blogs: _id } })
                         .then(() => {
                             socket.emit('post-deleted', {status: 200, blog: _id, msg: 'Post deleted'})
+                            io.emit('blog-deleted', {blog: _id})
                         })
                         .catch(() => socket.emit('unable-to-delete-post', {status: 400, msg: 'Unable to delete post'}))
                 })
