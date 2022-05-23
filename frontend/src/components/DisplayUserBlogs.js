@@ -95,7 +95,7 @@ function DisplayUserBlogs() {
     // Create new blog post.
     const CreateNew = () => {
         return (
-            <div className='blog-cont'>
+            <div className='create-new'>
                 <input className='search-bar' placeholder='Search Your Blogs' />
                 <button className='search'>Search</button>
             </div>

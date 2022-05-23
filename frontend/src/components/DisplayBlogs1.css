@@ -21,7 +21,6 @@
     display: none;
 }
 
-.create-new,
 .search-bar,
 .search {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -31,39 +30,42 @@
 }
 
 .search-bar {
-    width: 60%;
+    width: 70%;
     display: inline;
     border: hidden;
     border-bottom: 2px solid lightslategrey;
-    background-color: whitesmoke;   
+    background-color: whitesmoke;
 }
 
 .search-bar:focus {
     outline: none;
 }
 
-.search,
-.create-new {
+.search {
     color: aliceblue;
-    font-weight: 700;
+    font-weight: 600;
     border-radius: 0.21rem;
     background-color: blue;
+    padding-left: 0.28rem;
+    padding-right: 0.28rem;
 }
 
-.create-new {
-    display: block;
-    margin: auto;
-}
-
-.create-new:hover,
 .search:hover {
     cursor: pointer;
 }
 
+.create-new {
+    height: fit-content;
+}
+
 .blog-cont {
+    height: 11rem;
+}
+
+.blog-cont,
+.create-new {
     width: 18rem;
     min-width: 375px;
-    height: fit-content;
     margin: auto;
     margin-bottom: 0.7rem;
     background-color: whitesmoke;
