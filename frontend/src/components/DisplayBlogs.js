@@ -4,8 +4,7 @@ import './DisplayBlogs1.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 import axios from './axios-config'
-// const { io } = require("socket.io-client")
-// const socket = io("http://localhost:4000/");
+import socket from '../config/socket'
 
 function DisplayBlogs() {
     const [blogs, setBlogs] = useState([]);
@@ -115,6 +114,14 @@ function DisplayBlogs() {
             })
             .catch((err) => console.log(err))
     }, []);
+
+
+    // Sockets
+    socket.on('new-blog-added', (data) => {
+        const temp_blogs = [...blogs]
+        temp_blogs.unshift(data.blog)
+        setBlogs(temp_blogs)
+    })
 
 
     // Render the user blogs

@@ -25,7 +25,12 @@ module.exports = (io) => {
                                 { $push: { blogs: blog._id } }
                             )
                                 .then(() => {
-                                    socket.emit('post-created', {status: 200, msg: 'Post created', data: {...data}})
+                                    socket.emit('post-created', {status: 200, msg: 'Post created'})
+                                    const blog = {
+                                        blog_info: data._doc,
+                                        user_info: user
+                                    }
+                                    io.emit('new-blog-added', {blog: blog})
                                 })
                                 .catch(() =>
                                     socket.emit('unable-to-create-post', {status: 500, msg: 'Internal Server Error'})

@@ -5,8 +5,6 @@ import './DisplayBlogs1.css'
 import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 import axios from './axios-config'
-const { io } = require("socket.io-client")
-const socket = io("http://localhost:4000");
 
 
 function DisplayUserBlogs() {
@@ -103,7 +101,6 @@ function DisplayUserBlogs() {
     }
 
 
-    // Layout effect that allows axios API calls.
     useLayoutEffect(() => {
         axios
             .get('/user', {
@@ -221,16 +218,6 @@ const UserInfo = ({ user_info }) => {
         </div>
     )
 }
-
-socket.on('blog-added', (added_post) => {
-    console.log(added_post);
-});
-socket.on('blog-updated', (updated_post) => {
-    console.log(updated_post);
-});
-socket.on('blog-deleted', (deleted_post) => {
-    console.log(deleted_post);
-});
 
 
 export default DisplayUserBlogs
