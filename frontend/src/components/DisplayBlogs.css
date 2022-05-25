@@ -48,19 +48,23 @@
 .user-disp-block,
 .content-disp-block {
     display: block;
-    margin: auto;
+    text-align: left;
     width: 100%;
 }
 
+.user-disp-block {
+    border-bottom: 1px solid black;
+}
+
 .user-creds {
-    font-size: 0.42rem;
+    font-size: 0.38rem;
     padding: 0px;
     margin: 0px;
     font-weight: 500;
 }
 
 .user-name {
-    font-size: 0.7rem;
+    font-size: 0.56rem;
     font-weight: 600;
 }
 
@@ -98,10 +102,12 @@
 .about-user,
 .avatar-blogs {
     display: inline-block;
+    position: relative;
 }
 
 .about-user {
     text-align: left;
+    margin-left: 10px;
 }
 
 .content-title {
@@ -110,13 +116,12 @@
     font-weight: 600;
     padding: 0.1rem;
     margin: 0rem;
-    margin-top: 0.7rem;
+    margin-top: 0.35rem;
 }
 
 .content-abstract {
     text-align: justify;
     text-justify: inter-word;
-    text-indent: 1rem;
     font-size: 0.52rem;
     font-weight: 400;
     padding: 0.1rem;
@@ -125,10 +130,11 @@
 }
 
 .avatar-blogs {
-    width: 56px;
-    height: 56px;
+    width: 49px;
+    height: 49px;
     color: blue;
     border-radius: 2.8rem;
+    box-shadow: 0.7px 0.7px 0.7px 0.7px black;
 }
 
 .content-disp-block {

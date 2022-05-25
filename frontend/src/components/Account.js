@@ -96,6 +96,7 @@ const Avatar = () => {
 const AuthorInfo = () => {
     const [phone, setPhone] = useState('')
     const [name, setName] = useState('')
+    const [email, setImage] = useState('')
     return (
         <div className="author-info">
             <label className="input-creds" htmlFor="name">
@@ -109,6 +110,7 @@ const AuthorInfo = () => {
                 onBlur={() => (user.fullname = name)}
             />{' '}
             <br />
+
             <label className="input-creds" htmlFor="phone" type="number">
                 Phone Number
             </label>
@@ -118,23 +120,29 @@ const AuthorInfo = () => {
                 id="phone"
                 onChange={(event) => setPhone(event.target.value)}
                 onBlur={() => (user.phone = phone)}
-            ></input>
+            />{' '}
+            <br />
+
+            <label className="input-creds" htmlFor="name">
+                Author's Email
+            </label>
+            <input
+                className="input-creds"
+                name="name"
+                id="name"
+                onChange={(event) => setImage(event.target.value)}
+                onBlur={() => (user.email = email)}
+            />
         </div>
     )
 }
 
 function Account({ setBlogs }) {
-    const AboutAuthor = () => {
-        return (
-            <div className="about-author">
-                <Avatar />
-                <AuthorInfo />
-            </div>
-        )
-    }
+
+
+    // Create new user.
     const create_user = () => {
         user.email = user.social.Gmail
-        console.log(user)
         axios
             .post('/create-user', { ...user })
             .then((response) => {
@@ -142,12 +150,16 @@ function Account({ setBlogs }) {
             })
             .catch((err) => console.log(err))
     }
+
+
+    // Render the account setup page.
     return (
-        <div className="main-content">
-            <div className="about">
-                <AboutAuthor />
+        <div className='blogs-cont'>
+            <Avatar />
+            <div className='create-new'>
+                <AuthorInfo />
             </div>
-            <div className="social-links">
+            <div className='create-new'>
                 <RightContent />
             </div>
             <button className="save-btn" onClick={create_user}>

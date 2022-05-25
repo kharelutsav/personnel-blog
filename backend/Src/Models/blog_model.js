@@ -9,7 +9,7 @@ const blogSchema = mongoose.Schema({
     thumbnail: { type: String },
     title: { type: String, required: true },
     abstract: { type: String, required: true },
-    time: { type: String, required: true },
-})
+    author: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+}, {timestamps: true})
 
 exports.Blog = mongoose.model('Blog', blogSchema)

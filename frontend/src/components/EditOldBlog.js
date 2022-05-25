@@ -1,60 +1,39 @@
 import './CreateNewBlog.css'
 import React, { useLayoutEffect, useState } from 'react'
-import { BsCardImage } from 'react-icons/bs'
 import './LeftContent.css'
-import axios from './axios-config'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import socket from '../config/socket'
 
-function EditOldBlog({ setBlogs, blogs }) {
+function EditOldBlog() {
+    const [message, setMessage] = useState(null);
     const navigate = useNavigate()
     const old_data = useLocation().state
     const article = old_data
-    const Thumbnail = () => {
-        const [showThumbnail, setShowThumbnail] = useState()
-        const imageSelected = (event) => {
-            const [file] = event.target.files
-            setShowThumbnail(URL.createObjectURL(file))
-            article.thumbnail = file.name
-        }
+
+
+    const Message = ({message, setMessage}) => {
+        setTimeout(() => {
+            setMessage('')
+            navigate('/my-blogs')
+        }, 2000);
         return (
-            <div className="thumbnail-container">
-                <label htmlFor="thumbnail">
-                    {showThumbnail ? (
-                        <img
-                            alt=""
-                            src={showThumbnail}
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                borderRadius: '0.5rem',
-                            }}
-                        />
-                    ) : (
-                        <BsCardImage
-                            style={{ width: '100%', height: '100%' }}
-                        />
-                    )}
-                </label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: 'none', visibility: 'none' }}
-                    id="thumbnail"
-                    onChange={imageSelected}
-                />
+            <div className='create-new' style={{backgroundColor: 'green', color: 'white', borderRadius: '0px'}}>
+                {message}
             </div>
         )
     }
 
+
+    // Title of the blog post. Required*
     const Title = () => {
         const [title, setTitle] = useState('')
         useLayoutEffect(() => {
             setTitle(article.title)
         }, [])
         return (
-            <div className="title-container">
+            <div className='create-new'>
                 <input
-                    className="title"
+                    className='search-bar'
                     width="100%"
                     placeholder="Please enter the title of your article."
                     value={title}
@@ -67,13 +46,15 @@ function EditOldBlog({ setBlogs, blogs }) {
         )
     }
 
+
+    // Abstract of the post. (Text Area)
     const Abstract = () => {
         const [abstract, setAbstract] = useState('')
         useLayoutEffect(() => {
             setAbstract(article.abstract)
         }, [])
         return (
-            <div className="abstract-container">
+            <div className='blog-cont'>
                 <textarea
                     className="abstract"
                     width="100%"
@@ -88,47 +69,46 @@ function EditOldBlog({ setBlogs, blogs }) {
         )
     }
 
-    const AboutArticle = () => {
-        return (
-            <div className="about-article">
-                <Thumbnail />
-                <Title />
-                <Abstract />
-            </div>
-        )
-    }
 
+    // Update the blog post using socket.io
     const update_blog = () => {
-        axios
-            .post('/update-post', { ...article })
-            .then((response) => {
-                navigate('/my-blogs')
-            })
-            .catch((err) => console.log(err))
+        socket.emit('update-post', { ...article })
     }
+    socket.on('post-updated', (data) => {
+        setMessage(data.msg)
+    })
+    socket.on('unable-to-update-post', (data) => {
+        setMessage(data.msg)
+    })
 
+
+    // Delete the blog post using socket.io
     const delete_blog = () => {
-        axios
-            .post('/delete-post', {
-                article: { ...article },
-                email: 'email@example.com',
-            })
-            .then((response) => {
-                navigate('/my-blogs')
-            })
-            .catch((err) => console.log(err))
+        socket.emit('delete-post', {
+            article: { ...article },
+            email: 'email@example.com',
+        })
     }
+    socket.on('post-deleted', (data) => {
+        setMessage(data.msg)
+    })
+    socket.on('unable-to-delete-post', (data) => {
+        setMessage(data.msg)
+    })
 
+
+    // Render the update/delete old blog page.
     return (
-        <div className="main-content">
-            <div className="about">
-                <AboutArticle />
-                <Link to="/my-blogs">
+        <div className='blogs-cont'>
+            {message ? <Message message={message} setMessage={setMessage}/> : ''}
+            <Title />
+            <Abstract />
+            <Link to="/my-blogs">
                     <button
                         className="upload-btn"
                         style={{ backgroundColor: 'grey' }}
                     >
-                        Cancel Update
+                        Cancel
                     </button>
                 </Link>
                 <button
@@ -136,16 +116,15 @@ function EditOldBlog({ setBlogs, blogs }) {
                     onClick={() => update_blog()}
                     style={{ backgroundColor: 'green' }}
                 >
-                    Update Blog
+                    Update
                 </button>
                 <button
                     className="upload-btn"
                     onClick={() => delete_blog()}
                     style={{ backgroundColor: 'red' }}
                 >
-                    Delete Blog
+                    Delete
                 </button>
-            </div>
         </div>
     )
 }

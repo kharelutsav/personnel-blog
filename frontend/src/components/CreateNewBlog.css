@@ -10,8 +10,24 @@
 
 .about,
 .social-links {
-    margin: 0.4rem 0rem;
+    /* margin: 0.4rem 0rem; */
     display: block;
+}
+
+.abstract {
+    height: 4.9rem;
+    font-size: 0.6rem;
+    margin: 0.28rem;
+    width: 94%;
+    border: 2px solid lightslategray;
+    padding: 0.28rem;
+    height: 10rem;
+    border-radius: 0.4rem;
+    background-color: whitesmoke;
+}
+
+.abstract:focus {
+    outline: none;
 }
 
 .upload-btn {
@@ -21,7 +37,7 @@
     color: white;
     font-weight: 500;
     font-size: 0.7rem;
-    width: 7rem;
+    width: 6rem;
     margin: 0.14rem;
 }
 

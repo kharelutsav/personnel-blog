@@ -1,192 +1,167 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
-import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
-import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+import './DisplayBlogs1.css'
+// import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
+// import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+import axios from './axios-config'
+import socket from '../config/socket'
 
-const UserInfo = ({ user_info }) => {
-    const AboutUser = ({ name, email, phone }) => {
-        const [userInfo, setUserInfo] = useState({})
-        useEffect(() => {
-            setUserInfo({
-                name: name,
-                email: email,
-                phone: phone,
-            })
-        }, [name, email, phone])
-        return (
-            <div className="about-user">
-                <p className="user-creds user-name">{userInfo.name}</p>
-                <p className="user-creds">{userInfo.phone}</p>
-                <p className="user-creds">{userInfo.email}</p>
-            </div>
-        )
-    }
+function DisplayBlogs() {
+    const [blogs, setBlogs] = useState([]);
 
-    const Avatar = () => {
-        return (
-            <div className="avatar-blogs">
-                <img
-                    alt=""
-                    src="http://localhost:3000/mozilla-dinosaur-head.png"
-                    style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: '2.8rem',
-                    }}
-                />
-            </div>
-        )
-    }
 
-    const SocialLinks = ({ links }) => {
-        const [Links, setLinks] = useState([])
-        useEffect(() => {
-            const social = [
-                { address: '#', logo: SiLinkedin, name: 'Linkedin' },
-                { address: '#', logo: FaFacebookSquare, name: 'Facebook' },
-                { address: '#', logo: SiGmail, name: 'Gmail' },
-                { address: '#', logo: SiGithub, name: 'GitHub' },
-                { address: '#', logo: FaYoutube, name: 'Youtube' },
-                { address: '#', logo: SiInstagram, name: 'Instagram' },
-            ]
-            social.map((record) => {
-                return (record.address = links[record.name])
-            })
-            setLinks(social)
-        }, [links])
+    // User related information in short glimpse for now.
+    const UserInfo = ({user_info, time}) => {
 
-        const Container = ({ address, logo }) => {
-            const LOGO = logo
+        const Avatar = () => {
             return (
-                <a
-                    href={address}
-                    className={address.length <= 0 ? 'anchor-disabled' : {}}
-                >
-                    <LOGO
-                        className={
-                            address.length > 0
-                                ? 'disp-logos'
-                                : 'disp-logos-disabled'
-                        }
+                <div className="avatar-blogs">
+                    <img
+                        alt=""
+                        src="http://localhost:3000/mozilla-dinosaur-head.png"
+                        style={{
+                            width: '49px',
+                            height: '49px',
+                            borderRadius: '2.8rem',
+                        }}
                     />
-                </a>
+                </div>
+            )
+        }
+        
+        const AboutUser = ({ name, time }) => {
+            const [userInfo, setUserInfo] = useState({})
+            useEffect(() => {
+                setUserInfo({
+                    name: name,
+                    date: time
+                })
+            }, [name, time])
+            return (
+                <div className="about-user">
+                    <p className="user-creds user-name">{userInfo.name}</p>
+                    <p className="user-creds">{userInfo.date}</p>
+                </div>
             )
         }
 
         return (
-            <div className="social-container">
-                {Links.map((link, index) => {
-                    return (
-                        <Container
-                            key={index}
-                            address={link.address}
-                            logo={link.logo}
-                        />
-                    )
-                })}
-            </div>
-        )
-    }
-    return (
-        <div className="user-disp-block">
-            <div className="check-mate">
+            <div className="user-disp-block">
+                <Avatar avatar={user_info.profile} />
                 <AboutUser
                     name={user_info.fullname}
-                    email={user_info.email}
-                    phone={user_info.phone}
+                    time={time}
                 />
-                <Avatar avatar={user_info.profile} />
             </div>
-            <SocialLinks links={user_info.social} />
-        </div>
-    )
-}
-
-const ContentInfo = ({ blog_info }) => {
-    const Abstract = ({ abstract }) => {
-        return (
-            <p className="content-abstract">
-                {abstract}....(
-                <a alt="" href="#">
-                    read more
-                </a>
-                )
-            </p>
         )
     }
 
-    const Title = ({ title }) => {
-        return <p className="content-title">{title}</p>
-    }
 
-    return (
-        <>
-            <Title title={blog_info.title} />
-            <hr style={{ margin: '0px', marginLeft: '0.1rem', width: '30%' }} />
-            <p
-                className="user-creds"
-                style={{
-                    textAlign: 'left',
-                    paddingBottom: '0.1rem',
-                    paddingLeft: '0.1rem',
-                }}
-            >
-                {blog_info.time}
-            </p>
-            <Abstract abstract={blog_info.abstract} />
-        </>
-    )
-}
-
-function DisplayUserBlogs({ blogs }) {
-    const [datas, setDatas] = useState([])
-    useLayoutEffect(() => {
-        const data = []
-        for (let user of blogs) {
-            const users = { ...user }
-            delete users.blogs
-            const info = user.blogs.map((blog) => {
-                return {
-                    blog_info: blog,
-                    user_info: { ...users },
-                }
-            })
-            data.push(...info)
+    // Content related information at glimpse for now.
+    const ContentInfo = ({ blog_info }) => {
+        const Abstract = ({ abstract }) => {
+            return (
+                <p className="content-abstract">
+                    {abstract}(
+                    <a alt="" href="#">
+                        read more
+                    </a>
+                    )
+                </p>
+            )
         }
-        setDatas(data)
-    }, [blogs])
 
-    const BlogInfo = ({ user_info, blog_info }) => {
+        const Title = ({ title }) => {
+            return <p className="content-title">{title}</p>
+        }
+
         return (
-            <div className="about-blogs">
-                <UserInfo user_info={user_info} />
-                <div className="content-disp-block">
-                    <ContentInfo blog_info={blog_info} />
-                </div>
-            </div>
+            <>
+                <Title title={blog_info.title} />
+                <Abstract abstract={blog_info.abstract} />
+            </>
         )
     }
+    
 
-    const Thumbnail = ({ blog_info }) => {
+    // Create new blog post.
+    const CreateNew = () => {
         return (
-            <div className="thumbnail-blogs">
-                <div className="content-dynamic-class">
-                    <ContentInfo blog_info={blog_info} />
-                </div>
+            <div className='create-new'>
+                <input className='search-bar' placeholder='Search Blogs' />
+                <button className='search'>Search</button>
             </div>
-        )
+        );
     }
 
+
+    // Layout effect that allows axios API calls.
+    useLayoutEffect(() => {
+        axios
+            .get('/')
+            .then((response) => {
+                const blogs = response.data || []
+                const data = blogs.map(blog => {
+                    const blog_info = { ...blog }
+                    delete blog_info.author
+                    return {
+                        [blog_info._id] : {
+                            blog_info: blog_info,
+                            user_info: blog.author
+                        }
+                    }
+                })
+                setBlogs(data)
+            })
+            .catch((err) => console.log(err))
+    }, []);
+
+
+    // Sockets activated when new blog post is added
+    socket.on('new-blog-added', (data) => {
+        const temp_blogs = [...blogs]
+        temp_blogs.unshift({[data.blog.blog_info._id]: data.blog})
+        setBlogs(temp_blogs)
+    })
+
+    // Sockets activated when new blog post is updated
+    socket.on('blog-updated', (data) => {
+        const temp_blogs = [...blogs]
+        temp_blogs.map((temp_blog) => {
+            const blog_id = Object.keys(temp_blog)[0]
+            if (blog_id === data.blog._id) {
+                temp_blog[blog_id].blog_info = data.blog
+            }
+            return temp_blog
+        })
+        setBlogs(temp_blogs)
+    })
+
+    // Socket activated when some blog post is deleted
+    socket.on('blog-deleted', (data) => {
+        const temp_blogs = [...blogs]
+        const updated_blogs = temp_blogs.filter((blog) => {
+            return Object.keys(blog)[0] !== data.blog
+        })
+        setBlogs(updated_blogs)
+    })
+
+
+    // Render the user blogs
     return (
-        <>
+        <div className='blogs-cont'>
+            <CreateNew />
             {blogs.length >= 1 ? (
-                datas.map((data, index) => {
+                blogs.map((data, index) => {
+                    const blog = Object.values(data)[0]
                     return (
-                        <div className="main-blogs" key={index}>
-                            <Thumbnail blog_info={data.blog_info} />
-                            <BlogInfo
-                                user_info={data.user_info}
-                                blog_info={data.blog_info}
+                        <div className='blog-cont' key={index}>
+                            <UserInfo
+                                user_info={blog.user_info}
+                                time={blog.blog_info.time}
+                            />
+                            <ContentInfo
+                                blog_info={blog.blog_info}
                             />
                         </div>
                     )
@@ -194,8 +169,8 @@ function DisplayUserBlogs({ blogs }) {
             ) : (
                 <p> Loading...</p>
             )}
-        </>
-    )
+        </div>
+    );
 }
 
-export default DisplayUserBlogs
+export default DisplayBlogs

@@ -3,12 +3,14 @@ import DisplayBlogs from './components/DisplayBlogs'
 import DisplayUserBlogs from './components/DisplayUserBlogs'
 import CreateNewBlog from './components/CreateNewBlog'
 import EditOldBlog from './components/EditOldBlog'
-import Footer from './components/Footer'
+// import Footer from './components/Footer'
 import Header from './components/Header'
 import { Routes, Route } from 'react-router-dom'
 import Account from './components/Account'
 import { useState, useLayoutEffect } from 'react'
 import axios from './components/axios-config'
+const { io } = require("socket.io-client")
+const socket = io("http://localhost:4000/");
 
 function App() {
     const [blogs, setBlogs] = useState([])
@@ -16,23 +18,27 @@ function App() {
         axios
             .get('/')
             .then((response) => {
-                setBlogs(response.data)
+                setBlogs(response.data || [])
             })
             .catch((err) => console.log(err))
-    }, [])
+    }, []);
+
+    socket.on("new-updates", (updates) => {
+        console.log(updates);
+    });
 
     return (
         <div className="App">
             <Header />
             <Routes>
-                <Route path="/" element={<DisplayBlogs blogs={blogs} />} />
+                <Route path="/" element={<DisplayBlogs />} />
                 <Route
                     path="/my-blogs"
-                    element={<DisplayUserBlogs blogs={blogs} />}
+                    element={<DisplayUserBlogs />}
                 />
                 <Route
                     path="/edit-blog"
-                    element={<EditOldBlog setBlogs={setBlogs} blogs={blogs} />}
+                    element={<EditOldBlog />}
                 />
                 <Route
                     path="/create-new-blog"
@@ -43,7 +49,7 @@ function App() {
                     element={<Account setBlogs={setBlogs} />}
                 />
             </Routes>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
