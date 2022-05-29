@@ -5,7 +5,10 @@ const mongoose = require('mongoose')
 //-------------------------------------------------------------------------------------
 
 const userSchema = mongoose.Schema({
-    profile: { type: String },
+    profile: {
+        type: Buffer,
+        contentType: String
+    },
     fullname: { type: String, required: true },
     email: { type: String, unique: true, required: true },
     phone: { type: Number, required: true },

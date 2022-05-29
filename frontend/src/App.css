@@ -1,7 +1,13 @@
 .App {
     text-align: center;
     background-color: rgb(242, 254, 254);
-    margin: auto;
+    height: 100vh;
+    width: 100vw;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
 }
 
 .admin-header,

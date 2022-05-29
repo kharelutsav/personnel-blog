@@ -1,36 +1,22 @@
 import './App.css'
-import DisplayBlogs from './components/DisplayBlogs'
-import DisplayUserBlogs from './components/DisplayUserBlogs'
-import CreateNewBlog from './components/CreateNewBlog'
-import EditOldBlog from './components/EditOldBlog'
+// import DisplayBlogs from './components/DisplayBlogs'
+// import DisplayUserBlogs from './components/DisplayUserBlogs'
+// import CreateNewBlog from './components/CreateNewBlog'
+// import EditOldBlog from './components/EditOldBlog'
 // import Footer from './components/Footer'
 import Header from './components/Header'
-import { Routes, Route } from 'react-router-dom'
-import Account from './components/Account'
-import { useState, useLayoutEffect } from 'react'
-import axios from './components/axios-config'
-const { io } = require("socket.io-client")
-const socket = io("http://localhost:4000/");
+import Register from './Register'
+// import { Routes, Route } from 'react-router-dom'
+// import Account from './components/Account'
+import { useState } from 'react'
 
 function App() {
-    const [blogs, setBlogs] = useState([])
-    useLayoutEffect(() => {
-        axios
-            .get('/')
-            .then((response) => {
-                setBlogs(response.data || [])
-            })
-            .catch((err) => console.log(err))
-    }, []);
-
-    socket.on("new-updates", (updates) => {
-        console.log(updates);
-    });
-
+    const [overlay, setOverlay] = useState(true);
     return (
         <div className="App">
             <Header />
-            <Routes>
+            {overlay ? <Register setOverlay={setOverlay}/> : ""}
+            {/* <Routes>
                 <Route path="/" element={<DisplayBlogs />} />
                 <Route
                     path="/my-blogs"
@@ -48,7 +34,7 @@ function App() {
                     path="/my-account"
                     element={<Account setBlogs={setBlogs} />}
                 />
-            </Routes>
+            </Routes> */}
             {/* <Footer /> */}
         </div>
     )
