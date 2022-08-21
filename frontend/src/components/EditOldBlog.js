@@ -1,4 +1,4 @@
-import './CreateNewBlog.css'
+// import './CreateNewBlog.css'
 import React, { useLayoutEffect, useState } from 'react'
 import './LeftContent.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom'

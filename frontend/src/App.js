@@ -1,23 +1,23 @@
 import './App.css'
 import DisplayBlogs from './components/DisplayBlogs'
 import DisplayUserBlogs from './components/DisplayUserBlogs'
-import CreateNewBlog from './components/CreateNewBlog'
 import EditOldBlog from './components/EditOldBlog'
-// import Footer from './components/Footer'
 import Header from './components/Header'
-import Register from './Register'
+import Register from './Final/Register'
+import CreateNew from './Final/CreateNew'
 import { Routes, Route } from 'react-router-dom'
 import Account from './components/Account'
 import { useState } from 'react'
 
 function App() {
-    const [overlay, setOverlay] = useState(true)
-    const [blogs, setBlogs] = useState({})
+    const [overlay, setOverlay] = useState('none')
+    const [loggedin, setLoggedin] = useState(true)
     return (
         <div className="App">
-            <Header />
-            {overlay ? (
-                <Register setOverlay={setOverlay} setBlogs={setBlogs} />
+            <Header setOverlay={setOverlay} loggedin={loggedin} />
+            {overlay === 'register' ? <Register setOverlay={setOverlay} /> : ''}
+            {overlay === 'create-new' ? (
+                <CreateNew setOverlay={setOverlay} />
             ) : (
                 ''
             )}
@@ -25,14 +25,7 @@ function App() {
                 <Route path="/" element={<DisplayBlogs />} />
                 <Route path="/my-blogs" element={<DisplayUserBlogs />} />
                 <Route path="/edit-blog" element={<EditOldBlog />} />
-                <Route
-                    path="/create-new-blog"
-                    element={<CreateNewBlog setBlogs={setBlogs} />}
-                />
-                <Route
-                    path="/my-account"
-                    element={<Account setBlogs={setBlogs} />}
-                />
+                <Route path="/my-account" element={<Account />} />
             </Routes>
             {/* {/* <Footer /> */}
         </div>

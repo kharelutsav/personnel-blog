@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import './Register.css'
 import { SiLinkedin, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaYoutube } from 'react-icons/fa'
-import axios from './components/axios-config'
+import axios from '../components/axios-config'
 
 const USER = {}
 
-function Register({ setOverlay, setBlogs }) {
+function Register({ setOverlay }) {
     const [value, setValue] = useState(1)
 
     const SOCIAL_MEDIA = [
@@ -124,7 +124,7 @@ function Register({ setOverlay, setBlogs }) {
         axios
             .post('/create-user', { ...USER })
             .then((response) => {
-                setBlogs(response.data)
+                console.log(response.data)
             })
             .catch((err) => console.log(err))
     }
@@ -155,7 +155,7 @@ function Register({ setOverlay, setBlogs }) {
                     <div className="footer">
                         <button
                             onClick={() =>
-                                value == 1
+                                value === 1
                                     ? setOverlay(false)
                                     : setValue(value - 1)
                             }
@@ -164,7 +164,9 @@ function Register({ setOverlay, setBlogs }) {
                         </button>
                         <button
                             onClick={() =>
-                                value == 3 ? create_user() : setValue(value + 1)
+                                value === 3
+                                    ? create_user()
+                                    : setValue(value + 1)
                             }
                         >
                             {{ 3: 'Register' }[value] || 'Next'}
