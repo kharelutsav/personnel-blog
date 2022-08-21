@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
 import './DisplayBlogs1.css'
-import axios from '../components/axios-config'
-import socket from '../config/socket'
+import socket from '../../config/socket'
+import axios from '../../config/axios-config'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 
 function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
     const [blogs, setBlogs] = useState([])

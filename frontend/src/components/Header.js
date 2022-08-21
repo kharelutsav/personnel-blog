@@ -1,6 +1,6 @@
 import React from 'react'
 import './Header.css'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 function Header({ setOverlay, loggedin, setUserblog }) {
     return (
@@ -29,11 +29,11 @@ function Header({ setOverlay, loggedin, setUserblog }) {
                                 CreateNew
                             </span>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/my-account" className="nav">
                                 Account
                             </Link>
-                        </li>
+                        </li> */}
                     </>
                 ) : (
                     <>

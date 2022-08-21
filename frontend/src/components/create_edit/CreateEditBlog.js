@@ -1,6 +1,6 @@
 import './CreateEditBlog.css'
 import React, { useState } from 'react'
-import socket from '../config/socket'
+import socket from '../../config/socket'
 
 function CreateEditBlog({ setOverlay, edit_this, overlay }) {
     const [message, setMessage] = useState('')
@@ -11,8 +11,7 @@ function CreateEditBlog({ setOverlay, edit_this, overlay }) {
     const Message = ({ message, setMessage }) => {
         setTimeout(() => {
             setMessage('')
-            setOverlay('none')
-        }, 5000)
+        }, 2000)
         return (
             <div
                 style={{
@@ -73,6 +72,7 @@ function CreateEditBlog({ setOverlay, edit_this, overlay }) {
     }
     socket.on('post-created', (data) => {
         setMessage(data.msg)
+        setOverlay('none')
     })
     socket.on('unable-to-create-post', (data) => {
         setMessage(data.msg)

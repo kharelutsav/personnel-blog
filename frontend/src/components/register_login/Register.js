@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
 import './Register.css'
-import { SiLinkedin, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaYoutube } from 'react-icons/fa'
-import axios from '../components/axios-config'
+import axios from '../../config/axios-config'
+import React, { useEffect, useState } from 'react'
+import { SiLinkedin, SiGithub, SiInstagram } from 'react-icons/si'
 
 const USER = {}
 

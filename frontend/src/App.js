@@ -1,11 +1,11 @@
 import './App.css'
-import DisplayBlogs from './Final/DisplayBlogs'
-import Header from './components/Header'
-import Register from './Final/Register'
-import { Routes, Route } from 'react-router-dom'
-import Account from './components/Account'
 import { useState } from 'react'
-import CreateEditBlog from './Final/CreateEditBlog'
+import Header from './components/Header'
+// import Account from './components/Account'
+// import { Routes, Route } from 'react-router-dom'
+import Register from './components/register_login/Register'
+import DisplayBlogs from './components/fetch_display/DisplayBlogs'
+import CreateEditBlog from './components/create_edit/CreateEditBlog'
 
 function App() {
     const [overlay, setOverlay] = useState('none')
@@ -36,10 +36,10 @@ function App() {
                 setEdit_this={setEdit_this}
                 userblog={userblog}
             />
-            <Routes>
+            {/* <Routes>
                 <Route path="/my-account" element={<Account />} />
-            </Routes>
-            {/* {/* <Footer /> */}
+            </Routes> */}
+            {/* <Footer /> */}
         </div>
     )
 }
