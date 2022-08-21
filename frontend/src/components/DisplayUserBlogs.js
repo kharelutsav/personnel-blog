@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { Link } from 'react-router-dom'
 import './DisplayBlogs.css'
 import './DisplayBlogs1.css'
-import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
-import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
+// import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
+// import { FaYoutube } from 'react-icons/fa'
 import axios from './axios-config'
 
-function DisplayUserBlogs() {
+function DisplayUserBlogs({ setOverlay, setEdit_this }) {
     const [blogs, setBlogs] = useState([])
     const email = 'email@example.com'
 
@@ -57,14 +56,19 @@ function DisplayUserBlogs() {
         const Abstract = ({ abstract, blog_info }) => {
             return (
                 <p className="content-abstract">
-                    {abstract}(
+                    {abstract}({/* eslint-disable-next-line */}
                     <a alt="" href="#">
                         read more
                     </a>
                     )(
-                    <Link to="/edit-blog" state={blog_info}>
+                    <span
+                        onClick={() => {
+                            setOverlay('edit-blog')
+                            setEdit_this(blog_info)
+                        }}
+                    >
                         edit post
-                    </Link>
+                    </span>
                     )
                 </p>
             )
@@ -142,69 +146,68 @@ function DisplayUserBlogs() {
 }
 
 // To be implemented
-const UserInfo = ({ user_info }) => {
-    const SocialLinks = ({ links }) => {
-        const [Links, setLinks] = useState([])
-        useEffect(() => {
-            const social = [
-                { address: '#', logo: SiLinkedin, name: 'Linkedin' },
-                { address: '#', logo: FaFacebookSquare, name: 'Facebook' },
-                { address: '#', logo: SiGmail, name: 'Gmail' },
-                { address: '#', logo: SiGithub, name: 'GitHub' },
-                { address: '#', logo: FaYoutube, name: 'Youtube' },
-                { address: '#', logo: SiInstagram, name: 'Instagram' },
-            ]
-            social.map((record) => {
-                return (record.address = links[record.name])
-            })
-            setLinks(social)
-        }, [links])
+// const UserInfo = ({ user_info }) => {
+//     const SocialLinks = ({ links }) => {
+//         const [Links, setLinks] = useState([])
+//         useEffect(() => {
+//             const social = [
+//                 { address: '#', logo: SiLinkedin, name: 'Linkedin' },
+//                 { address: '#', logo: SiGmail, name: 'Gmail' },
+//                 { address: '#', logo: SiGithub, name: 'GitHub' },
+//                 { address: '#', logo: FaYoutube, name: 'Youtube' },
+//                 { address: '#', logo: SiInstagram, name: 'Instagram' },
+//             ]
+//             social.map((record) => {
+//                 return (record.address = links[record.name])
+//             })
+//             setLinks(social)
+//         }, [links])
 
-        const Container = ({ address, logo }) => {
-            const LOGO = logo
-            return (
-                <a
-                    href={address}
-                    className={address.length <= 0 ? 'anchor-disabled' : {}}
-                >
-                    <LOGO
-                        className={
-                            address.length > 0
-                                ? 'disp-logos'
-                                : 'disp-logos-disabled'
-                        }
-                    />
-                </a>
-            )
-        }
+//         const Container = ({ address, logo }) => {
+//             const LOGO = logo
+//             return (
+//                 <a
+//                     href={address}
+//                     className={address.length <= 0 ? 'anchor-disabled' : {}}
+//                 >
+//                     <LOGO
+//                         className={
+//                             address.length > 0
+//                                 ? 'disp-logos'
+//                                 : 'disp-logos-disabled'
+//                         }
+//                     />
+//                 </a>
+//             )
+//         }
 
-        return (
-            <div className="social-container">
-                {Links.map((link, index) => {
-                    return (
-                        <Container
-                            key={index}
-                            address={link.address}
-                            logo={link.logo}
-                        />
-                    )
-                })}
-            </div>
-        )
-    }
-    return (
-        <div className="user-disp-block">
-            <div className="check-mate">
-                <AboutUser
-                    name={user_info.fullname}
-                    email={user_info.email}
-                    phone={user_info.phone}
-                />
-                <Avatar avatar={user_info.profile} />
-            </div>
-            <SocialLinks links={user_info.social} />
-        </div>
-    )
-}
+//         return (
+//             <div className="social-container">
+//                 {Links.map((link, index) => {
+//                     return (
+//                         <Container
+//                             key={index}
+//                             address={link.address}
+//                             logo={link.logo}
+//                         />
+//                     )
+//                 })}
+//             </div>
+//         )
+//     }
+//     return (
+//         <div className="user-disp-block">
+//             <div className="check-mate">
+//                 <AboutUser
+//                     name={user_info.fullname}
+//                     email={user_info.email}
+//                     phone={user_info.phone}
+//                 />
+//                 <Avatar avatar={user_info.profile} />
+//             </div>
+//             <SocialLinks links={user_info.social} />
+//         </div>
+//     )
+// }
 
 export default DisplayUserBlogs

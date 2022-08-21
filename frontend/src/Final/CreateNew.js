@@ -109,6 +109,7 @@ function CreateNew({ setOverlay }) {
                 </div>
                 <div className="footer">
                     <button
+                        style={{ backgroundColor: 'grey' }}
                         onClick={() =>
                             value === 1
                                 ? setOverlay(false)
@@ -118,6 +119,7 @@ function CreateNew({ setOverlay }) {
                         {/* {{ 1: 'Cancel' }[value] || 'Back'} */} Cancel
                     </button>
                     <button
+                        style={{ backgroundColor: 'green' }}
                         onClick={() =>
                             value === 1 ? post_blog() : setValue(value + 1)
                         }
@@ -131,41 +133,3 @@ function CreateNew({ setOverlay }) {
 }
 
 export default CreateNew
-
-// const Case2 = () => {
-//     const Container = ({ name, alias, logo }) => {
-//         const [link, setLink] = useState(USER[alias] || '')
-//         const LOGO = logo
-//         useEffect(() => {
-//             USER[alias] = link
-//         })
-//         return (
-//             <div className="container">
-//                 <LOGO className="logos" />
-//                 <input
-//                     style={{ display: 'block' }}
-//                     placeholder={name}
-//                     className="links"
-//                     name={alias}
-//                     value={link}
-//                     onChange={(e) => setLink(e.target.value)}
-//                 />
-//             </div>
-//         )
-//     }
-//     return (
-//         <>
-//             <p>Your social media links.</p>
-//             {SOCIAL_MEDIA.map((media, index) => {
-//                 return (
-//                     <Container
-//                         key={index}
-//                         name={media.name}
-//                         alias={media.alias}
-//                         logo={media.logo}
-//                     />
-//                 )
-//             })}
-//         </>
-//     )
-// }

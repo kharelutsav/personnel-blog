@@ -1,23 +1,22 @@
-// import './CreateNewBlog.css'
-import React, { useLayoutEffect, useState } from 'react'
-import './LeftContent.css'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import './CreateNew.css'
+import React, { useState, useLayoutEffect } from 'react'
 import socket from '../config/socket'
+import { useNavigate } from 'react-router-dom'
 
-function EditOldBlog() {
-    const [message, setMessage] = useState(null)
+function EditOld({ setOverlay, edit_this }) {
+    const [message, setMessage] = useState('')
+    const [value, setValue] = useState(1)
     const navigate = useNavigate()
-    const old_data = useLocation().state
-    const article = old_data
+    const article = edit_this
 
     const Message = ({ message, setMessage }) => {
         setTimeout(() => {
             setMessage('')
-            navigate('/my-blogs')
-        }, 2000)
+            setOverlay('none')
+            navigate('/')
+        }, 5000)
         return (
             <div
-                className="create-new"
                 style={{
                     backgroundColor: 'green',
                     color: 'white',
@@ -36,9 +35,9 @@ function EditOldBlog() {
             setTitle(article.title)
         }, [])
         return (
-            <div className="create-new">
+            <>
                 <input
-                    className="search-bar"
+                    className="create-new"
                     width="100%"
                     placeholder="Please enter the title of your article."
                     value={title}
@@ -47,7 +46,7 @@ function EditOldBlog() {
                         article.title = title
                     }}
                 />
-            </div>
+            </>
         )
     }
 
@@ -58,9 +57,9 @@ function EditOldBlog() {
             setAbstract(article.abstract)
         }, [])
         return (
-            <div className="blog-cont">
+            <>
                 <textarea
-                    className="abstract"
+                    className="create-new"
                     width="100%"
                     placeholder="Please give the abstract of your article."
                     value={abstract}
@@ -69,7 +68,7 @@ function EditOldBlog() {
                         article.abstract = abstract
                     }}
                 ></textarea>
-            </div>
+            </>
         )
     }
 
@@ -79,6 +78,7 @@ function EditOldBlog() {
     }
     socket.on('post-updated', (data) => {
         setMessage(data.msg)
+        setOverlay('none')
     })
     socket.on('unable-to-update-post', (data) => {
         setMessage(data.msg)
@@ -93,45 +93,68 @@ function EditOldBlog() {
     }
     socket.on('post-deleted', (data) => {
         setMessage(data.msg)
+        setOverlay('none')
     })
     socket.on('unable-to-delete-post', (data) => {
         setMessage(data.msg)
     })
 
-    // Render the update/delete old blog page.
     return (
-        <div className="blogs-cont">
+        <div className="overlay-container">
             {message ? (
                 <Message message={message} setMessage={setMessage} />
             ) : (
                 ''
             )}
-            <Title />
-            <Abstract />
-            <Link to="/my-blogs">
-                <button
-                    className="upload-btn"
-                    style={{ backgroundColor: 'grey' }}
-                >
-                    Cancel
-                </button>
-            </Link>
-            <button
-                className="upload-btn"
-                onClick={() => update_blog()}
-                style={{ backgroundColor: 'green' }}
-            >
-                Update
-            </button>
-            <button
-                className="upload-btn"
-                onClick={() => delete_blog()}
-                style={{ backgroundColor: 'red' }}
-            >
-                Delete
-            </button>
+            <div className="new-blog-cont">
+                <div className="cancel">
+                    <span
+                        className="x"
+                        onClick={() => {
+                            setOverlay(false)
+                        }}
+                        color="white"
+                    >
+                        X
+                    </span>
+                </div>
+                <div className="form">
+                    <div className="create-new-body">
+                        <Title />
+                        <Abstract />
+                    </div>
+                </div>
+                <div className="footer">
+                    <button
+                        style={{ backgroundColor: 'grey' }}
+                        onClick={() =>
+                            value === 1
+                                ? setOverlay(false)
+                                : setValue(value - 1)
+                        }
+                    >
+                        {/* {{ 1: 'Cancel' }[value] || 'Back'} */} Cancel
+                    </button>
+                    <button
+                        style={{ backgroundColor: 'green' }}
+                        onClick={() =>
+                            value === 1 ? update_blog() : setValue(value + 1)
+                        }
+                    >
+                        {/* {{ 3: 'Register' }[value] || 'Next'} */} Update
+                    </button>
+                    <button
+                        style={{ backgroundColor: 'red' }}
+                        onClick={() =>
+                            value === 1 ? delete_blog() : setValue(value + 1)
+                        }
+                    >
+                        {/* {{ 3: 'Register' }[value] || 'Next'} */} Delete
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
 
-export default EditOldBlog
+export default EditOld
