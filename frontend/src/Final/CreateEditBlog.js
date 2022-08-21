@@ -1,13 +1,14 @@
-import './CreateNew.css'
-import React, { useState, useLayoutEffect } from 'react'
+import './CreateEditBlog.css'
+import React, { useState } from 'react'
 import socket from '../config/socket'
 import { useNavigate } from 'react-router-dom'
 
-function EditOld({ setOverlay, edit_this }) {
+function CreateEditBlog({ setOverlay, edit_this, overlay }) {
     const [message, setMessage] = useState('')
     const [value, setValue] = useState(1)
     const navigate = useNavigate()
-    const article = edit_this
+    let edit = overlay === 'edit-blog' ? true : false
+    const article = edit ? edit_this : {}
 
     const Message = ({ message, setMessage }) => {
         setTimeout(() => {
@@ -30,10 +31,7 @@ function EditOld({ setOverlay, edit_this }) {
 
     // Title of the blog post. Required*
     const Title = () => {
-        const [title, setTitle] = useState('')
-        useLayoutEffect(() => {
-            setTitle(article.title)
-        }, [])
+        const [title, setTitle] = useState(article.title || '')
         return (
             <>
                 <input
@@ -52,10 +50,7 @@ function EditOld({ setOverlay, edit_this }) {
 
     // Abstract of the post. (Text Area)
     const Abstract = () => {
-        const [abstract, setAbstract] = useState('')
-        useLayoutEffect(() => {
-            setAbstract(article.abstract)
-        }, [])
+        const [abstract, setAbstract] = useState(article.abstract || '')
         return (
             <>
                 <textarea
@@ -71,6 +66,20 @@ function EditOld({ setOverlay, edit_this }) {
             </>
         )
     }
+
+    // Create/post the blog using axios to make remote api calls.
+    const post_blog = () => {
+        socket.emit('create-post', {
+            article: { ...article },
+            email: 'email@example.com',
+        })
+    }
+    socket.on('post-created', (data) => {
+        setMessage(data.msg)
+    })
+    socket.on('unable-to-create-post', (data) => {
+        setMessage(data.msg)
+    })
 
     // Update the blog post using socket.io
     const update_blog = () => {
@@ -133,28 +142,28 @@ function EditOld({ setOverlay, edit_this }) {
                                 : setValue(value - 1)
                         }
                     >
-                        {/* {{ 1: 'Cancel' }[value] || 'Back'} */} Cancel
+                        Cancel
                     </button>
                     <button
                         style={{ backgroundColor: 'green' }}
-                        onClick={() =>
-                            value === 1 ? update_blog() : setValue(value + 1)
-                        }
+                        onClick={() => (edit ? update_blog() : post_blog())}
                     >
-                        {/* {{ 3: 'Register' }[value] || 'Next'} */} Update
+                        {edit ? 'Update' : 'Create'}
                     </button>
-                    <button
-                        style={{ backgroundColor: 'red' }}
-                        onClick={() =>
-                            value === 1 ? delete_blog() : setValue(value + 1)
-                        }
-                    >
-                        {/* {{ 3: 'Register' }[value] || 'Next'} */} Delete
-                    </button>
+                    {edit ? (
+                        <button
+                            style={{ backgroundColor: 'red' }}
+                            onClick={() => delete_blog()}
+                        >
+                            Delete
+                        </button>
+                    ) : (
+                        ''
+                    )}
                 </div>
             </div>
         </div>
     )
 }
 
-export default EditOld
+export default CreateEditBlog

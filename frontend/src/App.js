@@ -3,11 +3,10 @@ import DisplayBlogs from './components/DisplayBlogs'
 import DisplayUserBlogs from './components/DisplayUserBlogs'
 import Header from './components/Header'
 import Register from './Final/Register'
-import CreateNew from './Final/CreateNew'
 import { Routes, Route } from 'react-router-dom'
 import Account from './components/Account'
 import { useState } from 'react'
-import EditOld from './Final/EditOld'
+import CreateEditBlog from './Final/CreateEditBlog'
 
 function App() {
     const [overlay, setOverlay] = useState('none')
@@ -18,13 +17,12 @@ function App() {
         <div className="App">
             <Header setOverlay={setOverlay} loggedin={loggedin} />
             {overlay === 'register' ? <Register setOverlay={setOverlay} /> : ''}
-            {overlay === 'create-new' ? (
-                <CreateNew setOverlay={setOverlay} />
-            ) : (
-                ''
-            )}
-            {overlay === 'edit-blog' ? (
-                <EditOld setOverlay={setOverlay} edit_this={edit_this} />
+            {overlay === 'create-new' || overlay === 'edit-blog' ? (
+                <CreateEditBlog
+                    setOverlay={setOverlay}
+                    edit_this={edit_this}
+                    overlay={overlay}
+                />
             ) : (
                 ''
             )}
