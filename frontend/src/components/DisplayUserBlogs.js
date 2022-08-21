@@ -6,15 +6,12 @@ import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaFacebookSquare, FaYoutube } from 'react-icons/fa'
 import axios from './axios-config'
 
-
 function DisplayUserBlogs() {
-    const [blogs, setBlogs] = useState([]);
-    const email = 'email@example.com';
-
+    const [blogs, setBlogs] = useState([])
+    const email = 'email@example.com'
 
     // User related information in short glimpse for now.
-    const UserInfo = ({user_info, time}) => {
-
+    const UserInfo = ({ user_info, time }) => {
         const Avatar = () => {
             return (
                 <div className="avatar-blogs">
@@ -30,13 +27,13 @@ function DisplayUserBlogs() {
                 </div>
             )
         }
-        
+
         const AboutUser = ({ name, time }) => {
             const [userInfo, setUserInfo] = useState({})
             useEffect(() => {
                 setUserInfo({
                     name: name,
-                    date: time
+                    date: time,
                 })
             }, [name, time])
             return (
@@ -50,14 +47,10 @@ function DisplayUserBlogs() {
         return (
             <div className="user-disp-block">
                 <Avatar avatar={user_info.profile} />
-                <AboutUser
-                    name={user_info.fullname}
-                    time={time}
-                />
+                <AboutUser name={user_info.fullname} time={time} />
             </div>
         )
     }
-
 
     // Content related information at glimpse for now.
     const ContentInfo = ({ blog_info }) => {
@@ -84,65 +77,60 @@ function DisplayUserBlogs() {
         return (
             <>
                 <Title title={blog_info.title} />
-                <Abstract abstract={blog_info.abstract} blog_info={blog_info}/>
+                <Abstract abstract={blog_info.abstract} blog_info={blog_info} />
             </>
         )
     }
 
-
     // Create new blog post.
     const CreateNew = () => {
         return (
-            <div className='create-new'>
-                <input className='search-bar' placeholder='Search Your Blogs' />
-                <button className='search'>Search</button>
+            <div className="create-new">
+                <input className="search-bar" placeholder="Search Your Blogs" />
+                <button className="search">Search</button>
             </div>
-        );
+        )
     }
-
 
     useLayoutEffect(() => {
         axios
             .get('/user', {
                 params: {
-                    email: email
-                }
+                    email: email,
+                },
             })
             .then((response) => {
-                const user = response.data[0];
-                const user_blogs = user.blogs;
+                const user = response.data[0]
+                const user_blogs = user.blogs
                 const user_details = { ...user }
                 delete user_details.blogs
                 const info = user_blogs.map((blog) => {
                     return {
-                        [blog._id] : {
+                        [blog._id]: {
                             blog_info: blog,
-                            user_info: { ...user_details }
-                        }
+                            user_info: { ...user_details },
+                        },
                     }
                 })
-                setBlogs(info);
+                setBlogs(info)
             })
-            .catch((err) => console.log(err));
-    }, []);
-
+            .catch((err) => console.log(err))
+    }, [])
 
     // Render the user blogs
     return (
-        <div className='blogs-cont'>
+        <div className="blogs-cont">
             <CreateNew />
             {blogs.length >= 1 ? (
                 blogs.map((data, index) => {
                     const blog = Object.values(data)[0]
                     return (
-                        <div className='blog-cont' key={index}>
+                        <div className="blog-cont" key={index}>
                             <UserInfo
                                 user_info={blog.user_info}
                                 time={blog.blog_info.time}
                             />
-                            <ContentInfo 
-                                blog_info={blog.blog_info}
-                            />
+                            <ContentInfo blog_info={blog.blog_info} />
                         </div>
                     )
                 })
@@ -150,14 +138,11 @@ function DisplayUserBlogs() {
                 <p> Loading...</p>
             )}
         </div>
-    );
+    )
 }
-
-
 
 // To be implemented
 const UserInfo = ({ user_info }) => {
-
     const SocialLinks = ({ links }) => {
         const [Links, setLinks] = useState([])
         useEffect(() => {
@@ -221,6 +206,5 @@ const UserInfo = ({ user_info }) => {
         </div>
     )
 }
-
 
 export default DisplayUserBlogs

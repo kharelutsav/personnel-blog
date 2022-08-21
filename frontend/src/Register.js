@@ -1,34 +1,76 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './Register.css'
 import { SiLinkedin, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaYoutube } from 'react-icons/fa'
+import axios from './components/axios-config'
 
-function Register({setOverlay}) {
-    const [value, setValue] = useState(1);
+const USER = {}
+
+function Register({ setOverlay, setBlogs }) {
+    const [value, setValue] = useState(1)
 
     const SOCIAL_MEDIA = [
         { name: 'Linkedin', logo: SiLinkedin },
         { name: 'Instagram', logo: SiInstagram },
         { name: 'Youtube', logo: FaYoutube },
-        { name: 'GitHub', logo: SiGithub }
+        { name: 'GitHub', logo: SiGithub },
     ]
 
     const Case1 = () => {
+        const [fullname, setFullname] = useState(USER.fullname || '')
+        const [username, setUsername] = useState(USER.username || '')
+        const [password, setPassword] = useState(USER.password || '')
+        const [email, setEmail] = useState(USER.email || '')
+        const [phone, setPhone] = useState(USER.phone || '')
+        useEffect(() => {
+            return () => {
+                USER.fullname = fullname
+                USER.username = username
+                USER.password = password
+                USER.email = email
+                USER.phone = phone
+            }
+        })
         return (
             <>
                 <p>Login credentials</p>
-                <input placeholder='username'/>
-                <input type='password' placeholder='password'/>
-                <input placeholder='email'/>
-                <input placeholder='phone'/>
+                <input
+                    placeholder="Full Name"
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
+                />
+                <input
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <input
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                    placeholder="Phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
             </>
         )
     }
 
     const Case2 = () => {
         const Container = ({ name, logo }) => {
-            const [link, setLink] = useState('')
+            const [link, setLink] = useState(USER[name] || '')
             const LOGO = logo
+            useEffect(() => {
+                USER[name] = link
+            })
             return (
                 <div className="container">
                     <LOGO className="logos" />
@@ -38,7 +80,7 @@ function Register({setOverlay}) {
                         className="links"
                         name={name}
                         value={link}
-                        onChange={(event) => setLink(event.target.value)}
+                        onChange={(e) => setLink(e.target.value)}
                     />
                 </div>
             )
@@ -54,48 +96,84 @@ function Register({setOverlay}) {
                             logo={media.logo}
                         />
                     )
-                })}                
+                })}
             </>
         )
     }
 
     const Case3 = () => {
+        const [about, setAbout] = useState(USER.about || '')
+        useEffect(() => {
+            USER.about = about
+        })
         return (
             <>
                 <p>Tell us some thing about yourself.</p>
-                <textarea placeholder='Networking enthusiast with over 10 years of experience in software development and system admin....'></textarea>
+                <textarea
+                    placeholder="Networking enthusiast with over 10 years of experience in software development and system admin...."
+                    value={about}
+                    onChange={(e) => setAbout(e.target.value)}
+                ></textarea>
             </>
         )
     }
 
-  return (
-    <div className='overlay-container'>
-        <div className='login-register-cont'>
-            <div className='cancel'>
-                <span className='x' onClick={() => {setOverlay(false)}}>X</span>
-            </div>
-            <div className='form'>
-                <div className='body'>
-                    {
-                        {
-                            1: <Case1 />,
-                            2: <Case2 />,
-                            3: <Case3 />
-                        }[value]
-                    }
+    // Create new user.
+    const create_user = () => {
+        USER.email = USER.social.Gmail
+        axios
+            .post('/create-user', { ...USER })
+            .then((response) => {
+                setBlogs(response.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    return (
+        <div className="overlay-container">
+            <div className="login-register-cont">
+                <div className="cancel">
+                    <span
+                        className="x"
+                        onClick={() => {
+                            setOverlay(false)
+                        }}
+                    >
+                        X
+                    </span>
                 </div>
-                <div className='footer'>
-                    <button onClick={() => setValue(value - 1)}>
-                        {{1: 'Cancel'}[value] || 'Back'}
-                    </button>
-                    <button onClick={() => setValue(value + 1)}>
-                        {{4: 'Register'}[value] || 'Next'}
-                    </button>
+                <div className="form">
+                    <div className="body">
+                        {
+                            {
+                                1: <Case1 />,
+                                2: <Case2 />,
+                                3: <Case3 />,
+                            }[value]
+                        }
+                    </div>
+                    <div className="footer">
+                        <button
+                            onClick={() =>
+                                value == 1
+                                    ? setOverlay(false)
+                                    : setValue(value - 1)
+                            }
+                        >
+                            {{ 1: 'Cancel' }[value] || 'Back'}
+                        </button>
+                        <button
+                            onClick={() =>
+                                value == 3 ? create_user : setValue(value + 1)
+                            }
+                        >
+                            {{ 3: 'Register' }[value] || 'Next'}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Register

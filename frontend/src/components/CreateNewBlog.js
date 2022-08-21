@@ -4,15 +4,22 @@ import './LeftContent.css'
 import socket from '../config/socket'
 
 function CreateNewBlog() {
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('')
     const article = {}
 
-    const Message = ({message, setMessage}) => {
+    const Message = ({ message, setMessage }) => {
         setTimeout(() => {
             setMessage('')
-        }, 5000);
+        }, 5000)
         return (
-            <div className='create-new' style={{backgroundColor: 'green', color: 'white', borderRadius: '0px'}}>
+            <div
+                className="create-new"
+                style={{
+                    backgroundColor: 'green',
+                    color: 'white',
+                    borderRadius: '0px',
+                }}
+            >
                 {message}
             </div>
         )
@@ -22,9 +29,9 @@ function CreateNewBlog() {
     const Title = () => {
         const [title, setTitle] = useState('')
         return (
-            <div className='create-new'>
+            <div className="create-new">
                 <input
-                    className='search-bar'
+                    className="search-bar"
                     width="100%"
                     placeholder="Please enter the title of your article."
                     value={title}
@@ -37,12 +44,11 @@ function CreateNewBlog() {
         )
     }
 
-
     // Abstract of the post. (Text Area)
     const Abstract = () => {
         const [abstract, setAbstract] = useState('')
         return (
-            <div className='blog-cont'>
+            <div className="blog-cont">
                 <textarea
                     className="abstract"
                     width="100%"
@@ -56,7 +62,6 @@ function CreateNewBlog() {
             </div>
         )
     }
-
 
     // Create/post the blog using axios to make remote api calls.
     const post_blog = () => {
@@ -74,11 +79,14 @@ function CreateNewBlog() {
         setMessage(data.msg)
     })
 
-
     // Render the create new blog page.
     return (
-        <div className='blogs-cont'>
-            {message ? <Message message={message} setMessage={setMessage}/> : ''}
+        <div className="blogs-cont">
+            {message ? (
+                <Message message={message} setMessage={setMessage} />
+            ) : (
+                ''
+            )}
             <Title />
             <Abstract />
             <button className="upload-btn" onClick={() => post_blog()}>

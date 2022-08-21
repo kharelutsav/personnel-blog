@@ -32,7 +32,7 @@
     top: 0px;
 }
 
-.x { 
+.x {
     cursor: pointer;
     display: right;
     margin-right: 14px;
@@ -86,7 +86,6 @@ h4 {
     margin: 0px auto;
     border-radius: 2.8rem;
 }
-
 
 .container {
     display: flex;

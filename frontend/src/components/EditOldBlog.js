@@ -5,24 +5,29 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import socket from '../config/socket'
 
 function EditOldBlog() {
-    const [message, setMessage] = useState(null);
+    const [message, setMessage] = useState(null)
     const navigate = useNavigate()
     const old_data = useLocation().state
     const article = old_data
 
-
-    const Message = ({message, setMessage}) => {
+    const Message = ({ message, setMessage }) => {
         setTimeout(() => {
             setMessage('')
             navigate('/my-blogs')
-        }, 2000);
+        }, 2000)
         return (
-            <div className='create-new' style={{backgroundColor: 'green', color: 'white', borderRadius: '0px'}}>
+            <div
+                className="create-new"
+                style={{
+                    backgroundColor: 'green',
+                    color: 'white',
+                    borderRadius: '0px',
+                }}
+            >
                 {message}
             </div>
         )
     }
-
 
     // Title of the blog post. Required*
     const Title = () => {
@@ -31,9 +36,9 @@ function EditOldBlog() {
             setTitle(article.title)
         }, [])
         return (
-            <div className='create-new'>
+            <div className="create-new">
                 <input
-                    className='search-bar'
+                    className="search-bar"
                     width="100%"
                     placeholder="Please enter the title of your article."
                     value={title}
@@ -46,7 +51,6 @@ function EditOldBlog() {
         )
     }
 
-
     // Abstract of the post. (Text Area)
     const Abstract = () => {
         const [abstract, setAbstract] = useState('')
@@ -54,7 +58,7 @@ function EditOldBlog() {
             setAbstract(article.abstract)
         }, [])
         return (
-            <div className='blog-cont'>
+            <div className="blog-cont">
                 <textarea
                     className="abstract"
                     width="100%"
@@ -69,7 +73,6 @@ function EditOldBlog() {
         )
     }
 
-
     // Update the blog post using socket.io
     const update_blog = () => {
         socket.emit('update-post', { ...article })
@@ -80,7 +83,6 @@ function EditOldBlog() {
     socket.on('unable-to-update-post', (data) => {
         setMessage(data.msg)
     })
-
 
     // Delete the blog post using socket.io
     const delete_blog = () => {
@@ -96,35 +98,38 @@ function EditOldBlog() {
         setMessage(data.msg)
     })
 
-
     // Render the update/delete old blog page.
     return (
-        <div className='blogs-cont'>
-            {message ? <Message message={message} setMessage={setMessage}/> : ''}
+        <div className="blogs-cont">
+            {message ? (
+                <Message message={message} setMessage={setMessage} />
+            ) : (
+                ''
+            )}
             <Title />
             <Abstract />
             <Link to="/my-blogs">
-                    <button
-                        className="upload-btn"
-                        style={{ backgroundColor: 'grey' }}
-                    >
-                        Cancel
-                    </button>
-                </Link>
                 <button
                     className="upload-btn"
-                    onClick={() => update_blog()}
-                    style={{ backgroundColor: 'green' }}
+                    style={{ backgroundColor: 'grey' }}
                 >
-                    Update
+                    Cancel
                 </button>
-                <button
-                    className="upload-btn"
-                    onClick={() => delete_blog()}
-                    style={{ backgroundColor: 'red' }}
-                >
-                    Delete
-                </button>
+            </Link>
+            <button
+                className="upload-btn"
+                onClick={() => update_blog()}
+                style={{ backgroundColor: 'green' }}
+            >
+                Update
+            </button>
+            <button
+                className="upload-btn"
+                onClick={() => delete_blog()}
+                style={{ backgroundColor: 'red' }}
+            >
+                Delete
+            </button>
         </div>
     )
 }

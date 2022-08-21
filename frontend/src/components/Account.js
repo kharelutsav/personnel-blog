@@ -110,7 +110,6 @@ const AuthorInfo = () => {
                 onBlur={() => (user.fullname = name)}
             />{' '}
             <br />
-
             <label className="input-creds" htmlFor="phone" type="number">
                 Phone Number
             </label>
@@ -122,7 +121,6 @@ const AuthorInfo = () => {
                 onBlur={() => (user.phone = phone)}
             />{' '}
             <br />
-
             <label className="input-creds" htmlFor="name">
                 Author's Email
             </label>
@@ -138,8 +136,6 @@ const AuthorInfo = () => {
 }
 
 function Account({ setBlogs }) {
-
-
     // Create new user.
     const create_user = () => {
         user.email = user.social.Gmail
@@ -151,15 +147,14 @@ function Account({ setBlogs }) {
             .catch((err) => console.log(err))
     }
 
-
     // Render the account setup page.
     return (
-        <div className='blogs-cont'>
+        <div className="blogs-cont">
             <Avatar />
-            <div className='create-new'>
+            <div className="create-new">
                 <AuthorInfo />
             </div>
-            <div className='create-new'>
+            <div className="create-new">
                 <RightContent />
             </div>
             <button className="save-btn" onClick={create_user}>

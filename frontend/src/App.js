@@ -11,11 +11,16 @@ import Register from './Register'
 import { useState } from 'react'
 
 function App() {
-    const [overlay, setOverlay] = useState(true);
+    const [overlay, setOverlay] = useState(true)
+    const [blogs, setBlogs] = useState({})
     return (
         <div className="App">
             <Header />
-            {overlay ? <Register setOverlay={setOverlay}/> : ""}
+            {overlay ? (
+                <Register setOverlay={setOverlay} setBlogs={setBlogs} />
+            ) : (
+                ''
+            )}
             {/* <Routes>
                 <Route path="/" element={<DisplayBlogs />} />
                 <Route
