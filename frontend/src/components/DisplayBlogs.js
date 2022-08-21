@@ -7,12 +7,10 @@ import axios from './axios-config'
 import socket from '../config/socket'
 
 function DisplayBlogs() {
-    const [blogs, setBlogs] = useState([]);
-
+    const [blogs, setBlogs] = useState([])
 
     // User related information in short glimpse for now.
-    const UserInfo = ({user_info, time}) => {
-
+    const UserInfo = ({ user_info, time }) => {
         const Avatar = () => {
             return (
                 <div className="avatar-blogs">
@@ -28,13 +26,13 @@ function DisplayBlogs() {
                 </div>
             )
         }
-        
+
         const AboutUser = ({ name, time }) => {
             const [userInfo, setUserInfo] = useState({})
             useEffect(() => {
                 setUserInfo({
                     name: name,
-                    date: time
+                    date: time,
                 })
             }, [name, time])
             return (
@@ -48,14 +46,10 @@ function DisplayBlogs() {
         return (
             <div className="user-disp-block">
                 <Avatar avatar={user_info.profile} />
-                <AboutUser
-                    name={user_info.fullname}
-                    time={time}
-                />
+                <AboutUser name={user_info.fullname} time={time} />
             </div>
         )
     }
-
 
     // Content related information at glimpse for now.
     const ContentInfo = ({ blog_info }) => {
@@ -82,45 +76,43 @@ function DisplayBlogs() {
             </>
         )
     }
-    
 
     // Create new blog post.
     const CreateNew = () => {
         return (
-            <div className='create-new'>
-                <input className='search-bar' placeholder='Search Blogs' />
-                <button className='search'>Search</button>
+            <div className="create-new">
+                <input className="search-bar" placeholder="Search Blogs" />
+                <button className="search">Search</button>
             </div>
-        );
+        )
     }
-
 
     // Layout effect that allows axios API calls.
     useLayoutEffect(() => {
         axios
             .get('/')
             .then((response) => {
+                // console.log(response.data);
                 const blogs = response.data || []
-                const data = blogs.map(blog => {
+                const data = blogs.map((blog) => {
                     const blog_info = { ...blog }
                     delete blog_info.author
                     return {
-                        [blog_info._id] : {
+                        [blog_info._id]: {
                             blog_info: blog_info,
-                            user_info: blog.author
-                        }
+                            user_info: blog.author,
+                        },
                     }
                 })
                 setBlogs(data)
             })
             .catch((err) => console.log(err))
-    }, []);
-
+    }, [])
 
     // Sockets activated when new blog post is added
     socket.on('new-blog-added', (data) => {
         const temp_blogs = [...blogs]
-        temp_blogs.unshift({[data.blog.blog_info._id]: data.blog})
+        temp_blogs.unshift({ [data.blog.blog_info._id]: data.blog })
         setBlogs(temp_blogs)
     })
 
@@ -146,23 +138,20 @@ function DisplayBlogs() {
         setBlogs(updated_blogs)
     })
 
-
     // Render the user blogs
     return (
-        <div className='blogs-cont'>
+        <div className="blogs-cont">
             <CreateNew />
             {blogs.length >= 1 ? (
                 blogs.map((data, index) => {
                     const blog = Object.values(data)[0]
                     return (
-                        <div className='blog-cont' key={index}>
+                        <div className="blog-cont" key={index}>
                             <UserInfo
                                 user_info={blog.user_info}
                                 time={blog.blog_info.time}
                             />
-                            <ContentInfo
-                                blog_info={blog.blog_info}
-                            />
+                            <ContentInfo blog_info={blog.blog_info} />
                         </div>
                     )
                 })
@@ -170,7 +159,7 @@ function DisplayBlogs() {
                 <p> Loading...</p>
             )}
         </div>
-    );
+    )
 }
 
 export default DisplayBlogs
