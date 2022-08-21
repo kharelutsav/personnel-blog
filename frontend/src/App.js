@@ -1,6 +1,5 @@
 import './App.css'
-import DisplayBlogs from './components/DisplayBlogs'
-import DisplayUserBlogs from './components/DisplayUserBlogs'
+import DisplayBlogs from './Final/DisplayBlogs'
 import Header from './components/Header'
 import Register from './Final/Register'
 import { Routes, Route } from 'react-router-dom'
@@ -13,9 +12,15 @@ function App() {
     // eslint-disable-next-line
     const [loggedin, setLoggedin] = useState(true)
     const [edit_this, setEdit_this] = useState({})
+    // eslint-disable-next-line
+    const [userblog, setUserblog] = useState(false)
     return (
         <div className="App">
-            <Header setOverlay={setOverlay} loggedin={loggedin} />
+            <Header
+                setOverlay={setOverlay}
+                loggedin={loggedin}
+                setUserblog={setUserblog}
+            />
             {overlay === 'register' ? <Register setOverlay={setOverlay} /> : ''}
             {overlay === 'create-new' || overlay === 'edit-blog' ? (
                 <CreateEditBlog
@@ -26,17 +31,12 @@ function App() {
             ) : (
                 ''
             )}
+            <DisplayBlogs
+                setOverlay={setOverlay}
+                setEdit_this={setEdit_this}
+                userblog={userblog}
+            />
             <Routes>
-                <Route path="/" element={<DisplayBlogs />} />
-                <Route
-                    path="/my-blogs"
-                    element={
-                        <DisplayUserBlogs
-                            setOverlay={setOverlay}
-                            setEdit_this={setEdit_this}
-                        />
-                    }
-                />
                 <Route path="/my-account" element={<Account />} />
             </Routes>
             {/* {/* <Footer /> */}

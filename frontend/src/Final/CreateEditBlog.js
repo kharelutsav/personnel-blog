@@ -1,12 +1,10 @@
 import './CreateEditBlog.css'
 import React, { useState } from 'react'
 import socket from '../config/socket'
-import { useNavigate } from 'react-router-dom'
 
 function CreateEditBlog({ setOverlay, edit_this, overlay }) {
     const [message, setMessage] = useState('')
     const [value, setValue] = useState(1)
-    const navigate = useNavigate()
     let edit = overlay === 'edit-blog' ? true : false
     const article = edit ? edit_this : {}
 
@@ -14,7 +12,6 @@ function CreateEditBlog({ setOverlay, edit_this, overlay }) {
         setTimeout(() => {
             setMessage('')
             setOverlay('none')
-            navigate('/')
         }, 5000)
         return (
             <div

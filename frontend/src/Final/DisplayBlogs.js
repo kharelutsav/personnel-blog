@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import './DisplayBlogs.css'
 import './DisplayBlogs1.css'
-// import { SiLinkedin, SiGmail, SiGithub, SiInstagram } from 'react-icons/si'
-// import { FaYoutube } from 'react-icons/fa'
-import axios from './axios-config'
+import axios from '../components/axios-config'
+import socket from '../config/socket'
 
-function DisplayUserBlogs({ setOverlay, setEdit_this }) {
+function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
     const [blogs, setBlogs] = useState([])
     const email = 'email@example.com'
 
@@ -53,23 +52,26 @@ function DisplayUserBlogs({ setOverlay, setEdit_this }) {
 
     // Content related information at glimpse for now.
     const ContentInfo = ({ blog_info }) => {
-        const Abstract = ({ abstract, blog_info }) => {
+        const Abstract = ({ abstract }) => {
             return (
                 <p className="content-abstract">
                     {abstract}({/* eslint-disable-next-line */}
                     <a alt="" href="#">
                         read more
                     </a>
-                    )(
-                    <span
-                        onClick={() => {
-                            setOverlay('edit-blog')
-                            setEdit_this(blog_info)
-                        }}
-                    >
-                        edit post
-                    </span>
                     )
+                    {userblog ? (
+                        <span
+                            onClick={() => {
+                                setOverlay('edit-blog')
+                                setEdit_this(blog_info)
+                            }}
+                        >
+                            (edit post)
+                        </span>
+                    ) : (
+                        ''
+                    )}
                 </p>
             )
         }
@@ -81,7 +83,7 @@ function DisplayUserBlogs({ setOverlay, setEdit_this }) {
         return (
             <>
                 <Title title={blog_info.title} />
-                <Abstract abstract={blog_info.abstract} blog_info={blog_info} />
+                <Abstract abstract={blog_info.abstract} />
             </>
         )
     }
@@ -90,36 +92,84 @@ function DisplayUserBlogs({ setOverlay, setEdit_this }) {
     const CreateNew = () => {
         return (
             <div className="create-new">
-                <input className="search-bar" placeholder="Search Your Blogs" />
+                <input className="search-bar" placeholder="Search Blogs" />
                 <button className="search">Search</button>
             </div>
         )
     }
 
+    // Layout effect that allows axios API calls.
     useLayoutEffect(() => {
-        axios
-            .get('/user', {
-                params: {
-                    email: email,
-                },
-            })
-            .then((response) => {
-                const user = response.data[0]
-                const user_blogs = user.blogs
-                const user_details = { ...user }
-                delete user_details.blogs
-                const info = user_blogs.map((blog) => {
-                    return {
-                        [blog._id]: {
-                            blog_info: blog,
-                            user_info: { ...user_details },
-                        },
-                    }
-                })
-                setBlogs(info)
-            })
-            .catch((err) => console.log(err))
-    }, [])
+        userblog
+            ? axios
+                  .get('/')
+                  .then((response) => {
+                      const blogs = response.data || []
+                      const data = blogs.map((blog) => {
+                          const blog_info = { ...blog }
+                          delete blog_info.author
+                          return {
+                              [blog_info._id]: {
+                                  blog_info: blog_info,
+                                  user_info: blog.author,
+                              },
+                          }
+                      })
+                      setBlogs(data)
+                  })
+                  .catch((err) => console.log(err))
+            : axios
+                  .get('/user', {
+                      params: {
+                          email: email,
+                      },
+                  })
+                  .then((response) => {
+                      const user = response.data[0]
+                      const user_blogs = user.blogs
+                      const user_details = { ...user }
+                      delete user_details.blogs
+                      const info = user_blogs.map((blog) => {
+                          return {
+                              [blog._id]: {
+                                  blog_info: blog,
+                                  user_info: { ...user_details },
+                              },
+                          }
+                      })
+                      setBlogs(info)
+                  })
+                  .catch((err) => console.log(err))
+    }, [userblog])
+
+    // Sockets activated when new blog post is added
+    socket.on('new-blog-added', (data) => {
+        const temp_blogs = [...blogs]
+        temp_blogs.unshift({ [data.blog.blog_info._id]: data.blog })
+        setBlogs(temp_blogs)
+    })
+
+    // Sockets activated when new blog post is updated
+    socket.on('blog-updated', (data) => {
+        const temp_blogs = [...blogs]
+        temp_blogs.map((temp_blog) => {
+            const blog_id = Object.keys(temp_blog)[0]
+            if (blog_id === data.blog._id) {
+                temp_blog[blog_id].blog_info = data.blog
+            }
+            return temp_blog
+        })
+        setBlogs(temp_blogs)
+    })
+
+    // Socket activated when some blog post is deleted
+    socket.on('blog-deleted', (data) => {
+        const temp_blogs = [...blogs]
+        const updated_blogs = temp_blogs.filter((blog) => {
+            return Object.keys(blog)[0] !== data.blog
+        })
+        setBlogs(updated_blogs)
+    })
 
     // Render the user blogs
     return (
@@ -144,6 +194,8 @@ function DisplayUserBlogs({ setOverlay, setEdit_this }) {
         </div>
     )
 }
+
+export default DisplayBlogs
 
 // To be implemented
 // const UserInfo = ({ user_info }) => {
@@ -209,5 +261,3 @@ function DisplayUserBlogs({ setOverlay, setEdit_this }) {
 //         </div>
 //     )
 // }
-
-export default DisplayUserBlogs
