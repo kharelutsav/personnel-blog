@@ -10,10 +10,10 @@ function Register({ setOverlay, setBlogs }) {
     const [value, setValue] = useState(1)
 
     const SOCIAL_MEDIA = [
-        { name: 'Linkedin', logo: SiLinkedin },
-        { name: 'Instagram', logo: SiInstagram },
-        { name: 'Youtube', logo: FaYoutube },
-        { name: 'GitHub', logo: SiGithub },
+        { name: 'Linkedin', alias: 'linkedin', logo: SiLinkedin },
+        { name: 'Instagram', alias: 'instagram', logo: SiInstagram },
+        { name: 'Youtube', alias: 'youtube', logo: FaYoutube },
+        { name: 'GitHub', alias: 'github', logo: SiGithub },
     ]
 
     const Case1 = () => {
@@ -65,11 +65,11 @@ function Register({ setOverlay, setBlogs }) {
     }
 
     const Case2 = () => {
-        const Container = ({ name, logo }) => {
-            const [link, setLink] = useState(USER[name] || '')
+        const Container = ({ name, alias, logo }) => {
+            const [link, setLink] = useState(USER[alias] || '')
             const LOGO = logo
             useEffect(() => {
-                USER[name] = link
+                USER[alias] = link
             })
             return (
                 <div className="container">
@@ -78,7 +78,7 @@ function Register({ setOverlay, setBlogs }) {
                         style={{ display: 'block' }}
                         placeholder={name}
                         className="links"
-                        name={name}
+                        name={alias}
                         value={link}
                         onChange={(e) => setLink(e.target.value)}
                     />
@@ -93,6 +93,7 @@ function Register({ setOverlay, setBlogs }) {
                         <Container
                             key={index}
                             name={media.name}
+                            alias={media.alias}
                             logo={media.logo}
                         />
                     )
@@ -120,7 +121,6 @@ function Register({ setOverlay, setBlogs }) {
 
     // Create new user.
     const create_user = () => {
-        USER.email = USER.social.Gmail
         axios
             .post('/create-user', { ...USER })
             .then((response) => {
@@ -164,7 +164,7 @@ function Register({ setOverlay, setBlogs }) {
                         </button>
                         <button
                             onClick={() =>
-                                value == 3 ? create_user : setValue(value + 1)
+                                value == 3 ? create_user() : setValue(value + 1)
                             }
                         >
                             {{ 3: 'Register' }[value] || 'Next'}

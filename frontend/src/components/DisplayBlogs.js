@@ -92,6 +92,7 @@ function DisplayBlogs() {
         axios
             .get('/')
             .then((response) => {
+                // console.log(response.data);
                 const blogs = response.data || []
                 const data = blogs.map((blog) => {
                     const blog_info = { ...blog }
