@@ -189,7 +189,9 @@ function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
                     )
                 })
             ) : (
-                <p> Loading...</p>
+                // setTimeout(() => {
+                    <p> Loading...</p>
+                // }, 2000)
             )}
         </div>
     )
