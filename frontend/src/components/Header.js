@@ -1,26 +1,25 @@
 import React from 'react'
 import './Header.css'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-function Header({ setOverlay, loggedin }) {
+function Header({ setOverlay, loggedin, setUserblog }) {
     return (
         <header className="admin-header">
             <ul>
                 <li>
-                    <Link
-                        to="/"
-                        className="nav"
-                        style={{ textDecoration: 'none' }}
-                    >
+                    <span className="nav" onClick={() => setUserblog(false)}>
                         Dashboard
-                    </Link>
+                    </span>
                 </li>
                 {loggedin ? (
                     <>
                         <li>
-                            <Link to="/my-blogs" className="nav">
+                            <span
+                                className="nav"
+                                onClick={() => setUserblog(true)}
+                            >
                                 MyBlogs
-                            </Link>
+                            </span>
                         </li>
                         <li>
                             <span
@@ -30,11 +29,11 @@ function Header({ setOverlay, loggedin }) {
                                 CreateNew
                             </span>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/my-account" className="nav">
                                 Account
                             </Link>
-                        </li>
+                        </li> */}
                     </>
                 ) : (
                     <>

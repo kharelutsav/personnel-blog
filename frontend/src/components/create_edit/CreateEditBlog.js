@@ -1,33 +1,11 @@
 import './CreateEditBlog.css'
 import React, { useState } from 'react'
-import socket from '../config/socket'
-import { useNavigate } from 'react-router-dom'
+import socket from '../../config/socket'
 
-function CreateEditBlog({ setOverlay, edit_this, overlay }) {
-    const [message, setMessage] = useState('')
+function CreateEditBlog({ setOverlay, edit_this, overlay, setMessage, message }) {
     const [value, setValue] = useState(1)
-    const navigate = useNavigate()
     let edit = overlay === 'edit-blog' ? true : false
     const article = edit ? edit_this : {}
-
-    const Message = ({ message, setMessage }) => {
-        setTimeout(() => {
-            setMessage('')
-            setOverlay('none')
-            navigate('/')
-        }, 5000)
-        return (
-            <div
-                style={{
-                    backgroundColor: 'green',
-                    color: 'white',
-                    borderRadius: '0px',
-                }}
-            >
-                {message}
-            </div>
-        )
-    }
 
     // Title of the blog post. Required*
     const Title = () => {
@@ -75,10 +53,11 @@ function CreateEditBlog({ setOverlay, edit_this, overlay }) {
         })
     }
     socket.on('post-created', (data) => {
-        setMessage(data.msg)
+        setMessage([...message, data.msg])
+        setOverlay('none')
     })
     socket.on('unable-to-create-post', (data) => {
-        setMessage(data.msg)
+        setMessage([...message, data.msg])
     })
 
     // Update the blog post using socket.io
@@ -86,11 +65,11 @@ function CreateEditBlog({ setOverlay, edit_this, overlay }) {
         socket.emit('update-post', { ...article })
     }
     socket.on('post-updated', (data) => {
-        setMessage(data.msg)
+        setMessage([...message, data.msg])
         setOverlay('none')
     })
     socket.on('unable-to-update-post', (data) => {
-        setMessage(data.msg)
+        setMessage([...message, data.msg])
     })
 
     // Delete the blog post using socket.io
@@ -101,20 +80,15 @@ function CreateEditBlog({ setOverlay, edit_this, overlay }) {
         })
     }
     socket.on('post-deleted', (data) => {
-        setMessage(data.msg)
+        setMessage([...message, data.msg])
         setOverlay('none')
     })
     socket.on('unable-to-delete-post', (data) => {
-        setMessage(data.msg)
+        setMessage([...message, data.msg])
     })
 
     return (
         <div className="overlay-container">
-            {message ? (
-                <Message message={message} setMessage={setMessage} />
-            ) : (
-                ''
-            )}
             <div className="new-blog-cont">
                 <div className="cancel">
                     <span

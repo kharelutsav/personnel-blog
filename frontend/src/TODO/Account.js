@@ -4,7 +4,7 @@ import './Account.css'
 import './RightContent.css'
 import { SiLinkedin, SiGithub, SiInstagram } from 'react-icons/si'
 import { FaYoutube } from 'react-icons/fa'
-import axios from './axios-config'
+import axios from '../config/axios-config'
 
 const SOCIAL_MEDIA = [
     { name: 'Linkedin', logo: SiLinkedin },

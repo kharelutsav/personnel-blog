@@ -35,6 +35,31 @@
     margin: auto;
 }
 
+.notification {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(73, 162, 191);
+    color: white;
+    border-radius: 7px;
+    width: 21vw;
+    text-indent: 21px;
+    padding: 10px;
+    letter-spacing: 1px;
+    font: calibri;
+    font-size: 21px;
+    margin-top: 14px;
+}
+
+.close-notification {
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.close-notification:hover {
+    cursor: pointer;
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
