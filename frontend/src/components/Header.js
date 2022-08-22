@@ -1,31 +1,52 @@
 import React from 'react'
 import './Header.css'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
-function Header() {
+function Header({ setOverlay, loggedin, setUserblog }) {
     return (
         <header className="admin-header">
             <ul>
                 <li>
-                    <Link to="/" className="nav">
+                    <span className="nav" onClick={() => setUserblog(false)}>
                         Dashboard
-                    </Link>
+                    </span>
                 </li>
-                <li>
-                    <Link to="/my-blogs" className="nav">
-                        MyBlogs
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/create-new-blog" className="nav">
-                        CreateNew
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/my-account" className="nav">
-                        Account
-                    </Link>
-                </li>
+                {loggedin ? (
+                    <>
+                        <li>
+                            <span
+                                className="nav"
+                                onClick={() => setUserblog(true)}
+                            >
+                                MyBlogs
+                            </span>
+                        </li>
+                        <li>
+                            <span
+                                className="nav"
+                                onClick={() => setOverlay('create-new')}
+                            >
+                                CreateNew
+                            </span>
+                        </li>
+                        {/* <li>
+                            <Link to="/my-account" className="nav">
+                                Account
+                            </Link>
+                        </li> */}
+                    </>
+                ) : (
+                    <>
+                        <li>
+                            <span
+                                className="nav"
+                                onClick={() => setOverlay('register')}
+                            >
+                                Register
+                            </span>
+                        </li>
+                    </>
+                )}
             </ul>
         </header>
     )

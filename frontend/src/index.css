@@ -18,6 +18,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+#portal {
+    position: fixed;
+    bottom: 100px;
+    left: 28px;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;

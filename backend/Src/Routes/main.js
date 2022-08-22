@@ -40,7 +40,8 @@ router.get('/user', async (req, res) => {
 // @desc Register user or create user profile
 // @route POST /create-user
 router.post('/create-user', async (req, res) => {
-    const account = { ...req.body, blogs: [] }
+    const account = { ...req.body}
+    console.log(account);
     User.create(account)
         .then(() => {
             res.status(200).send(

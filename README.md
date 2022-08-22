@@ -55,17 +55,15 @@ Database:
 ## Areas of Improvement
 ```
     Extensive use of hooks can be reduced with react redux.
-    Account registration, vaidation
+    User authentication.
 ```
 
 ## Remaining Implementations
 What I have not implemented?
 ```
 Testing [Unit, Inegration, Database, UI]
-Multi-user GUI
-Registration and validation
+Validation
 Input sanitization
-Input validation
 ```
 
 Backend Server runs on port 4000.

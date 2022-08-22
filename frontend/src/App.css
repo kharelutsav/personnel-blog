@@ -1,7 +1,13 @@
 .App {
     text-align: center;
     background-color: rgb(242, 254, 254);
-    margin: auto;
+    height: 100vh;
+    width: 100vw;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: absolute;
 }
 
 .admin-header,
@@ -27,6 +33,31 @@
     color: white;
     font-weight: bold;
     margin: auto;
+}
+
+.notification {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(73, 162, 191);
+    color: white;
+    border-radius: 7px;
+    width: 21vw;
+    text-indent: 21px;
+    padding: 10px;
+    letter-spacing: 1px;
+    font: calibri;
+    font-size: 21px;
+    margin-top: 14px;
+}
+
+.close-notification {
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.close-notification:hover {
+    cursor: pointer;
 }
 
 @keyframes App-logo-spin {

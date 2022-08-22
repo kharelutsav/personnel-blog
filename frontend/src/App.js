@@ -1,54 +1,72 @@
 import './App.css'
-import DisplayBlogs from './components/DisplayBlogs'
-import DisplayUserBlogs from './components/DisplayUserBlogs'
-import CreateNewBlog from './components/CreateNewBlog'
-import EditOldBlog from './components/EditOldBlog'
-// import Footer from './components/Footer'
+import { useState } from 'react'
+import ReactDOM from 'react-dom'
 import Header from './components/Header'
-import { Routes, Route } from 'react-router-dom'
-import Account from './components/Account'
-import { useState, useLayoutEffect } from 'react'
-import axios from './components/axios-config'
-const { io } = require("socket.io-client")
-const socket = io("http://localhost:4000/");
+// import Account from './components/Account'
+// import { Routes, Route } from 'react-router-dom'
+import Register from './components/register_login/Register'
+import DisplayBlogs from './components/fetch_display/DisplayBlogs'
+import CreateEditBlog from './components/create_edit/CreateEditBlog'
 
 function App() {
-    const [blogs, setBlogs] = useState([])
-    useLayoutEffect(() => {
-        axios
-            .get('/')
-            .then((response) => {
-                setBlogs(response.data || [])
-            })
-            .catch((err) => console.log(err))
-    }, []);
+    const [overlay, setOverlay] = useState('none')
+    const [message, setMessage] = useState([])
+    // eslint-disable-next-line
+    const [loggedin, setLoggedin] = useState(true)
+    const [edit_this, setEdit_this] = useState({})
+    const [userblog, setUserblog] = useState(false)
 
-    socket.on("new-updates", (updates) => {
-        console.log(updates);
-    });
-
+    const Message = () => {
+        return (
+            <>
+                {
+                    message.map((msg, index) => {
+                        return (
+                            <div className='notification' key={index}>
+                                {msg} <span onClick={() => setMessage([...message].filter((_msg,idx) => index !== idx))} className="close-notification" >X</span>
+                            </div>
+                        )
+                    })
+                }
+            </>
+        )
+    }
+    
     return (
         <div className="App">
-            <Header />
-            <Routes>
-                <Route path="/" element={<DisplayBlogs />} />
-                <Route
-                    path="/my-blogs"
-                    element={<DisplayUserBlogs />}
+            {message ? (
+                ReactDOM.createPortal(
+                    <Message />,
+                    document.getElementById('portal')
+                )
+            ) : (
+                ''
+            )}
+            <Header
+                setOverlay={setOverlay}
+                loggedin={loggedin}
+                setUserblog={setUserblog}
+            />
+            {overlay === 'register' ? <Register setOverlay={setOverlay} /> : ''}
+            {overlay === 'create-new' || overlay === 'edit-blog' ? (
+                <CreateEditBlog
+                    setOverlay={setOverlay}
+                    edit_this={edit_this}
+                    overlay={overlay}
+                    setMessage={setMessage}
+                    message={message}
                 />
-                <Route
-                    path="/edit-blog"
-                    element={<EditOldBlog />}
-                />
-                <Route
-                    path="/create-new-blog"
-                    element={<CreateNewBlog setBlogs={setBlogs} />}
-                />
-                <Route
-                    path="/my-account"
-                    element={<Account setBlogs={setBlogs} />}
-                />
-            </Routes>
+            ) : (
+                ''
+            )}
+            <DisplayBlogs
+                setOverlay={setOverlay}
+                setEdit_this={setEdit_this}
+                userblog={userblog}
+            />
+            {/* <Routes>
+                <Route path="/my-account" element={<Account />} />
+            </Routes> */}
             {/* <Footer /> */}
         </div>
     )
