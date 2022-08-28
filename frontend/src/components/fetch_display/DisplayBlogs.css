@@ -45,6 +45,49 @@
     border-bottom-right-radius: 1rem;
 }
 
+.blog-info-overflow-hidden {
+    height: 8rem;
+
+    /* Overflow and Scrollbar */
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.blog-info-overflow-scroll {
+    height: 8rem;
+
+    /* Overflow and Scrollbar */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.legend {
+    bottom: 0;
+    font-size: 14px;
+    left: 0px;
+    border-bottom: 0.5px solid grey;
+    height: 1.4vh;
+}
+
+.legend-span {
+    transform: translate(-50%, -50%);
+    border-radius: 7px;
+    background-color: whitesmoke;
+    color: red;
+    box-shadow: 1px 1px 1px 1px grey;
+    border-top: 1px solid grey;
+    font-weight: bold;
+    padding: 2px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.legend-span:hover {
+    cursor: pointer;
+}
+
 .user-disp-block,
 .content-disp-block {
     display: block;

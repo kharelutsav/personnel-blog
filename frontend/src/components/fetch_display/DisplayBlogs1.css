@@ -60,6 +60,9 @@
 
 .blog-cont {
     height: 11rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .blog-cont,
