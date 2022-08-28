@@ -3,13 +3,14 @@ import './DisplayBlogs1.css'
 import socket from '../../config/socket'
 import axios from '../../config/axios-config'
 import React, { useState, useEffect, useLayoutEffect } from 'react'
+import { FaEdit } from 'react-icons/fa'
 
 function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
     const [blogs, setBlogs] = useState([])
     const email = 'email@example.com'
 
     // User related information in short glimpse for now.
-    const UserInfo = ({ user_info, time }) => {
+    const UserInfo = ({ user_info, blog_info }) => {
         const Avatar = () => {
             return (
                 <div className="avatar-blogs">
@@ -45,7 +46,18 @@ function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
         return (
             <div className="user-disp-block">
                 <Avatar avatar={user_info.profile} />
-                <AboutUser name={user_info.fullname} time={time} />
+                <AboutUser name={user_info.fullname} time={blog_info.time} />
+                {userblog ? (
+                    <FaEdit
+                        style={{ color: 'blue', float: 'right' }}
+                        onClick={() => {
+                            setOverlay('edit-blog')
+                            setEdit_this(blog_info)
+                        }}
+                    />
+                ) : (
+                    ''
+                )}
             </div>
         )
     }
@@ -53,27 +65,7 @@ function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
     // Content related information at glimpse for now.
     const ContentInfo = ({ blog_info }) => {
         const Abstract = ({ abstract }) => {
-            return (
-                <p className="content-abstract">
-                    {abstract}({/* eslint-disable-next-line */}
-                    <a alt="" href="#">
-                        read more
-                    </a>
-                    )
-                    {userblog ? (
-                        <span
-                            onClick={() => {
-                                setOverlay('edit-blog')
-                                setEdit_this(blog_info)
-                            }}
-                        >
-                            (edit post)
-                        </span>
-                    ) : (
-                        ''
-                    )}
-                </p>
-            )
+            return <p className="content-abstract">{abstract}</p>
         }
 
         const Title = ({ title }) => {
@@ -171,26 +163,49 @@ function DisplayBlogs({ setOverlay, setEdit_this, userblog }) {
         setBlogs(updated_blogs)
     })
 
+    const Test = ({ blog, index }) => {
+        const [collapsed, setCollapsed] = useState(true)
+        return (
+            <div className={'blog-cont'} key={index}>
+                <div>
+                    <UserInfo
+                        user_info={blog.user_info}
+                        blog_info={blog.blog_info}
+                    />
+                    <div
+                        className={
+                            collapsed
+                                ? 'blog-info-overflow-hidden'
+                                : 'blog-info-overflow-scroll'
+                        }
+                    >
+                        <ContentInfo blog_info={blog.blog_info} />
+                    </div>
+                </div>
+                <p className="legend">
+                    {' '}
+                    <span
+                        className="legend-span"
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        {collapsed ? 'Expand Section' : 'Collapse Section'}
+                    </span>
+                </p>
+            </div>
+        )
+    }
+
     // Render the user blogs
     return (
         <div className="blogs-cont">
             <CreateNew />
             {blogs.length >= 1 ? (
                 blogs.map((data, index) => {
-                    const blog = Object.values(data)[0]
-                    return (
-                        <div className="blog-cont" key={index}>
-                            <UserInfo
-                                user_info={blog.user_info}
-                                time={blog.blog_info.time}
-                            />
-                            <ContentInfo blog_info={blog.blog_info} />
-                        </div>
-                    )
+                    return <Test blog={Object.values(data)[0]} index={index} />
                 })
             ) : (
                 // setTimeout(() => {
-                    <p> Loading...</p>
+                <p> Loading...</p>
                 // }, 2000)
             )}
         </div>

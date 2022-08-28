@@ -2,7 +2,13 @@ import './CreateEditBlog.css'
 import React, { useState } from 'react'
 import socket from '../../config/socket'
 
-function CreateEditBlog({ setOverlay, edit_this, overlay, setMessage, message }) {
+function CreateEditBlog({
+    setOverlay,
+    edit_this,
+    overlay,
+    setMessage,
+    message,
+}) {
     const [value, setValue] = useState(1)
     let edit = overlay === 'edit-blog' ? true : false
     const article = edit ? edit_this : {}
